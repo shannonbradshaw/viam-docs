@@ -324,9 +324,9 @@ Here's what we've built:
 ```
 ┌─────────────┐     ┌─────────────────────┐     ┌─────────────────┐
 │  left-cam   │────►│  cam-left-cup-crop  │────►│                 │
-│ (RealSense) │     │  (crop to table)    │     │  cam-merged-cup │
-└─────────────┘     └─────────────────────┘     │  (combined view)│
-                                                 │                 │
+│ (RealSense) │     │  (crop to table)    │     │ cam-merged-cup  │
+└─────────────┘     └─────────────────────┘     │ (combined view) │
+                                                │                 │
 ┌─────────────┐     ┌─────────────────────┐     │                 │
 │  right-cam  │────►│  cam-right-cup-crop │────►│                 │
 │ (RealSense) │     │  (crop to table)    │     └─────────────────┘
