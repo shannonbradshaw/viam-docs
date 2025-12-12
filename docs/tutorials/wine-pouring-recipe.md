@@ -34,15 +34,15 @@ For reference, our setup uses a table that is 1045mm wide × 705mm deep, with ar
 
 ## Step 1: Network the arms
 
-Each xArm needs a static IP address on your local network.
+Each xArm needs a static IP address on a local network with the Linux computer.
 
-**1.1** Check the label on each arm's control box—the current IP address is printed there.
+**1.1** Check the label on each arm's control box—the current IP address is probably printed there. If not, consult your arm's documentation.
 
 **1.2** Connect your laptop directly to the first arm's control box via ethernet.
 
 **1.3** Open xArm Studio and connect to the arm using the IP from the label.
 
-**1.4** Go to **Settings → Network** and assign a static IP you'll remember (e.g., `192.168.1.200`).
+**1.4** Go to **Settings → My Device → NetWork** and assign a static IP you'll remember (e.g., `192.168.1.200`).
 
 **1.5** Repeat for the second arm, assigning a different IP (e.g., `192.168.1.212`).
 
@@ -53,13 +53,6 @@ Each xArm needs a static IP address on your local network.
 ```bash
 ping 192.168.1.200
 ping 192.168.1.212
-```
-
-**1.8** Record your values:
-
-```
-Left arm IP:  _______________
-Right arm IP: _______________
 ```
 
 ---
@@ -85,12 +78,7 @@ Serial Number: 327122073386
 
 **2.4** Identify which serial belongs to which camera by unplugging one and running the command again.
 
-**2.5** Record your values:
-
-```
-Left camera serial:  _______________
-Right camera serial: _______________
-```
+**2.5** Record your values.
 
 ---
 
