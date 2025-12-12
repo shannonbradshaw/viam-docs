@@ -96,13 +96,17 @@ Serial Number: 327122073386
 
 ---
 
-## Step 4: Add the pre-built wine-pouring hardware fragment
+## Step 4: Add the pre-built hardware fragment
+
+Fragments are reusable configuration blocks in Viam that let you share machine configurations across multiple machines. Instead of manually configuring each machine from scratch, you can create a fragment once and apply it to any number of machines—like a template or cookie cutter for robot configuration. Fragments can include components, services, modules, and all their settings. When you add a fragment to a machine, you can customize it using variables (for values that differ per machine, like IP addresses) while keeping the core configuration identical. If you update a fragment, all machines using it automatically receive the updated configuration.
 
 **4.1** Go to the **CONFIGURE** tab.
 
 **4.2** Click **+** → **Insert fragment**.
 
 **4.3** Search for `vino-cart-intrinsics` and add it.
+
+The `vino-cart-intrinsics` fragment configures the physical hardware for the wine pouring demo: both xArm 6 robot arms with their grippers, both Intel RealSense depth cameras, the webcam for pour monitoring, and the Stream Deck for manual control. It also includes utility services like the webcam discovery tool. This fragment uses variables for hardware-specific values—arm IP addresses, camera serial numbers, and the webcam video path—so you can deploy the same fragment to different setups by simply providing your own hardware identifiers.
 
 **4.4** Click **Add variable** and paste this JSON, replacing the placeholder values with your own from Steps 1 and 2:
 
@@ -147,6 +151,8 @@ The webcam's video path varies by system. You'll use a discovery service (includ
 **6.1** Click **+** → **Insert fragment**.
 
 **6.2** Search for `vino-cart-wine-pour-demo` and add it.
+
+The `vino-cart-wine-pour-demo` fragment configures everything needed to run the pour sequence: the vision pipeline for detecting glasses (including ML models and point cloud segmentation), the obstacle definitions that keep the arms from colliding with the table and walls, all the saved arm poses used during the pour choreography, and the vinocart orchestration service that coordinates the complete demo. This fragment references components defined in the hardware fragment by name, which is why variables like `left-arm-name` and `left-cam-name` map the application logic to your specific hardware configuration.
 
 **6.3** Click **Add variable** and paste this JSON:
 
