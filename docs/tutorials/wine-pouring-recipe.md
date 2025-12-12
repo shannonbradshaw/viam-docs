@@ -136,7 +136,9 @@ The webcam's video path varies by system. You'll use a discovery service (includ
 
 **5.4** Scroll to the bottom and expand the **TEST** panel.
 
-**5.5** Run discovery—it will list available webcams and their video paths.
+**5.5** The ***TEST*** panel will list available webcams and their video paths.
+
+![The TEST panel for arm-left-watch-pose showing idle, update config, and go to buttons](discovery-webcam.png)
 
 **5.6** Find your webcam in the list and note the video path (e.g., `video0`, `video2`).
 
