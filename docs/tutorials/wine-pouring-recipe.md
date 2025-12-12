@@ -108,7 +108,11 @@ Fragments are reusable configuration blocks in Viam that let you share machine c
 
 The `vino-cart-intrinsics` fragment configures the physical hardware for the wine pouring demo: both xArm 6 robot arms with their grippers, both Intel RealSense depth cameras, the webcam for pour monitoring, and the Stream Deck for manual control. It also includes utility services like the webcam discovery tool. This fragment uses variables for hardware-specific values—arm IP addresses, camera serial numbers, and the webcam video path—so you can deploy the same fragment to different setups by simply providing your own hardware identifiers.
 
-**4.4** Click **Add variable** and paste this JSON, replacing the placeholder values with your own from Steps 1 and 2:
+**4.4** Scroll to the bottom of the Configure tab and click on the `vino-cart-intrinsics` fragment. 
+
+![The Add variables panel for the vino-cart-intrinsicts fragment](add-variables.png)
+
+**4.5** Click **Add variables** and paste this JSON, replacing the placeholder values with your own from Steps 1 and 2:
 
 ```json
 {
@@ -120,7 +124,7 @@ The `vino-cart-intrinsics` fragment configures the physical hardware for the win
 }
 ```
 
-**4.5** Click **Save**.
+**4.6** Click **Save**.
 
 ---
 
