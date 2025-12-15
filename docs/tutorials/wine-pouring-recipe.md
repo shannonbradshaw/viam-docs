@@ -19,8 +19,8 @@ This recipe configures a dual-arm robot that autonomously pours wine. The left a
 | Network Switch | 1 |
 | Ethernet Cables | 3 |
 | USB 3.0 Cables | 2 |
-| Stemless Wine Glass (~100mm dia, ~109mm tall) | 1 |
-| Wine Bottle (~85mm dia, ~298mm tall) | 1 |
+| Stemless Wine Glass | 1 |
+| Wine Bottle | 1 |
 
 ---
 
