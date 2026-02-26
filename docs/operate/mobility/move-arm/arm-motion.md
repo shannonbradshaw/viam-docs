@@ -17,7 +17,7 @@ date: "2025-05-21"
 
 This is the recommended way to write an application to move an arm.
 
-The [motion service API](/dev/reference/apis/services/motion/) allows you to plan and execute complex movements while avoiding collisions between components and obstacles.
+The [motion service API](/reference/apis/services/motion/) allows you to plan and execute complex movements while avoiding collisions between components and obstacles.
 
 ## Prerequisites
 
@@ -280,7 +280,7 @@ You will pass your `WorldState` object to the motion planning API in the next se
 
 ## Move the arm
 
-To move the arm, use the motion service API's [`Move` method](/dev/reference/apis/services/motion/#move).
+To move the arm, use the motion service API's [`Move` method](/reference/apis/services/motion/#move).
 Follow the steps below to construct the necessary objects and pass them to `Move`.
 
 1. Construct a destination pose for the arm.
@@ -320,10 +320,10 @@ Follow the steps below to construct the necessary objects and pass them to `Move
    {{% alert title="Tip" color="tip" %}}
    To get a better intuition for poses and where you want the arm to move, try driving the arm manually from the **CONTROL** tab or **TEST** panel and notice how the pose indicated in the control interface corresponds to the arm's position in the real world.
 
-   You can also [use the **VISUALIZE** tab](/operate/reference/services/frame-system/#visualize-components-and-frames) to see a representation of your arm's geometry and reference frames.
+   You can also [use the **VISUALIZE** tab](/reference/services/frame-system/#visualize-components-and-frames) to see a representation of your arm's geometry and reference frames.
    {{% /alert %}}
 
-1. If you want to specify any [constraints](/operate/reference/services/motion/constraints/) for the motion, add them to a `Constraints` object:
+1. If you want to specify any [constraints](/reference/services/motion/constraints/) for the motion, add them to a `Constraints` object:
 
    {{< tabs >}}
    {{% tab name="Linear constraint" %}}
@@ -381,7 +381,7 @@ myConstraints := &motionplan.Constraints{
 {{% /tab %}}
 {{< /tabs >}}
 
-1. Call the [`Move` method](/dev/reference/apis/services/motion/#move), passing in the destination pose, any constraints, and the world state:
+1. Call the [`Move` method](/reference/apis/services/motion/#move), passing in the destination pose, any constraints, and the world state:
 
    {{< tabs >}}
    {{% tab name="Python" %}}

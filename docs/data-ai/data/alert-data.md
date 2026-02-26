@@ -47,7 +47,7 @@ You can configure triggers to fire in the following scenarios:
 
         To see the data your components are returning, use each component's **TEST** panel.
 
-        For more information about conditional attributes, see [Conditional attributes](/data-ai/reference/triggers-configuration/#conditional-attributes).
+        For more information about conditional attributes, see [Conditional attributes](/reference/configuration/triggers/#conditional-attributes).
 
 1. Next, configure what should happen when an event occurs.
    You can add **Webhooks** and **Email** notifications:
@@ -57,9 +57,9 @@ You can configure triggers to fire in the following scenarios:
    1. Click **Add Webhook**.
    1. Add the URL of your cloud function.
    1. Configure the time between notifications.
-   1. Write your cloud function to process the [webhook](/data-ai/reference/triggers-configuration/#webhook-attributes).
+   1. Write your cloud function to process the [webhook](/reference/configuration/triggers/#webhook-attributes).
       Use your cloud function to process data or interact with external APIs, such as Twilio, PagerDuty, or Zapier.
-      For an example function, see [Example cloud function](/data-ai/reference/triggers-configuration/#example-cloud-function).
+      For an example function, see [Example cloud function](/reference/configuration/triggers/#example-cloud-function).
 
    To add an email notification for specific email addresses:
 
@@ -134,7 +134,7 @@ The following JSON configuration shows how to set up a trigger that fires when a
 }
 ```
 
-For more information about triggers, see [Trigger Configuration](/data-ai/reference/triggers-configuration/).
+For more information about triggers, see [Trigger Configuration](/reference/configuration/triggers/).
 
 {{% /tab %}}
 {{< /tabs >}}

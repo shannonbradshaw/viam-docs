@@ -21,25 +21,25 @@ For example, instead of sending individual commands to each motor of a robotic a
 
 ## Supported components
 
-You can move the following components with the [motion service](/operate/reference/services/motion/):
+You can move the following components with the [motion service](/reference/services/motion/):
 
 {{< cards >}}
-{{% relatedcard link="/operate/reference/components/arm/" %}}
-{{% relatedcard link="/operate/reference/components/base/" %}}
-{{% relatedcard link="/operate/reference/components/gantry/" %}}
-{{% relatedcard link="/operate/reference/components/gripper/" %}}
+{{% relatedcard link="/reference/components/arm/" %}}
+{{% relatedcard link="/reference/components/base/" %}}
+{{% relatedcard link="/reference/components/gantry/" %}}
+{{% relatedcard link="/reference/components/gripper/" %}}
 {{< /cards >}}
 
 You can use the following components to augment motion planning and navigation:
 
-- [Camera](/operate/reference/components/camera/)
+- [Camera](/reference/components/camera/)
   - For example, you could use a [RealSense depth camera](https://app.viam.com/module/viam/realsense) to identify and avoid obstacles.
-- [Movement sensor](/operate/reference/components/movement-sensor/)
+- [Movement sensor](/reference/components/movement-sensor/)
   - For example, use a [GPS](https://app.viam.com/module/viam/gps) to locate a mobile robot.
 
 ## The frame system
 
-Viam's [frame system](/operate/reference/services/frame-system/) allows you to describe the spatial relationship between the components in your robot.
+Viam's [frame system](/reference/services/frame-system/) allows you to describe the spatial relationship between the components in your robot.
 You configure your machine's frames once, and Viam keeps track of the frames as they move.
 This means you can send motion service commands using a consistent coordinate system, regardless of where the components are at a given time.
 

@@ -7,10 +7,10 @@ type: "docs"
 description: "Move a gantry with linear actuator positions or automated motion planning."
 ---
 
-You have two options for moving a [gantry](/operate/reference/components/gantry/):
+You have two options for moving a [gantry](/reference/components/gantry/):
 
-- Move each axis of the gantry directly with the [gantry API](/dev/reference/apis/components/gantry/)
-- Use automated complex motion planning with the [motion planning service API](/dev/reference/apis/services/motion/)
+- Move each axis of the gantry directly with the [gantry API](/reference/apis/components/gantry/)
+- Use automated complex motion planning with the [motion planning service API](/reference/apis/services/motion/)
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ Repeat this for each motor of your gantry.
 
 Use the **+** button again to add gantry components.
 
-If you have a multi-axis gantry, [configure a single-axis gantry](/operate/reference/components/gantry/single-axis/) for each axis, and then [configure a multi-axis gantry](/operate/reference/components/gantry/multi-axis/) to combine them all into one coordinated unit.
+If you have a multi-axis gantry, [configure a single-axis gantry](/reference/components/gantry/single-axis/) for each axis, and then [configure a multi-axis gantry](/reference/components/gantry/multi-axis/) to combine them all into one coordinated unit.
 
 {{% /tablestep %}}
 {{% tablestep %}}
@@ -59,7 +59,7 @@ See [Create a web app](/operate/control/web-app/), [Create a mobile app](/operat
 ## Control each axis
 
 The following is an example Python script using the gantry API.
-For more methods and code snippets in more languages, see [Gantry API](/dev/reference/apis/components/gantry/).
+For more methods and code snippets in more languages, see [Gantry API](/reference/apis/components/gantry/).
 
 ```python {class="line-numbers linkable-line-numbers"}
 import asyncio
@@ -109,12 +109,12 @@ if __name__ == '__main__':
 
 {{% alert title="Important" color="note" %}}
 
-Before using the motion service with a gantry, you must [define your gantry's reference frame](/operate/reference/services/frame-system/).
+Before using the motion service with a gantry, you must [define your gantry's reference frame](/reference/services/frame-system/).
 
 {{% /alert %}}
 
 The following is an example Python script using the motion planning API.
-For more methods and code snippets in more languages, see [Motion API](/dev/reference/apis/services/motion/).
+For more methods and code snippets in more languages, see [Motion API](/reference/apis/services/motion/).
 
 ```python {class="line-numbers linkable-line-numbers"}
 import asyncio

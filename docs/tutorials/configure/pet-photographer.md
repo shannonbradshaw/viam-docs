@@ -27,7 +27,7 @@ Note: Consider this tutorial alongside filtered camera tutorial.
 If your machine [captures](/data-ai/capture-data/capture-sync/) a lot of data, you might want to filter captured data to selectively store only the data you are interested in.
 For example, you might want to use your smart machine's camera to capture images based on specific criteria, such as the presence of a certain color, and omit captured images that don't meet that criteria.
 
-In this tutorial, you will use a custom {{< glossary_tooltip term_id="module" text="module" >}} to function as a color filter, and use it with a [camera](/operate/reference/components/camera/) to only capture images where your pet is in the frame in the following way:
+In this tutorial, you will use a custom {{< glossary_tooltip term_id="module" text="module" >}} to function as a color filter, and use it with a [camera](/reference/components/camera/) to only capture images where your pet is in the frame in the following way:
 
 1. Attach a colored object, such as a blue collar, to your pet.
 1. Set up a camera in an area where your pet is likely to appear in the frame, and configure the data management service to capture and sync images from that camera.
@@ -36,14 +36,14 @@ In this tutorial, you will use a custom {{< glossary_tooltip term_id="module" te
    {{<imgproc src="/tutorials/pet-photographer/data-example.png" resize="550x" declaredimensions=true alt="Dog in blue collar in the camera's live feed">}}
 
 The source code for this module is available on the [`modular-filter-examples` GitHub repository](https://github.com/viam-labs/modular-filter-examples) .
-In addition to the `colorfilter` module used in this tutorial, the example repository also includes a [sensor reading filter](https://github.com/viam-labs/modular-filter-examples/tree/main/sensorfilter) which you could use to control and filter the data recorded by a [sensor component](/operate/reference/components/sensor/).
+In addition to the `colorfilter` module used in this tutorial, the example repository also includes a [sensor reading filter](https://github.com/viam-labs/modular-filter-examples/tree/main/sensorfilter) which you could use to control and filter the data recorded by a [sensor component](/reference/components/sensor/).
 
 ## Hardware requirements
 
 To create your own filtering pet photographer robot, you'll need the following hardware:
 
 - A computer
-- A [webcam](/operate/reference/components/camera/webcam/) or other type of [camera](/operate/reference/components/camera/)
+- A [webcam](/reference/components/camera/webcam/) or other type of [camera](/reference/components/camera/)
 - A colored object, such as a blue collar for enhanced accuracy _(optional)_
 
 {{< alert title="Tip" color="tip" >}}
@@ -351,7 +351,7 @@ After you have implemented your resource API's required methods and written your
 {{< tabs >}}
 {{% tab name="Python"%}}
 
-<file>color_filter.py</file> implements "colorfilter", a custom model of the [camera component API](/operate/reference/components/camera/#api).
+<file>color_filter.py</file> implements "colorfilter", a custom model of the [camera component API](/reference/components/camera/#api).
 
 <details>
   <summary>Click to view sample code from <file>color_filter.py</file></summary>
@@ -514,7 +514,7 @@ In this code:
 {{% /tab %}}
 {{% tab name="Go"%}}
 
-<file>color_filter.go</file> implements "colorfilter", a custom model of the [camera component API](/operate/reference/components/camera/#api).
+<file>color_filter.go</file> implements "colorfilter", a custom model of the [camera component API](/reference/components/camera/#api).
 
 <details>
   <summary>Click to view sample code from <file>color_filter.go</file></summary>
@@ -834,7 +834,7 @@ Whether you've downloaded the `colorfilter` module, or written your own color fi
 Next, add the following services to your smart machine to support the color filter module:
 
 - The [data management service](/data-ai/capture-data/capture-sync/) enables your smart machine to capture data and sync it to the cloud.
-- The [vision service](/dev/reference/apis/services/vision/#detections) enables your smart machine to perform color detection on objects in a camera stream.
+- The [vision service](/reference/apis/services/vision/#detections) enables your smart machine to perform color detection on objects in a camera stream.
 
 ### Add the data management service
 
@@ -879,7 +879,7 @@ To enable data capture on your machine, add and configure the [data management s
 
 ### Add the vision service
 
-To enable your smart machine to detect a specific color in its camera stream, add a [`color_detector` vision service](/operate/reference/services/vision/color_detector/).
+To enable your smart machine to detect a specific color in its camera stream, add a [`color_detector` vision service](/reference/services/vision/color_detector/).
 For this tutorial, we will configure the vision service to recognize a blue dog collar using `#43A1D0` or `rgb(67, 161, 208)`.
 If you have a different item you want to use, or want to match to a color that matches your pet closely, you can use a different color.
 
@@ -902,7 +902,7 @@ Your configuration should look like the following:
 
 ![The vision service configuration panel showing the color set to blue, the hue tolerance set to 0.06, and the segment size set to 100.](/tutorials/pet-photographer/vision-service.png)
 
-For more detailed information, refer to [Configure a color detector](/operate/reference/services/vision/color_detector/).
+For more detailed information, refer to [Configure a color detector](/reference/services/vision/color_detector/).
 
 {{% /tab %}}
 {{% tab name="JSON Template" %}}
@@ -934,7 +934,7 @@ With the vision and data management services configured, you can now configure y
 
 ### Configure your camera
 
-If you haven't already, add a [camera](/operate/reference/components/camera/) component to your smart machine:
+If you haven't already, add a [camera](/reference/components/camera/) component to your smart machine:
 
 1. On the **CONFIGURE** tab, click the **+** (Create) button next to your main part in the left-hand menu and select **Component or service**.
    Start typing "webcam" and select **camera / webcam**.

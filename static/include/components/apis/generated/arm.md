@@ -537,7 +537,7 @@ For more information, see the [Flutter SDK Docs](https://flutter.viam.dev/viam_s
 
 ### GetKinematics
 
-Get the kinematics information associated with the arm as the format and byte contents of the [kinematics file](/operate/reference/kinematic-chain-config/).
+Get the kinematics information associated with the arm as the format and byte contents of the [kinematics file](/reference/configuration/kinematic-chain-config/).
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -606,7 +606,7 @@ const kinematics = await arm.getKinematics();
 console.log(kinematics);
 
 For more information, see [Arm
-API](https://docs.viam.com/dev/reference/apis/components/arm/#getkinematics).
+API](https://docs.viam.com/reference/apis/components/arm/#getkinematics).
 ```
 
 For more information, see the [TypeScript SDK Docs](https://ts.viam.dev/classes/ArmClient.html#getkinematics).
@@ -810,8 +810,8 @@ For more information, see the [Flutter SDK Docs](https://flutter.viam.dev/viam_s
 
 ### GetGeometries
 
-Get all the geometries associated with the arm in its current configuration, in the [frame](/operate/reference/services/frame-system/) of the arm.
-The [motion](/operate/reference/services/motion/) and [navigation](/operate/reference/services/navigation/) services use the relative position of inherent geometries to configured geometries representing obstacles for collision detection and obstacle avoidance while motion planning.
+Get all the geometries associated with the arm in its current configuration, in the [frame](/reference/services/frame-system/) of the arm.
+The [motion](/reference/services/motion/) and [navigation](/reference/services/navigation/) services use the relative position of inherent geometries to configured geometries representing obstacles for collision detection and obstacle avoidance while motion planning.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -921,7 +921,7 @@ For more information, see the [Go SDK Docs](https://pkg.go.dev/go.viam.com/rdk/r
 Execute model-specific commands that are not otherwise defined by the component API.
 Most models do not implement `DoCommand`.
 Any available model-specific commands should be covered in the model's documentation.
-If you are implementing your own arm and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/dev/reference/sdks/docommand/).
+If you are implementing your own arm and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/reference/sdks/docommand/).
 
 {{< tabs >}}
 {{% tab name="Python" %}}

@@ -248,7 +248,7 @@ An object containing four fields:
 
 - `SensorInfo` [(SensorInfo[])](https://pkg.go.dev/go.viam.com/api/service/slam/v1#SensorInfo): Information about the sensors (camera and movement sensor) configured for your SLAM service, including the name and type of sensor.
 - `CloudSlam` [(bool)](https://pkg.go.dev/builtin#bool): A boolean which indicates whether the session is being run in the cloud.
-- `MappingMode` [(MappingMode)](https://pkg.go.dev/go.viam.com/rdk/services/slam#MappingMode): Represents the [form of mapping and localizing the current session is performing](/operate/reference/services/slam/cartographer/#using-cartographer). This includes creating a new map, localizing on an existing map and updating an existing map.
+- `MappingMode` [(MappingMode)](https://pkg.go.dev/go.viam.com/rdk/services/slam#MappingMode): Represents the [form of mapping and localizing the current session is performing](/reference/services/slam/cartographer/#using-cartographer). This includes creating a new map, localizing on an existing map and updating an existing map.
 - `InternalStateFileType` [(string)](https://pkg.go.dev/builtin#string): The file type the service's internal state algorithm is stored in.
 - [(error)](https://pkg.go.dev/builtin#error): An error, if one occurred.
 
@@ -360,7 +360,7 @@ For more information, see the [Go SDK Docs](https://pkg.go.dev/go.viam.com/rdk/r
 Execute model-specific commands that are not otherwise defined by the service API.
 Most models do not implement `DoCommand`.
 Any available model-specific commands should be covered in the model's documentation.
-If you are implementing your own SLAM service and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/dev/reference/sdks/docommand/).
+If you are implementing your own SLAM service and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/reference/sdks/docommand/).
 
 {{< tabs >}}
 {{% tab name="Python" %}}

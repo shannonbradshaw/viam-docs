@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: components-models-file
-          path: ./public/operate/reference/components/typesense.json
+          path: ./public/reference/components/typesense.json
 
   # deploy:
   #   environment:

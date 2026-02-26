@@ -1365,7 +1365,7 @@ For more information, see the [Python SDK Docs](https://python.viam.dev/autoapi/
 
 **Parameters:**
 
-- `name` [(string)](https://pkg.go.dev/builtin#string): Pin number of the GPIO pin you want to retrieve as a `GPIOPin` interface. Refer to the pinout diagram and data sheet of your [board model](/operate/reference/components/board/#configuration) for {{< glossary_tooltip term_id="pin-number" text="pin numbers" >}}.
+- `name` [(string)](https://pkg.go.dev/builtin#string): Pin number of the GPIO pin you want to retrieve as a `GPIOPin` interface. Refer to the pinout diagram and data sheet of your [board model](/reference/components/board/#configuration) for {{< glossary_tooltip term_id="pin-number" text="pin numbers" >}}.
 
 **Returns:**
 
@@ -1388,8 +1388,8 @@ For more information, see the [Go SDK Docs](https://pkg.go.dev/go.viam.com/rdk/c
 
 ### GetGeometries
 
-Get all the geometries associated with the board in its current configuration, in the [frame](/operate/reference/services/frame-system/) of the board.
-The [motion](/operate/reference/services/motion/) and [navigation](/operate/reference/services/navigation/) services use the relative position of inherent geometries to configured geometries representing obstacles for collision detection and obstacle avoidance while motion planning.
+Get all the geometries associated with the board in its current configuration, in the [frame](/reference/services/frame-system/) of the board.
+The [motion](/reference/services/motion/) and [navigation](/reference/services/navigation/) services use the relative position of inherent geometries to configured geometries representing obstacles for collision detection and obstacle avoidance while motion planning.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -1447,7 +1447,7 @@ For more information, see the [Go SDK Docs](https://pkg.go.dev/go.viam.com/rdk/r
 Execute model-specific commands that are not otherwise defined by the component API.
 Most models do not implement `DoCommand`.
 Any available model-specific commands should be covered in the model's documentation.
-If you are implementing your own board and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/dev/reference/sdks/docommand/).
+If you are implementing your own board and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/reference/sdks/docommand/).
 Supported by `viam-micro-server`.
 
 {{< tabs >}}

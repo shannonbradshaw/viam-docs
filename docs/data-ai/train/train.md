@@ -31,7 +31,7 @@ If you wish to do this, skip to [Submit a training job](#submit-a-training-job).
 
 For images, follow the instructions to [Create a dataset](/data-ai/train/create-dataset/) to create a dataset and label data.
 
-For other data, use the [Data Client API](/dev/reference/apis/data-client/) to store data in the Viam Cloud.
+For other data, use the [Data Client API](/reference/apis/data-client/) to store data in the Viam Cloud.
 
 {{% /expand%}}
 
@@ -666,7 +666,7 @@ Update the main to call the functions you have just created.
 {{% tablestep %}}
 **Use Viam APIs in a training script**
 
-To access [Viam APIs](/dev/reference/apis/) within a custom training script, use the environment variables `API_KEY` and `API_KEY_ID` to establish a connection.
+To access [Viam APIs](/reference/apis/) within a custom training script, use the environment variables `API_KEY` and `API_KEY_ID` to establish a connection.
 
 ```python
 async def connect() -> ViamClient:
@@ -781,7 +781,7 @@ You can view uploaded training scripts by navigating to the [registry's **Traini
 
 ## Submit a training job
 
-After uploading the training script, you can run it by submitting a training job using the web UI, the CLI or the [ML training client API](/dev/reference/apis/ml-training-client/#submittrainingjob).
+After uploading the training script, you can run it by submitting a training job using the web UI, the CLI or the [ML training client API](/reference/apis/ml-training-client/#submittrainingjob).
 
 {{< table >}}
 {{% tablestep start=1 %}}

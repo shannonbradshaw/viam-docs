@@ -35,14 +35,14 @@ This is a great place to start if you have never built a robot or a circuit befo
 {{<gif webm_src="/tutorials/blink-an-led/image9.webm" mp4_src="/tutorials/blink-an-led/image9.mp4" alt="A GIF of the completed project showing a blinking blue LED connected to a Raspberry Pi with jumper cables." max-width="300px">}}
 
 First, you'll use the control interface on [Viam](https://app.viam.com) to turn the LED on and off.
-Then, you'll write code to control the LED using the Viam [software development kits](/dev/reference/sdks/).
+Then, you'll write code to control the LED using the Viam [software development kits](/reference/sdks/).
 
 ## What you'll need for this guide
 
 You will use the following hardware for this tutorial:
 
 - [Raspberry Pi](https://a.co/d/5Tn67G3)
-  - Refer to the [Viam Raspberry Pi Setup Guide](/operate/reference/prepare/rpi-setup/) to set up your Pi.
+  - Refer to the [Viam Raspberry Pi Setup Guide](/reference/device-setup/rpi-setup/) to set up your Pi.
 - [A solderless breadboard](https://www.amazon.com/dp/B0135IQ0ZC)
 - Jumper wires
 - [Resistor pack](https://amzn.to/2Dmainw)
@@ -53,7 +53,7 @@ You will use the following hardware for this tutorial:
 
 Before you build your circuit, you need to set up the operating system on your Raspberry Pi and install `viam-server` on the Pi:
 
-Power your Pi on and follow the [Raspberry Pi Setup Guide](/operate/reference/prepare/rpi-setup/) to set up the operating system.
+Power your Pi on and follow the [Raspberry Pi Setup Guide](/reference/device-setup/rpi-setup/) to set up the operating system.
 
 {{% snippet "setup.md" %}}
 
@@ -135,7 +135,7 @@ Go to [Viam](https://app.viam.com/) and navigate to your new machine's **CONFIGU
 {{< tabs >}}
 {{% tab name="Config Builder" %}}
 
-Add a [_board component_](/operate/reference/components/board/) to represent your single-board computer, which in this case is the Raspberry Pi.
+Add a [_board component_](/reference/components/board/) to represent your single-board computer, which in this case is the Raspberry Pi.
 To create the new component, click the **+** icon next to your machine {{< glossary_tooltip term_id="part" text="part" >}} in the left-hand menu and select **Component or service**.
 Select the `board` type, then select the `viam:raspberry-pi:rpi` model if you are using a Raspberry Pi 4, Raspberry Pi 3 or Raspberry Pi Zero 2 W.
 If you are using a Raspberry Pi 5, use the `pi5` model.
@@ -302,7 +302,7 @@ go run blink.go
 
 ### Write code to blink the LED
 
-In order to interact with the GPIO pins on our Raspberry Pi, you need to import the [board component](/operate/reference/components/board/) from the Viam SDK.
+In order to interact with the GPIO pins on our Raspberry Pi, you need to import the [board component](/reference/components/board/) from the Viam SDK.
 
 The **Code sample** page automatically adds the board import for you, but it doesn't hurt to double-check.
 

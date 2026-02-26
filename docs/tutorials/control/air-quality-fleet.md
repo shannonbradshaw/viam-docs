@@ -48,7 +48,7 @@ You can create one or more machines to measure air quality.
 For each machine, you need the following hardware:
 
 - A [SDS011 Nova PM sensor](https://www.amazon.com/SDS011-Quality-Detection-Conditioning-Monitor/dp/B07FSDMRR5)
-  - If you choose to use a different air quality sensor, you may need to [create your own module](/operate/modules/support-hardware/) implementing the [sensor API](/operate/reference/components/sensor/#api) for your specific hardware.
+  - If you choose to use a different air quality sensor, you may need to [create your own module](/operate/modules/support-hardware/) implementing the [sensor API](/reference/components/sensor/#api) for your specific hardware.
 - A single-board computer (SBC) [capable of running `viam-server`](/operate/install/setup/)
 - An appropriate power supply
 
@@ -92,7 +92,7 @@ If the computer does not already have a Viam-compatible operating system install
 You _do not_ need to follow the "Install `viam-server`" section; you will do that in the next step!
 
 Enable serial communication so that the SBC can communicate with the air quality sensor.
-For example, if you are using a Raspberry Pi, SSH to it and [enable serial communication in `raspi-config`](/operate/reference/prepare/rpi-setup/#enable-communication-protocols).
+For example, if you are using a Raspberry Pi, SSH to it and [enable serial communication in `raspi-config`](/reference/device-setup/rpi-setup/#enable-communication-protocols).
 
 {{% /tablestep %}}
 {{% tablestep %}}
@@ -877,7 +877,7 @@ You, as the organization owner, will be able to manage any necessary configurati
 
 {{<imgproc class="imgzoom" src="/tutorials/air-quality-fleet/example-org-structure.png" resize="x900" declaredimensions=true alt="Diagram of the Pollution Monitoring Made Simple organization. In it are two locations: Antonia's HOme and Robots R Us. Robots R Us contains two sub-locations, each containing some machines. The Antonia's Home location contains two machines (and no sub-locations)." style="width:800px">}}
 
-For more information, see [Organize your machines](/manage/reference/organize/) and [Provision devices](/manage/fleet/provision/setup/).
+For more information, see [Organize your machines](/reference/account/organize/) and [Provision devices](/manage/fleet/provision/setup/).
 
 ### Organize your fleet
 
@@ -975,7 +975,7 @@ Paste the machine cloud credentials into a file on your hard drive called <FILE>
 You will pass the file to the preinstall script later, so you can store it anywhere.
 
 {{< alert title="Tip: Fleet management API" color="tip" >}}
-You can create locations and machines programmatically, with the [Fleet management API](/dev/reference/apis/fleet/).
+You can create locations and machines programmatically, with the [Fleet management API](/reference/apis/fleet/).
 {{< /alert >}}
 
 {{% /tablestep %}}

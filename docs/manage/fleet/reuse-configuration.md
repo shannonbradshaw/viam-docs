@@ -37,7 +37,7 @@ You must be an [organization owner](/manage/manage/rbac/) to create fragments fo
 {{% tablestep %}}
 **Add and configure all the resources** you want to use on your machines.
 
-Fragments support all available resources except [triggers](/data-ai/reference/triggers-configuration/).
+Fragments support all available resources except [triggers](/reference/configuration/triggers/).
 You can also add other fragments inside a fragment.
 
 {{< alert title="Tip: Switch to JSON" color="tip" >}}
@@ -440,7 +440,7 @@ The `version` field supports the following values:
 
 {{< /expand >}}
 {{< expand "Change the log level of a resource" >}}
-This example uses [`$set`](https://www.mongodb.com/docs/manual/reference/operator/update/set/#mongodb-update-up.-set) to modify [the log level](/operate/reference/viam-server/#logging) from the fragment for a resource:
+This example uses [`$set`](https://www.mongodb.com/docs/manual/reference/operator/update/set/#mongodb-update-up.-set) to modify [the log level](/reference/platform/viam-server/#logging) from the fragment for a resource:
 
 ```json {class="line-numbers linkable-line-numbers"}
 "fragment_mods": [

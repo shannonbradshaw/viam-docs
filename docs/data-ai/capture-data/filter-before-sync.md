@@ -19,7 +19,7 @@ The following steps use the [`filtered_camera`](https://app.viam.com/module/viam
 {{% alert title="Prerequisites" color="note" %}}
 Before starting, make sure you have:
 
-- A configured camera component on your machine. See [Configure a camera](/operate/reference/components/camera/) if you need to set one up.
+- A configured camera component on your machine. See [Configure a camera](/reference/components/camera/) if you need to set one up.
 - The data management service configured. See [Capture and sync edge data](/data-ai/capture-data/capture-sync/) for instructions.
   {{% /alert %}}
 

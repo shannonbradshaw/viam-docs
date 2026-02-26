@@ -18,7 +18,7 @@ date: "2024-08-23"
 The Viam CLI (command line interface) tool enables you to manage your machines and {{< glossary_tooltip term_id="modular-resource" text="modular resources" >}} across organizations and locations from the command line.
 The CLI lets you:
 
-- Retrieve [organization](/dev/reference/glossary/#organization) and location information
+- Retrieve [organization](/reference/glossary/#organization) and location information
 - Manage fleet data and logs
 - Control machines by issuing component and service commands
 - Upload and manage modular resources in the [registry](https://app.viam.com/registry/)
@@ -174,7 +174,7 @@ By default, new organization API keys are created with **Owner** permissions, gi
 You can change an API key's permissions on the organizations page by clicking the **Show details** link next to your API key.
 {{% /alert %}}
 
-Once created, you can use the organization API key to authenticate future CLI sessions or to [use the SDKs](/dev/reference/sdks/).
+Once created, you can use the organization API key to authenticate future CLI sessions or to [use the SDKs](/reference/sdks/).
 To switch to using an organization API key for authentication right away, [logout](#logout) then log back in using `viam login api-key`.
 
 An organization can have multiple API keys.
@@ -213,7 +213,7 @@ By default, new location API keys are created with **Owner** permissions, giving
 You can change an API key's permissions on the organizations page by clicking the **Show details** link next to your API key.
 {{% /alert %}}
 
-Once created, you can use the location API key to authenticate future CLI sessions or to [connect to machines with the SDK](/dev/reference/sdks/).
+Once created, you can use the location API key to authenticate future CLI sessions or to [connect to machines with the SDK](/reference/sdks/).
 To switch to using a location API key for authentication right away, [logout](#logout) then log back in using `viam login api-key`.
 
 A location can have multiple API keys.
@@ -251,7 +251,7 @@ Keep these key values safe.
 Authenticating using a machine part API key gives the authenticated CLI session full read and write access to your machine.
 {{% /alert %}}
 
-Once created, you can use the machine part API key to authenticate future CLI sessions or to [connect to your machine with the SDK](/dev/reference/sdks/).
+Once created, you can use the machine part API key to authenticate future CLI sessions or to [connect to your machine with the SDK](/reference/sdks/).
 To switch to using a machine part API key for authentication right away, [logout](#logout) then log back in using `viam login api-key`.
 
 A location can have multiple API keys.
@@ -672,7 +672,7 @@ Bounding Box Format: [x_min, y_min, x_max, y_max]
 
 ### `locations`
 
-The `locations` command allows you to manage the [locations](/manage/reference/organize/) that you have access to.
+The `locations` command allows you to manage the [locations](/reference/account/organize/) that you have access to.
 With it, you can list available locations, filter locations by organization, or create a new location API key.
 
 ```sh {class="command-line" data-prompt="$"}

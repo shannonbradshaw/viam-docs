@@ -34,9 +34,9 @@ Create a dashboard to visualize data for machines in your organization.
 
 Make sure your machine is configured with at least one component that can capture data, for example:
 
-- [Sensor](/operate/reference/components/sensor/)
-- [Movement sensor](/operate/reference/components/movement-sensor/)
-- [Camera](/operate/reference/components/camera/)
+- [Sensor](/reference/components/sensor/)
+- [Movement sensor](/reference/components/movement-sensor/)
+- [Camera](/reference/components/camera/)
 
 {{% /expand%}}
 
@@ -168,7 +168,7 @@ For more information on the Grafana MongoDB plugin, see [Configure the MongoDB d
 {{% tablestep %}}
 **Use Grafana for dashboards**
 
-With your data connection established, Grafana can now access all synced sensor data under your [organization](/dev/reference/glossary/#organization), from any machine.
+With your data connection established, Grafana can now access all synced sensor data under your [organization](/reference/glossary/#organization), from any machine.
 
 You can now build dashboards that provide insight into your data.
 

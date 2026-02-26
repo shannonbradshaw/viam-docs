@@ -68,7 +68,7 @@ To create a pipeline that reads data from the [hot data store](/data-ai/data/hot
 {{% /tab %}}
 {{% tab name="Python" %}}
 
-Use [`DataClient.CreateDataPipeline`](/dev/reference/apis/data-client/#createdatapipeline):
+Use [`DataClient.CreateDataPipeline`](/reference/apis/data-client/#createdatapipeline):
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-create.snippet.pipeline-create.py" lang="py" class="line-numbers linkable-line-numbers" data-line="31-55" >}}
 
@@ -86,7 +86,7 @@ To create a pipeline that reads data from the [hot data store](/data-ai/data/hot
 {{% /tab %}}
 {{% tab name="TypeScript" %}}
 
-Use [`dataClient.CreateDataPipeline`](/dev/reference/apis/data-client/#createdatapipeline):
+Use [`dataClient.CreateDataPipeline`](/reference/apis/data-client/#createdatapipeline):
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-create.snippet.pipeline-create.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18-29" >}}
 
@@ -133,7 +133,7 @@ Once the pipeline has run at least once, you can query its results.
 {{< tabs >}}
 {{% tab name="Python" %}}
 
-To query the processed results of your data pipeline, call [`DataClient.TabularDataByMQL`](/dev/reference/apis/data-client/#tabulardatabymql), using the following parameters:
+To query the processed results of your data pipeline, call [`DataClient.TabularDataByMQL`](/reference/apis/data-client/#tabulardatabymql), using the following parameters:
 
 - `type`: `TabularDataSourceType.TABULAR_DATA_SOURCE_TYPE_PIPELINE_SINK`
 - `pipeline_id`: your pipeline ID
@@ -153,7 +153,7 @@ To query the processed results of your data pipeline, call [`DataClient.TabularD
 {{% /tab %}}
 {{% tab name="TypeScript" %}}
 
-To query the processed results of your data pipeline, call [`dataClient.TabularDataByMQL`](/dev/reference/apis/data-client/#tabulardatabymql), using the following parameters:
+To query the processed results of your data pipeline, call [`dataClient.TabularDataByMQL`](/reference/apis/data-client/#tabulardatabymql), using the following parameters:
 
 - `type`: `3`
 - `pipelineId`: your pipeline ID
@@ -177,7 +177,7 @@ viam datapipelines list --org-id=<org-id>
 {{% /tab %}}
 {{% tab name="Python" %}}
 
-Use [`DataClient.ListDataPipelines`](/dev/reference/apis/data-client/#listdatapipelines) to fetch a list of pipeline configurations in an organization:
+Use [`DataClient.ListDataPipelines`](/reference/apis/data-client/#listdatapipelines) to fetch a list of pipeline configurations in an organization:
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-list.snippet.pipeline-list.py" lang="py" class="line-numbers linkable-line-numbers" data-line="30" >}}
 
@@ -191,7 +191,7 @@ Use [`DataClient.ListDataPipelines`](https://pkg.go.dev/go.viam.com/rdk/app#Data
 {{% /tab %}}
 {{% tab name="TypeScript" %}}
 
-Use [`dataClient.ListDataPipelines`](/dev/reference/apis/data-client/#listdatapipelines) to fetch a list of pipeline configurations in an organization:
+Use [`dataClient.ListDataPipelines`](/reference/apis/data-client/#listdatapipelines) to fetch a list of pipeline configurations in an organization:
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-list.snippet.pipeline-list.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18" >}}
 
@@ -260,7 +260,7 @@ viam datapipelines delete --id=<pipeline-id>
 {{% /tab %}}
 {{% tab name="Python" %}}
 
-Use [`DataClient.DeleteDataPipeline`](/dev/reference/apis/data-client/#deletedatapipeline) to delete a data pipeline:
+Use [`DataClient.DeleteDataPipeline`](/reference/apis/data-client/#deletedatapipeline) to delete a data pipeline:
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-delete.snippet.pipeline-delete.py" lang="py" class="line-numbers linkable-line-numbers" data-line="30" >}}
 
@@ -274,7 +274,7 @@ Use [`DataClient.DeleteDataPipeline`](https://pkg.go.dev/go.viam.com/rdk/app#Dat
 {{% /tab %}}
 {{% tab name="TypeScript" %}}
 
-Use [`dataClient.DeleteDataPipeline`](/dev/reference/apis/data-client/#deletedatapipeline) to delete a data pipeline:
+Use [`dataClient.DeleteDataPipeline`](/reference/apis/data-client/#deletedatapipeline) to delete a data pipeline:
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-delete.snippet.pipeline-delete.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18" >}}
 
@@ -293,7 +293,7 @@ Data pipeline executions may have any of the following statuses:
 {{< tabs >}}
 {{% tab name="Python" %}}
 
-Use [`DataClient.ListDataPipelineRuns`](/dev/reference/apis/data-client/#listdatapipelineruns) to view information about past and in-progress executions of a pipeline:
+Use [`DataClient.ListDataPipelineRuns`](/reference/apis/data-client/#listdatapipelineruns) to view information about past and in-progress executions of a pipeline:
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-execution.snippet.pipeline-execution.py" lang="py" class="line-numbers linkable-line-numbers" data-line="30" >}}
 
@@ -307,7 +307,7 @@ Use [`DataClient.ListDataPipelineRuns`](https://pkg.go.dev/go.viam.com/rdk/app#D
 {{% /tab %}}
 {{% tab name="TypeScript" %}}
 
-Use [`dataClient.ListDataPipelineRuns`](/dev/reference/apis/data-client/#listdatapipelineruns) to view information about past executions of a pipeline:
+Use [`dataClient.ListDataPipelineRuns`](/reference/apis/data-client/#listdatapipelineruns) to view information about past executions of a pipeline:
 
 {{< read-code-snippet file="/static/include/examples-generated/pipeline-execution.snippet.pipeline-execution.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18" >}}
 

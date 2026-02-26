@@ -115,7 +115,7 @@ In the `components` section of your machine configuration, add the following obj
 }
 ```
 
-Choose an appropriate board model from the [board components registry](/operate/reference/components/board/).
+Choose an appropriate board model from the [board components registry](/reference/components/board/).
 
 Choose an appropriate gateway model from the following options:
 
@@ -130,14 +130,14 @@ Configure attributes based on the descriptions below:
 
 You must configure the following attributes for SX1302- and SX1303-based LoRaWAN gateways:
 
-- `board`: The name of the [board component](/operate/reference/components/board/) that the peripheral is connected to. Used for GPIO pin control.
+- `board`: The name of the [board component](/reference/components/board/) that the peripheral is connected to. Used for GPIO pin control.
 - `reset_pin`: GPIO pin used for peripheral reset. Not configurable for `sx1302-waveshare-hat`.
 
 For generic peripherals, you must also configure `spi_bus`, `power_en_pin`, and `path`. For a full list of attributes, see the [module README](https://github.com/viam-modules/lorawan?tab=readme-ov-file#configuration-for-lorawan-gateways).
 
 You must configure the following attributes for RAK7391 gateways:
 
-- `board`: The name of the [board component](/operate/reference/components/board/) that represents the Raspberry Pi Compute Module inside the RAK7391. Used for GPIO pin control.
+- `board`: The name of the [board component](/reference/components/board/) that represents the Raspberry Pi Compute Module inside the RAK7391. Used for GPIO pin control.
 
 ## Add a node
 
@@ -284,7 +284,7 @@ When you specify an `fport` value for a node, gateways use that value as the fra
 
 ## Control nodes
 
-You can use [DoCommand](/dev/reference/sdks/docommand/) to configure, control, and calibrate your LoRaWAN nodes.
+You can use [DoCommand](/reference/sdks/docommand/) to configure, control, and calibrate your LoRaWAN nodes.
 The `lorawan` module supports the following commands:
 
 ### Restart node

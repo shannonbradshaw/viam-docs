@@ -233,7 +233,7 @@ In the **Type** dropdown, choose one of the following types:
 
      {{<imgproc src="/build/configure/conditional-data-ingested.png" resize="x400" declaredimensions=true alt="Example conditional data ingestion trigger with a condition." class="shadow" >}}
 
-     For more information, see [Conditional attributes](/data-ai/reference/triggers-configuration/#conditional-attributes).
+     For more information, see [Conditional attributes](/reference/configuration/triggers/#conditional-attributes).
 
 {{< /tablestep >}}
 {{< tablestep >}}
@@ -256,7 +256,7 @@ To add a webhook notification:
 1.  Click **Add Webhook**.
 1.  Add the URL of your cloud function.
 1.  Set the alert frequency (minimum time between notifications).
-1.  Write your cloud function to process the [webhook](/data-ai/reference/triggers-configuration/#webhook-attributes).
+1.  Write your cloud function to process the [webhook](/reference/configuration/triggers/#webhook-attributes).
     Use your cloud function to process data or interact with any external API, including Twilio, PagerDuty, or Zapier.
 
 {{< /tablestep >}}
@@ -329,7 +329,7 @@ Use the following template in your `components` JSON to configure the top-level 
 {{% /tab %}}
 {{< /tabs >}}
 
-For more information about triggers, see [Trigger configuration](/data-ai/reference/triggers-configuration/).
+For more information about triggers, see [Trigger configuration](/reference/configuration/triggers/).
 
 ### Stop data capture
 
@@ -372,7 +372,7 @@ To add a webhook notification:
 1.  Click **Add Webhook**.
 1.  Add the URL of your cloud function.
 1.  Set the alert frequency (minimum time between notifications).
-1.  Write your cloud function to process the [webhook](/data-ai/reference/triggers-configuration/#webhook-attributes).
+1.  Write your cloud function to process the [webhook](/reference/configuration/triggers/#webhook-attributes).
     Use your cloud function to process data or interact with any external API, including Twilio, PagerDuty, or Zapier.
 
 {{% /tab %}}
@@ -405,7 +405,7 @@ Use the following template in your `components` JSON to configure the top-level 
 {{% /tab %}}
 {{< /tabs >}}
 
-For more information about triggers, see [Trigger configuration](/data-ai/reference/triggers-configuration/).
+For more information about triggers, see [Trigger configuration](/reference/configuration/triggers/).
 
 ## Alert on machine status
 
@@ -438,7 +438,7 @@ To add a webhook notification:
 1.  Click **Add Webhook**.
 1.  Add the URL of your cloud function.
 1.  Set the alert frequency (minimum time between notifications).
-1.  Write your cloud function to process the [webhook](/data-ai/reference/triggers-configuration/#webhook-attributes).
+1.  Write your cloud function to process the [webhook](/reference/configuration/triggers/#webhook-attributes).
     Use your cloud function to process data or interact with any external API, including Twilio, PagerDuty, or Zapier.
 
 {{% /tab %}}
@@ -467,7 +467,7 @@ Use the following template in your `components` JSON to configure the top-level 
 {{% /tab %}}
 {{< /tabs >}}
 
-For more information about triggers, see [Trigger configuration](/data-ai/reference/triggers-configuration/).
+For more information about triggers, see [Trigger configuration](/reference/configuration/triggers/).
 
 ### Part is offline
 
@@ -482,7 +482,7 @@ For more information about triggers, see [Trigger configuration](/data-ai/refere
 3. Select **Part is offline** as the trigger **Type**.
 
 4. Add **Webhooks** or **Emails** and configure the time between notifications.
-   For more information on webhooks, see [Webhook attributes](/data-ai/reference/triggers-configuration/#webhook-attributes).
+   For more information on webhooks, see [Webhook attributes](/reference/configuration/triggers/#webhook-attributes).
 
 {{% /tab %}}
 {{% tab name="JSON mode" %}}
@@ -510,4 +510,4 @@ Use the following template in your `components` JSON to configure the top-level 
 {{% /tab %}}
 {{< /tabs >}}
 
-For more information about triggers, see [Trigger configuration](/data-ai/reference/triggers-configuration/).
+For more information about triggers, see [Trigger configuration](/reference/configuration/triggers/).

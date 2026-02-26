@@ -52,7 +52,7 @@ aliases:
 
 <div class="max-page frontpage">
 
-Once you've set up your machine you can control your device and any attached physical hardware with [Viam APIs](/dev/reference/apis/), for example:
+Once you've set up your machine you can control your device and any attached physical hardware with [Viam APIs](/reference/apis/), for example:
 
 {{< tabs class="horizontalheaders program" navheader="Examples">}}
 {{% tab name="Drive a base" %}}
@@ -230,7 +230,7 @@ void spin_motor(std::shared_ptr<viam::sdk::Motor> motor) {
 
 Once you have configured a motor, you can operate it using the motor API.
 
-[Control a motor →](/dev/reference/apis/components/motor/)
+[Control a motor →](/reference/apis/components/motor/)
 
   </div>
   <div class="explanationvisual">
@@ -716,7 +716,7 @@ for m in machines:
 
 Get status information and logs from all your deployed machines using the fleet management API.
 
-[Learn about Platform APIs →](/dev/reference/apis/#platform-apis)
+[Learn about Platform APIs →](/reference/apis/#platform-apis)
 
   </div>
 </div>

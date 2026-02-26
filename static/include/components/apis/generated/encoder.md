@@ -251,8 +251,8 @@ For more information, see the [TypeScript SDK Docs](https://ts.viam.dev/classes/
 
 ### GetGeometries
 
-Get all the geometries associated with the encoder in its current configuration, in the [frame](/operate/reference/services/frame-system/) of the encoder.
-The [motion](/operate/reference/services/motion/) and [navigation](/operate/reference/services/navigation/) services use the relative position of inherent geometries to configured geometries representing obstacles for collision detection and obstacle avoidance while motion planning.
+Get all the geometries associated with the encoder in its current configuration, in the [frame](/reference/services/frame-system/) of the encoder.
+The [motion](/reference/services/motion/) and [navigation](/reference/services/navigation/) services use the relative position of inherent geometries to configured geometries representing obstacles for collision detection and obstacle avoidance while motion planning.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -310,7 +310,7 @@ For more information, see the [Go SDK Docs](https://pkg.go.dev/go.viam.com/rdk/r
 Execute model-specific commands that are not otherwise defined by the component API.
 Most models do not implement `DoCommand`.
 Any available model-specific commands should be covered in the model's documentation.
-If you are implementing your own encoder as a {{< glossary_tooltip term_id="modular-resource" text="modular resource" >}} and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/dev/reference/sdks/docommand/).
+If you are implementing your own encoder as a {{< glossary_tooltip term_id="modular-resource" text="modular resource" >}} and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/reference/sdks/docommand/).
 Supported by `viam-micro-server`.
 
 {{< tabs >}}

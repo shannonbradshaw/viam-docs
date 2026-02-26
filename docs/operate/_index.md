@@ -26,30 +26,11 @@ To get started, install Viam on any device and integrate your hardware. Then you
 
 <div class="hoveraction">
 
-{{< how-to-expand "Learn Viam & Installation" "4" "BEGINNER-FRIENDLY" "" "build-platform-connect" >}}
-{{< cards >}}
-{{% card link="/operate/hello-world/what-is-viam/" noimage="true" %}}
-{{% card link="/operate/hello-world/tutorial-desk-safari/" noimage="true" %}}
-{{% card link="/operate/install/setup/" noimage="true" %}}
-{{% card link="/operate/hello-world/building/" noimage="true" %}}
-
-{{< /cards >}}
-{{< /how-to-expand >}}
-
 {{< how-to-expand "Modules" "3" "BEGINNER-FRIENDLY" "" "build-platform-connect" >}}
 {{< cards >}}
 {{% card link="/operate/modules/configure-modules/" noimage="true" %}}
 {{% card link="/operate/modules/support-hardware/" noimage="true" %}}
 {{% card link="/operate/modules/control-logic/" noimage="true" %}}
-{{< /cards >}}
-{{< /how-to-expand >}}
-
-{{< how-to-expand "Build apps" "4" "BEGINNER-FRIENDLY" "" "build-platform-apps" >}}
-{{< cards >}}
-{{% card link="/operate/control/viam-applications/" noimage="true" %}}
-{{% card link="/operate/control/web-app/" noimage="true" %}}
-{{% card link="/operate/control/mobile-app/" noimage="true" %}}
-{{% card link="/operate/control/headless-app/" noimage="true" %}}
 {{< /cards >}}
 {{< /how-to-expand >}}
 

@@ -33,7 +33,7 @@ Before setting up alerts, you need:
 
 You'll need a working vision service that can detect objects or classifications.
 The filtered camera will use this service to determine which images to capture.
-Follow the instructions to [configure a camera](/operate/reference/components/camera/) and [run inference](/data-ai/ai/run-inference/).
+Follow the instructions to [configure a camera](/reference/components/camera/) and [run inference](/data-ai/ai/run-inference/).
 
 {{< /expand >}}
 
@@ -178,7 +178,7 @@ Follow these steps to configure a trigger to alert when `filtered-camera` syncs 
    1. Click **Add Webhook**.
 
    1. Add the URL of your cloud function.
-   1. Write your cloud function to process the [webhook data](/data-ai/reference/triggers-configuration/#webhook-attributes).
+   1. Write your cloud function to process the [webhook data](/reference/configuration/triggers/#webhook-attributes).
       Use your cloud function to process data or interact with external APIs, such as Twilio, PagerDuty, or Zapier.
 
 1. Configure the notification frequency (for example, maximum one alert per hour).

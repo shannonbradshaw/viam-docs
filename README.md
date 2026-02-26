@@ -6,7 +6,7 @@
 
 > [!NOTE]
 > Looking to contribute? Check out the [Contributor Guide](https://docs.viam.com/appendix/contributing/).
-> For help knowing what and how to write, check out [tutorial template](docs/tutorials/template.md) and our [component pages](docs/operate/reference/components).
+> For help knowing what and how to write, check out [tutorial template](docs/tutorials/template.md) and our [component pages](docs/reference/components).
 
 ## Build the docs locally
 

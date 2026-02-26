@@ -347,7 +347,7 @@ The following attributes are available for data capture configuration:
 | ------------------ | ------ | --------- | ----------- |
 | `capture_frequency_hz` | float   | **Required** | Frequency in hertz at which to capture data. For example, to capture a reading every 2 seconds, enter `0.5`. |
 | `method` | string | **Required** | Depends on the type of component or service. See [Supported components and services](/data-ai/capture-data/capture-sync/#click-to-see-resources-that-support-data-capture-and-cloud-sync). **Note:** For tabular data, Viam enforces a maximum size of 4MB for any single reading. |
-| `retention_policy` | object | Optional | Option to configure how long data collected by this component or service should remain stored in the Viam Cloud. You must set this in JSON mode. See the JSON example for a camera component. <br> **Options:** `"days": <int>`, `"binary_limit_gb": <int>`, `"tabular_limit_gb": <int>`. <br> Days are in UTC time. Setting a retention policy of 1 day means that data stored now will be deleted the following day **in UTC time**. You can set either or both of the size limit options; size is in gigabytes. The `retention_policy` does not affect logs. For information about logs, see [Logging](/operate/reference/viam-server/#logging). |
+| `retention_policy` | object | Optional | Option to configure how long data collected by this component or service should remain stored in the Viam Cloud. You must set this in JSON mode. See the JSON example for a camera component. <br> **Options:** `"days": <int>`, `"binary_limit_gb": <int>`, `"tabular_limit_gb": <int>`. <br> Days are in UTC time. Setting a retention policy of 1 day means that data stored now will be deleted the following day **in UTC time**. You can set either or both of the size limit options; size is in gigabytes. The `retention_policy` does not affect logs. For information about logs, see [Logging](/reference/platform/viam-server/#logging). |
 | `recent_data_store` | object | Optional | Configure a rolling time frame of recent data to store in a [hot data store](/data-ai/data/hot-data-store/) for faster access. Example: `{ "stored_hours": 24 }` |
 | `additional_params` | object | Optional | Varies based on the method. For example, `DoCommand` requires `docommand_input` with an object of the command object to pass to `DoCommand`, and `GetImages` can optionally intake a `filter_source_names` list of strings to indicate which source names to return images from. |
 | `disabled` | boolean | Optional | Whether data capture is disabled. |
@@ -379,7 +379,7 @@ Each capture method object contains the following fields:
 
 {{< expand "Click to view example JSON configuration for an ESP32 board that will be established as a remote part" >}}
 
-The following example shows the configuration of the part that we will establish as a remote, in this case an [ESP32 board](/operate/reference/components/board/esp32/).
+The following example shows the configuration of the part that we will establish as a remote, in this case an [ESP32 board](/reference/components/board/esp32/).
 This config is just like that of a non-remote part; the remote connection is established by the main part (in the next expandable example).
 
 ```json {class="line-numbers linkable-line-numbers"}

@@ -486,7 +486,7 @@ For more information, see the [TypeScript SDK Docs](https://ts.viam.dev/classes/
 Get an array or list of the obstacles currently in the service's data storage.
 These are objects designated for the robot to avoid when navigating.
 These include all transient obstacles which are discovered by the vision services configured for the navigation service, in addition to the obstacles that are configured as a part of the service.
-See the [motion service](/operate/reference/services/motion/) for more information.
+See the [motion service](/reference/services/motion/) for more information.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -732,7 +732,7 @@ For more information, see the [Go SDK Docs](https://pkg.go.dev/go.viam.com/rdk/r
 Execute model-specific commands that are not otherwise defined by the service API.
 Most models do not implement `DoCommand`.
 Any available model-specific commands should be covered in the model's documentation.
-If you are implementing your own navigation service and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/dev/reference/sdks/docommand/).
+If you are implementing your own navigation service and want to add features that have no corresponding built-in API method, you can implement them with [`DoCommand`](/reference/sdks/docommand/).
 
 {{< tabs >}}
 {{% tab name="Python" %}}

@@ -183,13 +183,13 @@ For example:
 ]
 ```
 
-For more information on setting log levels see, [Logging](/operate/reference/viam-server/#logging).
+For more information on setting log levels see, [Logging](/reference/platform/viam-server/#logging).
 
 You may also find that not all logs you are expecting are displayed.
 By default, `viam-server` deduplicates log messages that are deemed noisy.
-To disable this behavior, see [Disable log deduplication](/operate/reference/viam-server/).
+To disable this behavior, see [Disable log deduplication](/reference/platform/viam-server/).
 
-To access logs from the commandline, use [`viam machines logs`](/dev/tools/cli/#machines-alias-robots-and-machine) on the command line or the [Machines API](/dev/reference/apis/robot/).
+To access logs from the commandline, use [`viam machines logs`](/dev/tools/cli/#machines-alias-robots-and-machine) on the command line or the [Machines API](/reference/apis/robot/).
 
 ### Advanced debugging for Go modules
 
@@ -254,7 +254,7 @@ To enable the pprof endpoints, set `enable_web_profile` to `true` in your machin
 }
 ```
 
-For more information on advanced debugging endpoints, see [Advanced debug endpoints](/operate/reference/viam-server/debug-endpoints/).
+For more information on advanced debugging endpoints, see [Advanced debug endpoints](/reference/platform/viam-server/debug-endpoints/).
 
 ## Remote shell on the machine
 
@@ -267,7 +267,7 @@ To remotely access your machine from your terminal:
    viam machines part shell --organization=<org name> --location=<location name> --machine=<machine id>
    ```
 
-1. You can [access the local log file](/operate/reference/viam-server/manage-viam-server/#view-viam-server-logs) on your machine if needed.
+1. You can [access the local log file](/reference/platform/viam-server/manage-viam-server/#view-viam-server-logs) on your machine if needed.
 
 1. If you need to copy files from your machine, use the [`viam machine part cp`](/dev/tools/cli/#machines-alias-robots-and-machine) command.
 
@@ -280,7 +280,7 @@ To remotely access your machine from your terminal:
    Both `viam-server` and `viam-agent` will restart.
 
    If you do not see the **Restart** button, click the **...** menu on the right side of the machine part's card, and select **Restart part**.
-   If restarting the machine part does not resolve the issue, ssh into the machine and [stop and restart viam-server manually](/operate/reference/viam-server/manage-viam-server/#run-viam-server).
+   If restarting the machine part does not resolve the issue, ssh into the machine and [stop and restart viam-server manually](/reference/platform/viam-server/manage-viam-server/#run-viam-server).
 
 It takes a few minutes for `viam-server` to shut down and restart.
 

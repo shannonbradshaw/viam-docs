@@ -151,9 +151,9 @@ If the results exceed the confidence threshold, the **Run model** section shows 
 
 You can test both TensorFlow Lite detection models and TensorFlow Lite classifier models using the following resources together:
 
-- [a camera](/operate/reference/components/camera/)
+- [a camera](/reference/components/camera/)
 - [a `tflite_cpu` ML model](https://app.viam.com/module/viam/tflite_cpu/) with the model you just trained
-- [an `mlmodel` vision service](/operate/reference/services/vision/mlmodel/) using the `tflite_cpu` model
+- [an `mlmodel` vision service](/reference/services/vision/mlmodel/) using the `tflite_cpu` model
 
 ## Iterate on your ML model
 
@@ -191,7 +191,6 @@ The next step is to [deploy](/data-ai/ai/deploy/) the ML model and then [act](/d
 See the following tutorials for examples of using machine learning models to make your machine do things based on its inferences about its environment:
 
 {{< cards >}}
-{{% card link="/operate/hello-world/tutorial-desk-safari/" customTitle="Desk Safari Game" %}}
 {{% card link="/tutorials/projects/helmet/" %}}
 {{% card link="/tutorials/projects/pet-treat-dispenser/" customTitle="Smart Pet Feeder" %}}
 {{< /cards >}}

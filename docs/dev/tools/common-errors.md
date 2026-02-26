@@ -44,7 +44,7 @@ This is only required for the first `ssh` connection you make to a newly-imaged 
   Be sure that you match hostname, username, and password exactly to what you initially configured when imaging your board.
 - If you are still unable to connect, restart your board and try your `ssh` connection again after a few minutes.
 - If that fails, try re-imaging your board following the [installation guide](/operate/install/setup/) appropriate for your board.
-  - If using the [Raspberry Pi installation guide](/operate/reference/prepare/rpi-setup/), be sure to carefully enter the configuration details under the **Advanced Options** (gear icon) button on the [Raspberry Pi imager](https://www.raspberrypi.com/software/) before you re-image your board.
+  - If using the [Raspberry Pi installation guide](/reference/device-setup/rpi-setup/), be sure to carefully enter the configuration details under the **Advanced Options** (gear icon) button on the [Raspberry Pi imager](https://www.raspberrypi.com/software/) before you re-image your board.
   - If you re-imaged your board and provided a different hostname, you may need to accept the `ssh` host key again by typing `yes` when prompted.
   - If you re-imaged your board and provided the same hostname, you may see an error message similar to `WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!`.
     - If so, edit your `~/.ssh/known_hosts` file to delete any single lines that begin with the board hostname you specified (like `hostname.local` or similar).
@@ -65,7 +65,7 @@ This is only required for the first `ssh` connection you make to a newly-imaged 
 
 **Full Error:** `Something went wrong trying to read the squashfs image. Open dir error: No such file or directory`
 
-**Description:** The `viam-server` [installation](/operate/install/setup/) or [update](/operate/reference/viam-server/manage-viam-server/#update-viam-server) process may have been interrupted partway, with some files either partially-written or missing.
+**Description:** The `viam-server` [installation](/operate/install/setup/) or [update](/reference/platform/viam-server/manage-viam-server/#update-viam-server) process may have been interrupted partway, with some files either partially-written or missing.
 
 **Solution:** Reinstall `viam-server` following the [installation instructions](/operate/install/setup/).
 
@@ -162,7 +162,7 @@ When a machine is disconnected, it will continue to run with its locally-cached 
 
 **Full Error:** `Error: cannot parse config: JSON: cannot unmarshal string into Go struct field Component.components.frame of type float64.`
 
-**Description:** A [frame](/operate/reference/services/frame-system/) attribute may be malformed, and is preventing the parsing of the component's configuration.
+**Description:** A [frame](/reference/services/frame-system/) attribute may be malformed, and is preventing the parsing of the component's configuration.
 
 **Solution:** Check the **CONFIGURE** tab for your machine and look for a `frame` attribute, either in **Frame** or **JSON** mode.
 If you see a `frame` attribute that you didn't create yourself, delete the whole `frame` object from the JSON config.
@@ -238,7 +238,7 @@ These connections can come from modules or other scripts and apps.
 
 **Solution:** Try to find bottlenecks in scripts or modules that are hitting APIs for the machine in loops.
 You can check operations and sessions for a machine on its **CONTROL** tab at the bottom of the screen.
-To adjust the per-resource limit for modules, you can set the `VIAM_RESOURCE_REQUESTS_LIMIT` [environment variable on your machine](/manage/reference/viam-agent/#environment-variables-for-viam-server) to a positive integer higher than the default, 100.
+To adjust the per-resource limit for modules, you can set the `VIAM_RESOURCE_REQUESTS_LIMIT` [environment variable on your machine](/reference/platform/viam-agent/#environment-variables-for-viam-server) to a positive integer higher than the default, 100.
 
 ### Error while dialing app
 
@@ -246,7 +246,7 @@ To adjust the per-resource limit for modules, you can set the `VIAM_RESOURCE_REQ
 
 **Description:** This error occurs when a machine cannot establish a connection to Viam within the timeout window, by default 15 seconds.
 
-**Solution:** To adjust the initial app connection timeout, you can set the `VIAM_CONFIG_READ_TIMEOUT` [environment variable on your machine](/manage/reference/viam-agent/#environment-variables-for-viam-server) to a positive integer higher than the default, 15.
+**Solution:** To adjust the initial app connection timeout, you can set the `VIAM_CONFIG_READ_TIMEOUT` [environment variable on your machine](/reference/platform/viam-agent/#environment-variables-for-viam-server) to a positive integer higher than the default, 15.
 
 ### exceeded request limit on resource {#req-limit-exceeded}
 
@@ -263,7 +263,7 @@ The limit applies to calls through both WebRTC and direct gRPC connection, that 
 
 **Solution:**
 
-Try to find bottlenecks in scripts or modules that are hitting APIs for the machine in loops. You can check operations and sessions for a machine on its **CONTROL** tab at the bottom of the screen. To adjust the per-resource limit for modules, you can set the `VIAM_RESOURCE_REQUESTS_LIMIT` [environment variable on your machine](/manage/reference/viam-agent/#environment-variables-for-viam-server) to a positive integer higher than the default, 100.
+Try to find bottlenecks in scripts or modules that are hitting APIs for the machine in loops. You can check operations and sessions for a machine on its **CONTROL** tab at the bottom of the screen. To adjust the per-resource limit for modules, you can set the `VIAM_RESOURCE_REQUESTS_LIMIT` [environment variable on your machine](/reference/platform/viam-agent/#environment-variables-for-viam-server) to a positive integer higher than the default, 100.
 
 ## Other common errors
 

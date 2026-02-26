@@ -11,7 +11,7 @@ This guide will help you decide on a coordinate system for your workspace, and t
 
 Once you have configured frames for all your components, Viam will keep track of the positions and orientations as your robot moves, so you can plan motion in terms of a consistent coordinate system.
 
-For reference information, see [the frame system](/operate/reference/services/frame-system/).
+For reference information, see [the frame system](/reference/services/frame-system/).
 
 ## Determine the world frame
 
@@ -62,7 +62,7 @@ You define it implicitly by configuring the frame of a component relative to wor
 
 ### Figure out which way the arm's axes point
 
-The arm's origin frame is now the world frame, but you do not know which way the x, y, and z axes of the arm frame point, unless you happen to be familiar with the arm's [kinematics file](/operate/reference/kinematic-chain-config/).
+The arm's origin frame is now the world frame, but you do not know which way the x, y, and z axes of the arm frame point, unless you happen to be familiar with the arm's [kinematics file](/reference/configuration/kinematic-chain-config/).
 
 1. On your arm's configuration card, click the **TEST** section (or use the **CONTROL** tab).
 

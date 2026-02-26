@@ -44,14 +44,14 @@ If your hardware does not support the model you want to run, see [Cloud inferenc
 {{% /tab %}}
 {{% tab name="Python" %}}
 
-The following code passes an image to an ML model service, and uses the [`Infer`](/dev/reference/apis/services/ml/#infer) method to make inferences:
+The following code passes an image to an ML model service, and uses the [`Infer`](/reference/apis/services/ml/#infer) method to make inferences:
 
 {{< read-code-snippet file="/static/include/examples-generated/run-inference.snippet.run-inference.py" lang="py" class="line-numbers linkable-line-numbers" data-line="82-85" >}}
 
 {{% /tab %}}
 {{% tab name="Go" %}}
 
-The following code passes an image to an ML model service, and uses the [`Infer`](/dev/reference/apis/services/ml/#infer) method to make inferences:
+The following code passes an image to an ML model service, and uses the [`Infer`](/reference/apis/services/ml/#infer) method to make inferences:
 
 {{< read-code-snippet file="/static/include/examples-generated/run-inference.snippet.run-inference.go" lang="go" class="line-numbers linkable-line-numbers" data-line="161-164" >}}
 
@@ -86,7 +86,7 @@ To use a vision service:
 <!-- prettier-ignore -->
 | Example | Description |
 | ------- | ----------- |
-| Detect a variety of objects | Use the [`viam:vision:mlmodel`](/operate/reference/services/vision/mlmodel/) vision service with the `EfficientDet-COCO` ML model to detect a variety of objects, including people, bicycles, and apples, in a camera feed. |
+| Detect a variety of objects | Use the [`viam:vision:mlmodel`](/reference/services/vision/mlmodel/) vision service with the `EfficientDet-COCO` ML model to detect a variety of objects, including people, bicycles, and apples, in a camera feed. |
 | Detect license plates | Use the [`viam-soleng:vision:openalpr`](https://app.viam.com/module/viam-soleng/viamalpr) vision service to detect license plates in images. This service includes its own ML model. |
 
 {{% /expand%}}
@@ -105,21 +105,21 @@ To use a vision service:
 {{% /tab %}}
 {{% tab name="Python" %}}
 
-The following code passes an image from a camera to a vision service and uses the [`GetClassifications`](/dev/reference/apis/services/vision/#getclassifications) method:
+The following code passes an image from a camera to a vision service and uses the [`GetClassifications`](/reference/apis/services/vision/#getclassifications) method:
 
 {{< read-code-snippet file="/static/include/examples-generated/run-vision-service.snippet.run-vision-service.py" lang="py" class="line-numbers linkable-line-numbers" data-line="36-37" >}}
 
 {{% /tab %}}
 {{% tab name="Go" %}}
 
-The following code passes an image from a camera to a vision service and uses the [`GetClassifications`](/dev/reference/apis/services/vision/#getclassifications) method:
+The following code passes an image from a camera to a vision service and uses the [`GetClassifications`](/reference/apis/services/vision/#getclassifications) method:
 
 {{< read-code-snippet file="/static/include/examples-generated/run-vision-service.snippet.run-vision-service.go" lang="go" class="line-numbers linkable-line-numbers" data-line="62-65" >}}
 
 {{% /tab %}}
 {{% tab name="TypeScript" %}}
 
-The following code passes an image from a camera to a vision service and uses the [`GetClassifications`](/dev/reference/apis/services/vision/#getclassifications) method:
+The following code passes an image from a camera to a vision service and uses the [`GetClassifications`](/reference/apis/services/vision/#getclassifications) method:
 
 {{< read-code-snippet file="/static/include/examples-generated/run-vision-service.snippet.run-vision-service.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="32-38" >}}
 

@@ -22,7 +22,7 @@ aliases:
 cost: "0"
 ---
 
-You can install [`viam-agent`](/manage/reference/viam-agent/) as part of your manufacturing process and provision machines with a pre-defined configuration as they come online.
+You can install [`viam-agent`](/reference/platform/viam-agent/) as part of your manufacturing process and provision machines with a pre-defined configuration as they come online.
 When the end user sets the machine up, they provide network access and `viam-agent` installs `viam-server` and your latest software.
 
 If you're looking for a full tutorial, see [Monitor Air Quality with a Fleet of Sensors](/tutorials/control/air-quality-fleet/).
@@ -244,7 +244,7 @@ The script will save the file is at <file>/etc/viam.json</file> on the machine.
 
 {{< expand "Want to create a machine and obtain its machine cloud credentials programmatically?" >}}
 
-You can use the [Fleet Management API](/dev/reference/apis/fleet/) to create machines, and obtain their machine cloud credentials:
+You can use the [Fleet Management API](/reference/apis/fleet/) to create machines, and obtain their machine cloud credentials:
 
 ```python {class="line-numbers linkable-line-numbers"}
 import asyncio

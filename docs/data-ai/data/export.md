@@ -20,7 +20,7 @@ updated: "2025-09-12"
 
 You can download machine data to your computer with the Viam CLI.
 
-If you prefer to manage your data with code, see the [data client API documentation](/dev/reference/apis/data-client/).
+If you prefer to manage your data with code, see the [data client API documentation](/reference/apis/data-client/).
 
 ## Prerequisites
 
