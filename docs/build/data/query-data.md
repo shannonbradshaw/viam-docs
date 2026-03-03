@@ -10,13 +10,11 @@ date: "2025-01-30"
 
 ## What Problem This Solves
 
-You have data flowing into the cloud from
-[Capture and Sync Data](/build/foundation/capture-and-sync-data/). Now you need
-to answer questions like "what were the last 10 readings from my sensor?" or
-"how many detections happened per hour today?" Viam provides both SQL and MQL
-query interfaces -- SQL for familiar relational-style queries and MQL for
-MongoDB-style aggregation pipelines that handle complex grouping and nested data
-more naturally.
+You have data flowing into the cloud and need to ask questions of it -- "what
+were the last 10 readings from my sensor?", "how many detections happened per
+hour today?", "what was the average temperature this week?" This how-to shows
+you how to query captured data using SQL and MQL, both in the Viam app and
+programmatically.
 
 ## Concepts
 
@@ -32,7 +30,6 @@ Each row represents one capture event from one component. The columns are:
 | `component_name` | String | Name of the component (e.g., `my-sensor`, `left-camera`) |
 | `component_type` | String | Type of the component (e.g., `rdk:component:sensor`) |
 | `robot_id` | String | Unique identifier for the machine |
-| `machine_id` | String | Machine identifier |
 | `data` | JSON | The captured reading -- a nested JSON object |
 | `tags` | Array | Any tags applied to this data entry |
 
@@ -152,13 +149,12 @@ ORDER BY time_received DESC
 LIMIT 10
 ```
 
-To find entries where a nested field matches a condition:
+To filter by a specific machine:
 
 ```sql
-SELECT time_received, data
+SELECT time_received, component_name, data
 FROM readings
-WHERE component_name = 'my-detector'
-  AND data LIKE '%FAIL%'
+WHERE robot_id = 'YOUR-MACHINE-ID'
 ORDER BY time_received DESC
 LIMIT 10
 ```
@@ -288,7 +284,6 @@ Save this as `query_data.py`:
 
 ```python
 import asyncio
-import json
 from viam.rpc.dial import DialOptions, Credentials
 from viam.app.viam_client import ViamClient
 
@@ -313,7 +308,7 @@ async def main():
     viam_client = await connect()
     data_client = viam_client.data_client
 
-    # --- SQL: recent readings from a specific component ---
+    # SQL: recent readings from a specific component
     print("=== Recent sensor readings (SQL) ===")
     sql_results = await data_client.tabular_data_by_sql(
         organization_id=ORG_ID,
@@ -330,32 +325,9 @@ async def main():
     for row in sql_results:
         print(f"  {row}")
 
-    # --- MQL: average temperature per hour ---
-    print("\n=== Hourly temperature averages (MQL) ===")
-    mql_results = await data_client.tabular_data_by_mql(
-        organization_id=ORG_ID,
-        mql_binary=[
-            {"$match": {"component_name": "my-sensor"}},
-            {"$group": {
-                "_id": {
-                    "$dateToString": {
-                        "format": "%Y-%m-%d %H:00",
-                        "date": "$time_received",
-                    }
-                },
-                "avg_temp": {"$avg": "$data.readings.temperature"},
-                "count": {"$sum": 1},
-            }},
-            {"$sort": {"_id": -1}},
-            {"$limit": 24},
-        ],
-    )
-    for entry in mql_results:
-        print(f"  {entry}")
-
-    # --- MQL: count readings per component ---
+    # MQL: count readings per component
     print("\n=== Readings per component (MQL) ===")
-    count_results = await data_client.tabular_data_by_mql(
+    mql_results = await data_client.tabular_data_by_mql(
         organization_id=ORG_ID,
         mql_binary=[
             {"$group": {
@@ -365,23 +337,8 @@ async def main():
             {"$sort": {"count": -1}},
         ],
     )
-    for entry in count_results:
+    for entry in mql_results:
         print(f"  {entry}")
-
-    # --- SQL: find entries matching a condition in nested data ---
-    print("\n=== High-confidence detections (SQL) ===")
-    detection_results = await data_client.tabular_data_by_sql(
-        organization_id=ORG_ID,
-        sql_query=(
-            "SELECT time_received, data "
-            "FROM readings "
-            "WHERE component_name = 'my-detector' "
-            "ORDER BY time_received DESC "
-            "LIMIT 10"
-        ),
-    )
-    for row in detection_results:
-        print(f"  {row}")
 
     viam_client.close()
 
@@ -441,7 +398,7 @@ func main() {
 
 	dataClient := viamClient.DataClient()
 
-	// --- SQL: recent readings from a specific component ---
+	// SQL: recent readings from a specific component
 	fmt.Println("=== Recent sensor readings (SQL) ===")
 	sqlResults, err := dataClient.TabularDataBySQL(ctx, orgID,
 		"SELECT time_received, "+
@@ -457,34 +414,7 @@ func main() {
 		fmt.Printf("  %v\n", row)
 	}
 
-	// --- MQL: average temperature per hour ---
-	fmt.Println("\n=== Hourly temperature averages (MQL) ===")
-	hourlyStages := []map[string]interface{}{
-		{"$match": map[string]interface{}{
-			"component_name": "my-sensor",
-		}},
-		{"$group": map[string]interface{}{
-			"_id": map[string]interface{}{
-				"$dateToString": map[string]interface{}{
-					"format": "%Y-%m-%d %H:00",
-					"date":   "$time_received",
-				},
-			},
-			"avg_temp": map[string]interface{}{"$avg": "$data.readings.temperature"},
-			"count":    map[string]interface{}{"$sum": 1},
-		}},
-		{"$sort": map[string]interface{}{"_id": -1}},
-		{"$limit": 24},
-	}
-	hourlyResults, err := dataClient.TabularDataByMQL(ctx, orgID, hourlyStages, nil)
-	if err != nil {
-		logger.Fatal(err)
-	}
-	for _, entry := range hourlyResults {
-		fmt.Printf("  %v\n", entry)
-	}
-
-	// --- MQL: count readings per component ---
+	// MQL: count readings per component
 	fmt.Println("\n=== Readings per component (MQL) ===")
 	countStages := []map[string]interface{}{
 		{"$group": map[string]interface{}{
@@ -500,20 +430,6 @@ func main() {
 	for _, entry := range countResults {
 		fmt.Printf("  %v\n", entry)
 	}
-
-	// --- SQL: find entries with a specific condition ---
-	fmt.Println("\n=== Recent detections (SQL) ===")
-	detectionResults, err := dataClient.TabularDataBySQL(ctx, orgID,
-		"SELECT time_received, data "+
-			"FROM readings "+
-			"WHERE component_name = 'my-detector' "+
-			"ORDER BY time_received DESC LIMIT 10")
-	if err != nil {
-		logger.Fatal(err)
-	}
-	for _, row := range detectionResults {
-		fmt.Printf("  %v\n", row)
-	}
 }
 ```
 
@@ -527,42 +443,9 @@ go run main.go
 {{% /tab %}}
 {{< /tabs >}}
 
-### 6. Export data for external tools
-
-If you need to work with your data outside of Viam -- in a Jupyter notebook,
-spreadsheet, or BI tool -- you have a few options:
-
-**Export via the Viam CLI:**
-
-```bash
-viam data export --org-id YOUR-ORG-ID \
-  --data-type tabular \
-  --destination ./exported-data
-```
-
-This downloads your tabular data as JSON files that you can convert to CSV or
-load into pandas, R, or any other tool.
-
-**Export programmatically:**
-
-Use the query scripts from step 5 to fetch data and write it to a file.
-For example, in Python:
-
-```python
-import csv
-
-# After running a SQL query (using the connect() function from step 5):
-results = await data_client.tabular_data_by_sql(
-    organization_id=ORG_ID,
-    sql_query="SELECT time_received, data.readings.temperature AS temp FROM readings WHERE component_name = 'my-sensor'",
-)
-
-with open("sensor_data.csv", "w", newline="") as f:
-    writer = csv.DictWriter(f, fieldnames=["time_received", "temp"])
-    writer.writeheader()
-    for row in results:
-        writer.writerow(row)
-```
+If you need to export data for use outside of Viam -- in a Jupyter notebook, your
+own database, or a BI tool -- see
+[Sync Data to Your Database](/build/data/sync-data-to-your-database/).
 
 ## Try It
 
