@@ -1,13 +1,14 @@
 ---
 linkTitle: "Stop Data Capture"
 title: "Stop or Disable Data Capture"
-weight: 35
+weight: 6
 layout: "docs"
 type: "docs"
 description: "Stop capturing data for specific resources, all resources, or disable cloud sync."
 date: "2025-01-30"
 aliases:
   - /build/foundation/stop-data-capture/
+  - /foundation/stop-data-capture/
 ---
 
 ## What Problem This Solves

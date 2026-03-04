@@ -1,13 +1,14 @@
 ---
 linkTitle: "Add a Camera"
 title: "Add a Camera"
-weight: 20
+weight: 10
 layout: "docs"
 type: "docs"
 description: "Add and configure a camera component, verify the feed, and capture an image programmatically."
 date: "2025-01-30"
 aliases:
   - /build/foundation/add-a-camera/
+  - /foundation/add-a-camera/
 ---
 
 ## What Problem This Solves
@@ -272,5 +273,5 @@ go run main.go
 
 ## What's Next
 
-- [Capture and Sync Data](/foundation/capture-and-sync-data/) -- configure your camera to automatically capture images and sync them to the cloud.
+- [Capture and Sync Data](/data/capture-and-sync-data/) -- configure your camera to automatically capture images and sync them to the cloud.
 - [Add Computer Vision](/vision-detection/add-computer-vision/) -- run ML models on your camera feed to detect or classify objects.

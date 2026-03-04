@@ -731,7 +731,7 @@ watch -n 60 du -sh ~/.viam/capture
 3. Compare data volume before and after filtering:
    - Check how many new entries appear per minute with your filter active.
    - Compare to the rate you saw in
-     [Capture and Sync Data](/foundation/capture-and-sync-data/) before
+     [Capture and Sync Data](/data/capture-and-sync-data/) before
      filtering.
 4. For the filtered camera module, verify that captured images show meaningful
    variation between consecutive frames. If consecutive frames look identical,
