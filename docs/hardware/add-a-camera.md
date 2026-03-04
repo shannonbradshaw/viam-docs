@@ -9,6 +9,7 @@ date: "2025-01-30"
 aliases:
   - /build/foundation/add-a-camera/
   - /foundation/add-a-camera/
+  - /hardware-components/add-a-camera/
 ---
 
 ## What Problem This Solves
