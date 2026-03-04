@@ -16,4 +16,6 @@ Start with Foundation, then pick guides relevant to your project.
 {{% card link="/build/data/" %}}
 {{% card link="/build/train/" %}}
 {{% card link="/build/development/" %}}
+{{% card link="/build/work-cell-layout/" %}}
+{{% card link="/build/vision-detection/" %}}
 {{< /cards >}}
