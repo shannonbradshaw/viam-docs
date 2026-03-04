@@ -14,4 +14,6 @@ Start with Foundation, then pick guides relevant to your project.
 {{< cards >}}
 {{% card link="/build/foundation/" %}}
 {{% card link="/build/data/" %}}
+{{% card link="/build/train/" %}}
+{{% card link="/build/development/" %}}
 {{< /cards >}}
