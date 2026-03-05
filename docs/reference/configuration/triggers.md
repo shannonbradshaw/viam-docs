@@ -14,7 +14,7 @@ aliases:
 Triggers can alert you by email or webhook when any of the following events occur:
 
 - [machine telemetry data syncs from your local device to the Viam cloud](/manage/troubleshoot/alert/)
-- [data syncs from a machine](/data-ai/data/alert-data/)
+- [data syncs from a machine](/data/trigger-on-data/)
 - [service detects a specified object or classifies a specified label](/data-ai/ai/alert/)
 - [machine logs contain errors, warnings, or info logs](/manage/troubleshoot/alert/)
 

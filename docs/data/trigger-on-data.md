@@ -1,12 +1,13 @@
 ---
 linkTitle: "Trigger on data events"
 title: "Trigger on data events"
-weight: 200
+weight: 45
 layout: "docs"
 type: "docs"
 description: "Use triggers to send email notifications or webhook requests when data from the machine is synced."
 date: "2025-09-12"
 aliases:
+  - /data-ai/data/alert-data/
   - /data-ai/data/advanced/alert-data/
 ---
 
@@ -114,7 +115,7 @@ The following JSON configuration shows how to set up a trigger that fires when a
       "event": {
         "type": "part_data_ingested",
         "data_ingested": {
-          "data_types": ["binary", "tabular", "file"]
+          "data_types": ["binary", "tabular", "file", "unspecified"]
         }
       },
       "notifications": [
@@ -138,3 +139,13 @@ For more information about triggers, see [Trigger Configuration](/reference/conf
 
 {{% /tab %}}
 {{< /tabs >}}
+
+## Other trigger types
+
+Viam also supports triggers for machine status events and log monitoring:
+
+- **Part is online / Part is offline**: alert when a machine part comes online or goes offline
+- **Conditional logs ingestion**: alert when machine logs contain errors, warnings, or info messages
+
+For these trigger types, see [Alert on machine telemetry](/manage/troubleshoot/alert/).
+For a full reference of all trigger attributes, see [Trigger configuration](/reference/configuration/triggers/).

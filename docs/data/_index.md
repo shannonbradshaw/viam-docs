@@ -21,9 +21,6 @@ aliases:
   - /services/data-management/
   - /manage/data/
   - /data-management/
-  - /manage/data/export/
-  - /data/export/
-  - /services/data/export/
   - /manage/data/view/
   - /data/view/
   - /services/data/view/

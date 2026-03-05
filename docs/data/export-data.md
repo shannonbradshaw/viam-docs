@@ -1,19 +1,17 @@
 ---
 linkTitle: "Export data"
 title: "Export data"
-weight: 40
-description: "Download data from Viam using the data client API or the CLI."
+weight: 50
+layout: "docs"
 type: "docs"
+description: "Download data from Viam using the data client API or the CLI."
 tags: ["data management", "cloud", "sync"]
-icon: true
-images: ["/services/icons/data-capture.svg"]
 aliases:
+  - /data-ai/data/export/
+  - /how-tos/export-data/
   - /manage/data/export/
   - /data/export/
   - /services/data/export/
-  - /how-tos/export-data/
-viamresources: ["sensor", "data_manager"]
-platformarea: ["data", "cli"]
 date: "2024-12-03"
 updated: "2025-09-12"
 ---
@@ -69,24 +67,25 @@ Run the copied command in a terminal:
 viam data export binary filter --org-ids=<org-id> --destination=.
 ```
 
+By default, the command creates two new directories named `data` and `metadata` in the destination directory.
+It downloads binary files into the `data` folder and metadata (bounding box information, labels) in JSON format into the `metadata` folder.
+
+Since data is downloaded in parallel, the order is not guaranteed to be chronological.
+Sort your files by filename to see them in chronological order.
+
 {{% /tab %}}
 {{% tab name="Tabular data" %}}
 
 ```sh {class="command-line" data-prompt="$"}
-viam data export tabular filter --org-ids=<org-id> --destination=.
+viam data export tabular --destination=. --part-id=<part-id> --resource-name=<resource-name> --resource-subtype=<resource-subtype> --method=<method>
 ```
+
+The tabular export command writes a single `data.ndjson` file in [NDJSON](https://github.com/ndjson/ndjson-spec) (newline-delimited JSON) format to the destination directory.
 
 {{% /tab %}}
 {{< /tabs >}}
 
-This command downloads the data onto your computer based on the search criteria you select in the web UI.
-
-By default, the command creates two new directories named `data` and `metadata` in the current directory.
-It downloads the specified data into the `data` folder and metadata, like bounding box information and labels, in JSON format into the `metadata` folder.
-If you want to store the data in a different location, change the destination folder with the [`--destination` flag](/dev/tools/cli/#named-arguments).
-
-Since data is downloaded in parallel, the order is not guaranteed to be chronological.
-Sort your files by filename to see them in chronological order.
+If you want to store the data in a different location, change the destination with the [`--destination` flag](/dev/tools/cli/#named-arguments).
 
 {{% /tablestep %}}
 {{< /table >}}
