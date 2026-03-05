@@ -17,33 +17,20 @@ aliases:
 
 ## What Problem This Solves
 
-Captured data sitting in the cloud is useful for queries, but humans understand
-trends, anomalies, and system health much faster when they can see them. A
-temperature reading of 47.3 degrees C is just a number. A line chart showing
-temperature climbing steadily over the last six hours tells you something is
-wrong before a threshold is crossed.
-
-This how-to covers four approaches to visualization, from simplest to most
-flexible.
-
-## Concepts
-
-### Viam's visualization options
+Raw sensor readings and captured data are easier to interpret as charts, graphs, and dashboards. Visualization helps you spot trends, detect anomalies, and monitor system health across your machines.
 
 Viam stores captured data in a MongoDB Atlas Data Federation instance. This
-means any tool that can connect to MongoDB can access your data. You have four
-options:
+means that you can use any tool that can connect to MongoDB to access your data. This page covers four approaches to visualization, from simplest to most
+flexible.
 
 | Approach | Best for | Setup time |
 |----------|----------|------------|
-| Teleop dashboard | Quick monitoring, camera feeds, live sensor data | 2 minutes |
+| Viam Teleop dashboard | Quick monitoring, camera feeds, live sensor data | 2 minutes |
 | Grafana | Rich dashboards, alerting, team-shared views | 10 minutes |
 | Other third-party tools (Tableau, Looker Studio) | BI reporting, executive dashboards | 10-15 minutes |
-| Programmatic (Python/Go + matplotlib or similar) | Custom reports, embedded charts, notebooks | 5 minutes |
+| Custom with Viam SDKs (Python/Go + matplotlib or similar) | Custom reports, embedded charts, notebooks | 5 minutes |
 
-### Teleop dashboards vs. external tools
-
-Teleop dashboards live inside the Viam app. They are scoped to a single machine
+Viam Teleop dashboards live inside the Viam app. They are scoped to a single machine
 and location, and they update in real time. You do not need to configure any
 database credentials or install any software. This makes them the right choice
 when you want a quick operational view of one machine.
@@ -53,15 +40,15 @@ can query data across machines and organizations, apply complex transformations,
 set up alerts, and share dashboards with team members who do not have Viam app
 access.
 
-Programmatic visualization gives you complete control. You write code that
+Custom visualization with Viam SDKs gives you complete control. You write code that
 queries data through the Viam SDK and renders it however you want -- matplotlib
 charts, Plotly dashboards, HTML reports, or any other format.
 
-## Steps
+## Build a Viam Teleop dashboard
 
-### 1. Build a Teleop dashboard
+The Viam Teleop dashboard is the fastest way to visualize data from a single machine.
 
-The Teleop dashboard is the fastest way to visualize data from a single machine.
+#### Create a workspace
 
 1. Go to [app.viam.com](https://app.viam.com).
 2. Click **FLEET** in the top navigation, then click the **TELEOP** tab. You
@@ -98,30 +85,24 @@ The Teleop dashboard is the fastest way to visualize data from a single machine.
 
 #### Arrange the layout
 
-- Click and drag the **grid icon** in the top left corner of any widget to move
-  it to a new position on the workspace.
-
-  {{<imgproc src="/services/data/visualize-widget-move.png" alt="Click the grid icon to move a widget." style="width:500px" resize="1200x" class="imgzoom fill shadow" >}}
-
+- Click and drag the **grid icon** in the top left corner of any widget to reposition it.
 - Resize widgets by dragging their edges.
 - The layout saves automatically.
 
 You now have a live dashboard showing real-time data from your machine. The
 dashboard updates as new data arrives -- no refresh needed.
 
-### 2. Configure database access for third-party tools
+## Configure database access for third-party tools
 
 To connect external visualization tools (Grafana, Tableau, Looker Studio, or
 any MongoDB-compatible client), you first need to set up database credentials
 using the Viam CLI.
 
-1. Install the Viam CLI if you have not already:
+Install the Viam CLI if you have not already:
 
-   {{< readfile "/static/include/how-to/install-cli.md" >}}
+{{< readfile "/static/include/how-to/install-cli.md" >}}
 
-2. Configure database credentials:
-
-   {{< readfile "/static/include/how-to/query-data.md" >}}
+{{< readfile "/static/include/how-to/query-data.md" >}}
 
 You now have three pieces of information needed by any external tool:
 
@@ -129,7 +110,7 @@ You now have three pieces of information needed by any external tool:
 - **Username**: `db-user-<YOUR-ORG-ID>`
 - **Password** (from the `configure` command)
 
-### 3. Connect Grafana to your data
+## Connect Grafana to your data
 
 Grafana is a popular open-source visualization tool that works well with Viam's
 MongoDB-backed data store.
@@ -173,7 +154,7 @@ Grafana dashboards.
      mongodb://<HOSTNAME>/sensorData?directConnection=true&authSource=admin&tls=true
      ```
 
-     Replace `<HOSTNAME>` with the hostname from step 2.
+     Replace `<HOSTNAME>` with the hostname from [Configure database access](#configure-database-access-for-third-party-tools).
 
    - **User**: `db-user-<YOUR-ORG-ID>`
 
@@ -261,9 +242,9 @@ sensorData.readings.aggregate([
 ])
 ```
 
-### 4. Connect other third-party tools
+## Connect other third-party tools
 
-The database credentials from step 2 work with any tool that supports MongoDB
+The database credentials from [Configure database access](#configure-database-access-for-third-party-tools) work with any tool that supports MongoDB
 Atlas Data Federation as a data store. The general pattern is the same:
 
 1. Install the tool's MongoDB connector or driver. For example:
@@ -296,7 +277,7 @@ write accurate queries in your visualization tool.
 
 {{< /alert >}}
 
-### 5. Build a programmatic dashboard
+## Custom visualizations with Viam SDKs
 
 When you need full control over visualization -- embedding charts in your own
 application, generating reports, or running in a Jupyter notebook -- use the
@@ -527,7 +508,7 @@ go run main.go
 
 ## Try It
 
-1. **Build a Teleop dashboard.** Create a workspace, add a time-series widget
+1. **Build a Viam Teleop dashboard.** Create a workspace, add a time-series widget
    for a sensor and a camera feed widget, and verify that data appears in real
    time.
 
@@ -542,9 +523,9 @@ go run main.go
 
 ## Troubleshooting
 
-{{< expand "Teleop dashboard shows no data" >}}
+{{< expand "Viam Teleop dashboard shows no data" >}}
 
-- **Check that the machine is online.** The Teleop dashboard shows live data
+- **Check that the machine is online.** The Viam Teleop dashboard shows live data
   from the machine. If the machine is offline, widgets will be empty.
 - **Verify the component is configured.** Make sure the component you selected
   in the widget configuration exists on the machine and is producing data.
@@ -614,8 +595,6 @@ go run main.go
   editor first to see the actual structure of your data.
 
 {{< /expand >}}
-
-{{<youtube embed_url="https://www.youtube-nocookie.com/embed/CGq3XIRQjUQ">}}
 
 ## What's Next
 
