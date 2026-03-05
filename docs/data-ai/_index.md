@@ -28,10 +28,10 @@ You can also monitor your machines through teleop, power your application logic,
 {{< how-to-expand "Capture data" "4" "BEGINNER-FRIENDLY" "" "data-platform-capture" >}}
 {{< cards >}}
 {{% card link="/data/" noimage="true" %}}
-{{% card link="/data-ai/capture-data/upload-other-data/" noimage="true" %}}
+{{% card link="/data/upload-other-data/" noimage="true" %}}
 {{% card link="/data/filter-before-sync/" noimage="true" %}}
 {{% card link="/data/conditional-sync/" noimage="true" %}}
-{{% card link="/data-ai/capture-data/lorawan/" noimage="true" %}}
+{{% card link="/data/lorawan/" noimage="true" %}}
 {{< /cards >}}
 {{< /how-to-expand >}}
 

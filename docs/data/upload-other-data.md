@@ -8,6 +8,7 @@ type: "docs"
 languages: ["python"]
 viamresources: ["data_manager"]
 aliases:
+  - /data-ai/capture-data/upload-other-data/
   - /data/upload/
   - /services/data/upload/
   - /how-tos/upload-data/

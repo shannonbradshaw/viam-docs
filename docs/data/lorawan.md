@@ -7,6 +7,8 @@ description: "Configure a gateway and nodes to communicate over the LoRaWAN prot
 tags: ["sensor", "components", "lorawan", "gateway", "node"]
 icon: true
 images: ["/icons/components/sensor.svg"]
+aliases:
+  - /data-ai/capture-data/lorawan/
 ---
 
 [LoRaWAN (Long Range Wide Area Network)](https://lora-alliance.org/) enables sensor communication spanning kilometers with minimal power usage.
