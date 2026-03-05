@@ -8,6 +8,7 @@ description: "Build dashboards with Teleop, Grafana, or programmatic charts to v
 date: "2025-01-30"
 aliases:
   - /build/data/visualize-data/
+  - /data-ai/data/visualize/
   - /data/visualize/
   - /use-cases/sensor-data-visualize/
   - /how-tos/sensor-data-visualize/
