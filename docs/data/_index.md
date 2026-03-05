@@ -44,7 +44,7 @@ The data management service captures data from configured resources and syncs it
 - Data syncs to the Viam cloud at a configured interval using encrypted gRPC calls, then is deleted from the device.
 - Capture and sync run independently — one can operate without the other.
 
-For details on sync internals (retry behavior, platform-specific paths, deletion criteria), see [How sync works](/data-ai/capture-data/advanced/how-sync-works/).
+For details on sync internals (retry behavior, platform-specific paths, deletion criteria), see [How sync works](/data/how-sync-works/).
 
 <img src="/data-manager.svg" alt="Diagram showing data being captured, synced, and removed." class="aligncenter overview imgzoom" style="width:800px;height:auto" >
 
@@ -62,7 +62,7 @@ Some models do not support all methods. For example, webcams do not capture poin
 
 The micro-RDK (for ESP32 and similar microcontrollers) supports data capture with a limited set of resources. See the **Micro-RDK** tab in the supported resources table above for details.
 
-Note that on micro-RDK devices, captured data is stored in flash memory and may be lost if the device restarts before syncing. See [How sync works](/data-ai/capture-data/advanced/how-sync-works/) for more information.
+Note that on micro-RDK devices, captured data is stored in flash memory and may be lost if the device restarts before syncing. See [How sync works](/data/how-sync-works/) for more information.
 
 ## Advanced configuration
 
