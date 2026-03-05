@@ -37,7 +37,7 @@ You can also monitor your machines through teleop, power your application logic,
 
 {{< how-to-expand "Work with data" "4" "BEGINNER-FRIENDLY" "" "data-platform-work" >}}
 {{< cards >}}
-{{% card link="/data-ai/data/query/" noimage="true" %}}
+{{% card link="/data/query-reference/" noimage="true" %}}
 {{% card link="/data/visualize-data/" noimage="true" %}}
 {{% card link="/data-ai/data/alert-data/" noimage="true" %}}
 {{% card link="/data-ai/data/export/" noimage="true" %}}

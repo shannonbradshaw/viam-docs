@@ -354,98 +354,16 @@ for _, entry := range tabularData {
 The query runs against the pipeline's output documents, not the raw readings.
 The fields available depend on what your pipeline's `$project` stage produces.
 
-## Enable the hot data store for fast recent queries
+## Use the hot data store as a pipeline data source
 
-The hot data store keeps a rolling window of recent raw data for fast access.
-Configure it per capture method on each component.
+Pipelines can query the [hot data store](/data/hot-data-store/) instead of blob
+storage. The hot data store keeps a rolling window of recent raw data optimized
+for fast reads — useful when your pipeline only needs to process recent
+readings.
 
-#### Configure in the Viam app
-
-1. Go to [app.viam.com](https://app.viam.com) and navigate to your machine's
-   **CONFIGURE** tab.
-2. Find the component you want to enable hot storage for (e.g., your sensor).
-3. Click **Advanced** to expand the advanced configuration.
-4. Enable **Sync to Hot Data Store**.
-5. Set the **Time frame** to the number of hours of data to retain (e.g., 24
-   for the last 24 hours).
-6. Click **Save**.
-
-#### Configure in JSON
-
-Add `recent_data_store` to the capture method configuration:
-
-```json
-{
-  "capture_methods": [{
-    "method": "Readings",
-    "capture_frequency_hz": 0.5,
-    "additional_params": {},
-    "recent_data_store": {
-      "stored_hours": 24
-    }
-  }]
-}
-```
-
-The `stored_hours` field controls how many hours of data the hot data store
-retains. Data older than this window is automatically removed.
-
-#### Query the hot data store
-
-Use the hot storage data source type when querying:
-
-{{< tabs >}}
-{{% tab name="Python" %}}
-
-```python
-from viam.gen.app.data.v1.data_pb2 import TabularDataSourceType
-
-results = await data_client.tabular_data_by_mql(
-    organization_id=ORG_ID,
-    query=[
-        {"$match": {"component_name": "temperature-sensor"}},
-        {"$sort": {"time_received": -1}},
-        {"$limit": 10},
-    ],
-    tabular_data_source_type=TabularDataSourceType.TABULAR_DATA_SOURCE_TYPE_HOT_STORAGE,
-)
-
-for entry in results:
-    print(entry)
-```
-
-{{% /tab %}}
-{{% tab name="Go" %}}
-
-```go
-hotQueryStages := []map[string]interface{}{
-	{"$match": map[string]interface{}{
-		"component_name": "temperature-sensor",
-	}},
-	{"$sort": map[string]interface{}{"time_received": -1}},
-	{"$limit": 10},
-}
-
-hotData, err := dataClient.TabularDataByMQL(ctx, orgID, hotQueryStages,
-	&app.TabularDataByMQLOptions{
-		TabularDataSourceType: 2,
-	},
-)
-if err != nil {
-	logger.Fatal(err)
-}
-
-for _, entry := range hotData {
-	fmt.Printf("%v\n", entry)
-}
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-The hot data store returns the same document schema as the standard data store.
-The only difference is the data is limited to the configured time window and
-queries execute faster because the dataset is smaller.
+To use it, set `--data-source-type hotstorage` in the CLI or set the data
+source type to `TABULAR_DATA_SOURCE_TYPE_HOT_STORAGE` in the SDK. See
+[Hot Data Store](/data/hot-data-store/) for setup and configuration.
 
 ## Manage pipelines
 
@@ -657,9 +575,10 @@ configuration.
    pipeline sink. You should see one document per component with a `count` field
    showing how many readings were captured in that hour.
 
-3. **Enable the hot data store.** Pick a sensor component and enable hot storage
-   with a 24-hour window. Query it using the hot storage data source type and
-   verify you get recent readings back quickly.
+3. **Enable the hot data store.** Follow the [Hot Data Store](/data/hot-data-store/)
+   guide to enable hot storage on a sensor component with a 24-hour window.
+   Query it using the hot storage data source type and verify you get recent
+   readings back quickly.
 
 4. **Disable and re-enable.** Disable your pipeline, wait an hour, then
    re-enable it. Verify that the missed window is not backfilled (no results for
@@ -706,14 +625,10 @@ reusing the group key.
 
 {{< expand "Hot data store query returns no data" >}}
 
-- **Check the time window.** The hot data store only retains data within its
-  configured `stored_hours`. If you query for data older than the window, it
-  will not be there.
-- **Verify hot storage is enabled.** Check the component's configuration to
-  confirm `recent_data_store` is set with a `stored_hours` value.
-- **Wait for data to arrive.** After enabling hot storage, data must be captured
-  and synced before it appears. Check the **DATA** tab to confirm new entries
-  are flowing.
+See [Hot Data Store](/data/hot-data-store/) for configuration and query details.
+Common causes: the time window has expired (data older than `stored_hours` is
+removed), hot storage is not enabled on the component, or data has not yet been
+captured and synced.
 
 {{< /expand >}}
 
@@ -738,6 +653,8 @@ active for.
 
 ## What's Next
 
+- [Hot Data Store](/data/hot-data-store/) -- configure fast recent-data queries
+  and use the hot data store as a pipeline data source.
 - [Query Data](/data/query-data/) -- learn more MQL patterns to use in
   your pipeline aggregation queries.
 - [Filter at the Edge](/data/filter-at-the-edge/) -- reduce the volume of
