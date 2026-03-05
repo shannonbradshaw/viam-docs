@@ -1,6 +1,6 @@
 ---
-linkTitle: "Query data"
-title: "Query data"
+linkTitle: "Query reference"
+title: "Query reference"
 weight: 22
 layout: "docs"
 type: "docs"
@@ -15,22 +15,12 @@ viamresources: ["sensor", "data_manager"]
 platformarea: ["data", "core"]
 date: "2024-12-03"
 updated: "2025-09-12"
-description: "Query sensor data in Viam with SQL or MQL."
+description: "Query reference: supported operators, SQL limitations, third-party tools, and performance best practices."
 ---
 
-You can query all sensor data in Viam using {{< glossary_tooltip term_id="sql" text="SQL" >}} and {{< glossary_tooltip term_id="mql" text="MQL" >}}.
-For example, you may sync temperature data from several sensors on one machine or across multiple machines.
-Once synced, you can run queries against that data to search for outliers or edge cases and analyze how the ambient temperature affects your machines' operation.
+For a step-by-step guide to querying captured data using SQL and MQL, see [Query Data](/data/query-data/).
 
-## Query using Viam
-
-### Prerequisites
-
-{{% expand "Captured sensor data" %}}
-
-See [capture sensor data](/data-ai/capture-data/capture-sync/) to capture and sync data to Viam.
-
-{{% /expand%}}
+## Prerequisites
 
 {{% expand "Owner role" %}}
 
@@ -38,260 +28,23 @@ Only users with [owner permissions](/manage/manage/rbac/) can query data.
 
 {{% /expand%}}
 
-### Query data using Viam
+## Query using the Viam app
 
-You can query data using the Web UI or with code:
+Navigate to the [**Query** page](https://app.viam.com/data/query) and select **SQL** or **MQL**.
 
-{{< tabs >}}
-{{% tab name="Web UI" %}}
-
-{{< table >}}
-{{% tablestep start=1 %}}
-**Query with SQL or MQL**
-
-Navigate to the [**Query** page](https://app.viam.com/data/query).
-Then, select either **SQL** or **MQL**.
-
-Optionally, you can change the data source to query data from a configured [hot data store](/data-ai/data/hot-data-store/).
+You can optionally change the data source to query data from a configured [hot data store](/data-ai/data/hot-data-store/).
 
 {{< alert title="Tip: Query Assistant" color="tip" >}}
 For help with writing queries, use the **Query Assistant** button in the top right corner.
 {{< /alert >}}
 
-{{% /tablestep %}}
-{{% tablestep %}}
-**Run your query**
-
-This example query returns the last 5 readings from any component named `sensor-1` in your organization:
-
-{{< tabs >}}
-{{% tab name="SQL" %}}
-
-```sql
-SELECT * FROM readings
-WHERE component_name = 'sensor-1' LIMIT 5
-```
-
-{{% /tab %}}
-{{% tab name="MQL" %}}
-
-Select the **Stages** or **Text** mode:
-
-{{< tabs >}}
-{{% tab name="Stages" %}}
-
-1. Select the `$match` stage for **Stage 1** from the dropdown.
-1. Add the expression to match against:
-
-   ```json
-   { "component_name": "sensor-1" }
-   ```
-
-1. Click **+ Add query stage** to add another aggregation stage.
-1. Select the `$limit` stage for **Stage 2** from the dropdown.
-1. Add the number of documents to limit to:
-
-   ```json
-   5
-   ```
-
-{{% /tab %}}
-{{% tab name="Text" %}}
-
-Add the query in the text field:
-
-```mql
-[
-    { "$match": { "component_name": "sensor-1" } },
-    { "$limit": 5 }
-]
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-{{% /tab %}}
-{{< /tabs >}}
-
-{{% expand "Click to see an example that filters by component name and column names." %}}
-
-{{< tabs >}}
-{{% tab name="SQL" %}}
-
-```sh {class="command-line" data-prompt="$" data-output="3-80"}
-SELECT time_received, data, tags FROM readings
-WHERE component_name = 'sensor-1' LIMIT 2
-[
-{
-  "time_received": "2024-07-30 00:04:02.144 +0000 UTC",
-  "data": {
-    "readings": {
-      "units": "μg/m³",
-      "pm_10": 7.6,
-      "pm_2.5": 5.7
-    }
-  },
-  "tags": [
-    "air-quality"
-  ]
-},
-{
-  "time_received": "2024-07-30 00:37:22.192 +0000 UTC",
-  "data": {
-    "readings": {
-      "pm_2.5": 9.3,
-      "units": "μg/m³",
-      "pm_10": 11.5
-    }
-  },
-  "tags": [
-    "air-quality"
-  ]
-}
-]
-```
-
-{{% /tab %}}
-{{% tab name="MQL" %}}
-
-```sh {class="command-line" data-prompt="$" data-output="16-80"}
-[
-  {
-    $match: {
-      component_name: "sensor-1"
-    }
-  }, {
-    $limit: 2
-  }, {
-    $project: {
-        time_received: 1,
-        data: 1,
-        tags: 1
-    }
-  }
-]
-[
-{
-  "time_received": "2024-07-30 00:04:02.144 +0000 UTC",
-  "data": {
-    "readings": {
-      "units": "μg/m³",
-      "pm_10": 7.6,
-      "pm_2.5": 5.7
-    }
-  },
-  "tags": [
-    "air-quality"
-  ]
-},
-{
-  "time_received": "2024-07-30 00:37:22.192 +0000 UTC",
-  "data": {
-    "readings": {
-      "pm_2.5": 9.3,
-      "units": "μg/m³",
-      "pm_10": 11.5
-    }
-  },
-  "tags": [
-    "air-quality"
-  ]
-}
-]
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-{{% /expand %}}
-{{% expand "Click to see an example that returns a count of records that match a component name." %}}
-
-{{< tabs >}}
-{{% tab name="SQL" %}}
-
-```sh {class="command-line" data-prompt="$" data-output="3-80"}
-SELECT count(*) FROM readings
-WHERE component_name = 'sensor-1'
-[
-  {
-    "_1": 111550
-  }
-]
-```
-
-{{% /tab %}}
-{{% tab name="MQL" %}}
-
-```sh {class="command-line" data-prompt="$" data-output="11"}
-[
-  {
-    $match: {
-      component_name: "sensor-1"
-    }
-  }, {
-    $count: "count"
-  }
-]
-{ count: 111550 }
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-{{% /expand %}}
-
-{{% /tablestep %}}
-{{% tablestep %}}
-**Review results**
-
-Click **Run query** when ready to perform your query and get matching results.
-You can view your query results as a [JSON array](https://json-schema.org/understanding-json-schema/reference/array) below your query.
-Click the table icon to switch to table view.
-
-{{% /tablestep %}}
-{{% tablestep %}}
-**Save query**
-
-Optionally, you can save queries in the web UI.
+You can save queries in the web UI.
 Click on **Saved** and then **Save current query**.
 Fill in a **Name** for your query and click **Save query**.
 
-{{% /tablestep %}}
-{{< /table >}}
+## Query using TypeScript
 
-{{% /tab %}}
-{{% tab name="Python" %}}
-
-{{< read-code-snippet file="/static/include/examples-generated/data-query.snippet.data-query.py" lang="py" class="line-numbers linkable-line-numbers" data-line="29-47" >}}
-
-{{< expand "Click to see an example that filters by component name and column names." >}}
-
-{{% read-code-snippet file="/static/include/examples-generated/data-query-examples.snippet.data-query-filter.py" lang="py" class="line-numbers linkable-line-numbers" %}}
-
-{{< /expand >}}
-{{< expand "Click to see an example that returns a count of records that match a component name." >}}
-
-{{< read-code-snippet file="/static/include/examples-generated/data-query-examples.snippet.data-query-count.py" lang="py" class="line-numbers linkable-line-numbers" >}}
-
-{{< /expand >}}
-
-{{% /tab %}}
-{{% tab name="Go" %}}
-
-{{< read-code-snippet file="/static/include/examples-generated/data-query.snippet.data-query.go" lang="go" class="line-numbers linkable-line-numbers" data-line="28-45" >}}
-
-{{< expand "Click to see an example that filters by component name and column names." >}}
-
-{{< read-code-snippet file="/static/include/examples-generated/data-query-examples.snippet.data-query-filter.go" lang="go" class="line-numbers linkable-line-numbers" >}}
-
-{{< /expand >}}
-{{< expand "Click to see an example that returns a count of records that match a component name." >}}
-
-{{< read-code-snippet file="/static/include/examples-generated/data-query-examples.snippet.data-query-count.go" lang="go" class="line-numbers linkable-line-numbers" >}}
-
-{{< /expand >}}
-
-{{% /tab %}}
+{{< tabs >}}
 {{% tab name="TypeScript" %}}
 
 {{< read-code-snippet file="/static/include/examples-generated/data-query.snippet.data-query.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18-31" >}}
@@ -310,15 +63,13 @@ Fill in a **Name** for your query and click **Save query**.
 {{% /tab %}}
 {{< /tabs >}}
 
+For Python and Go examples, see [Query Data](/data/query-data/#query-data-programmatically).
+
 ## Query using third-party tools
 
+You can query captured data using any third-party tool that supports MongoDB, such as the [`mongosh` shell](https://www.mongodb.com/docs/mongodb-shell/) or [MongoDB Compass](https://www.mongodb.com/docs/compass/current/).
+
 ### Prerequisites
-
-{{% expand "Captured sensor data" %}}
-
-See [capture sensor data](/data-ai/capture-data/capture-sync/) to capture and sync data to Viam.
-
-{{% /expand%}}
 
 {{% expand "Viam CLI" %}}
 
@@ -342,13 +93,7 @@ If you want to query data from third-party tools, you have to configure data que
 
 {{< readfile "/static/include/how-to/query-data.md" >}}
 
-### Query data using third-party tools
-
-To query captured data, you can use any third-party tools that support querying from MongoDB, such as the [`mongosh` shell](https://www.mongodb.com/docs/mongodb-shell/) or [MongoDB Compass](https://www.mongodb.com/docs/compass/current/).
-
-{{< table >}}
-{{% tablestep start=1 %}}
-**Connect to your Viam organization's data**
+### Connect and query
 
 Run the following command to connect to your Viam organization's MongoDB instance from `mongosh` using the connection URI you obtained during query configuration:
 
@@ -357,10 +102,6 @@ mongosh "mongodb://db-user-abcd1e2f-a1b2-3c45-de6f-ab123456c123:YOUR-PASSWORD-HE
 ```
 
 For information on connecting to your Atlas Data Federation instance from other MQL clients, see the [Connect to your Cluster Tutorial](https://www.mongodb.com/docs/atlas/tutorial/connect-to-your-cluster/).
-
-{{% /tablestep %}}
-{{% tablestep %}}
-**Query data from a compatible client**
 
 Once connected, you can run SQL or MQL statements to query captured data directly.
 
@@ -437,9 +178,6 @@ db.readings.aggregate(
 ```
 
 {{< /expand>}}
-
-{{% /tablestep %}}
-{{< /table >}}
 
 ## Query optimization and performance best practices
 

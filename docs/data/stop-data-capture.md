@@ -102,3 +102,5 @@ persist, check that the machine has network connectivity and that the
   volume by filtering at the edge before syncing to the cloud.
 - [Configure Data Pipelines](/data/configure-data-pipelines/) -- create
   scheduled pipelines to aggregate and summarize captured data.
+- [Supported Resources](/data/#supported-resources) -- which components
+  and services support data capture.

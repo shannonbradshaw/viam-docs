@@ -377,3 +377,7 @@ go run main.go
   models on your camera feed and capture detection results.
 - [Create a Dataset](/train/create-a-dataset/) -- organize captured images
   into training datasets for machine learning.
+- [Supported Resources](/data/#supported-resources) -- which components
+  and services support data capture.
+- [Advanced Configuration](/data-ai/capture-data/advanced/advanced-data-capture-sync/) --
+  JSON-level config, retention policies, and sync optimization.

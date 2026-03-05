@@ -27,7 +27,7 @@ You can also monitor your machines through teleop, power your application logic,
 
 {{< how-to-expand "Capture data" "4" "BEGINNER-FRIENDLY" "" "data-platform-capture" >}}
 {{< cards >}}
-{{% card link="/data-ai/capture-data/capture-sync/" noimage="true" %}}
+{{% card link="/data/" noimage="true" %}}
 {{% card link="/data-ai/capture-data/upload-other-data/" noimage="true" %}}
 {{% card link="/data-ai/capture-data/filter-before-sync/" noimage="true" %}}
 {{% card link="/data-ai/capture-data/conditional-sync/" noimage="true" %}}

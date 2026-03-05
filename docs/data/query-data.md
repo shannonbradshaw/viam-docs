@@ -12,28 +12,36 @@ aliases:
 
 ## What Problem This Solves
 
-You have data flowing into the cloud and need to ask questions of it -- "what
-were the last 10 readings from my sensor?", "how many detections happened per
-hour today?", "what was the average temperature this week?" This how-to shows
-you how to query captured data using SQL and MQL, both in the Viam app and
-programmatically.
+Query captured tabular data — sensor readings, motor positions, encoder ticks,
+and other structured key-value data — using SQL or MQL in the Viam app's query
+editor or programmatically through the SDK.
+
+Binary data such as images and point clouds is stored separately and is not
+queryable via SQL/MQL. To access binary data programmatically, use the
+[data client API](/reference/apis/services/data/).
 
 ## Concepts
 
 ### The readings table schema
 
-All tabular data captured by Viam is stored in a single table called `readings`.
-Each row represents one capture event from one component. The columns are:
+All tabular data captured by Viam is stored in a single table called `readings`
+in the `sensorData` database. Each row represents one capture event from one
+component. The columns are:
 
 | Column | Type | Description |
 |--------|------|-------------|
-| `time_received` | Timestamp | When the cloud received the data |
+| `organization_id` | String | Organization UUID |
+| `location_id` | String | Location UUID |
+| `robot_id` | String | Machine UUID |
+| `part_id` | String | Machine part UUID |
+| `component_type` | String | Resource type (e.g., `rdk:component:sensor`) |
+| `component_name` | String | Resource name (e.g., `my-sensor`) |
+| `method_name` | String | Capture method (e.g., `Readings`, `EndPosition`, `GetImages`) |
 | `time_requested` | Timestamp | When the capture was requested on the machine |
-| `component_name` | String | Name of the component (e.g., `my-sensor`, `left-camera`) |
-| `component_type` | String | Type of the component (e.g., `rdk:component:sensor`) |
-| `robot_id` | String | Unique identifier for the machine |
-| `data` | JSON | The captured reading -- a nested JSON object |
-| `tags` | Array | Any tags applied to this data entry |
+| `time_received` | Timestamp | When the cloud received the data |
+| `tags` | Array | User-applied tags |
+| `additional_parameters` | JSON | Method-specific parameters (e.g., `pin_name`, `reader_name`) |
+| `data` | JSON | The captured reading -- nested structure varies by component type |
 
 The `data` column is where the actual reading lives. Its structure depends on
 what was captured. A sensor reading might look like:
@@ -79,16 +87,14 @@ Viam's query editor supports two languages:
 Both are available in the Viam app query editor and through the programmatic
 API.
 
-## Steps
-
-### 1. Open the query editor
+## Open the query editor
 
 1. Go to [app.viam.com](https://app.viam.com).
 2. Click the **DATA** tab in the top navigation.
 3. Click **Query** to open the query editor.
 4. Select **SQL** or **MQL** mode depending on which language you want to use.
 
-### 2. Explore your data with basic SQL
+## Explore your data with basic SQL
 
 Start with a broad query to see what data you have:
 
@@ -122,7 +128,7 @@ WHERE time_received > '2025-01-15T00:00:00Z'
 ORDER BY time_received ASC
 ```
 
-### 3. Extract fields from nested JSON
+## Extract fields from nested JSON
 
 The `data` column contains JSON, so you need JSON functions to extract specific
 values. Use dot notation to reach into the nested structure:
@@ -161,7 +167,7 @@ ORDER BY time_received DESC
 LIMIT 10
 ```
 
-### 4. Write MQL aggregation pipelines
+## Write MQL aggregation pipelines
 
 Switch to **MQL** mode in the query editor. MQL queries are JSON arrays where
 each element is a pipeline stage.
@@ -267,7 +273,7 @@ The `$unwind` stage is important when your data contains arrays. It flattens
 the array so each element becomes its own document, which you can then filter
 and project individually.
 
-### 5. Query data programmatically
+## Query data programmatically
 
 You can run the same SQL and MQL queries from your own code using the Viam
 data client API. This is useful for building dashboards, generating reports,

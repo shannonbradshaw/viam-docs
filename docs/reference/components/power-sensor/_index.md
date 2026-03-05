@@ -73,7 +73,7 @@ For general configuration and development info, see:
 
 {{< cards >}}
 {{% card link="/operate/modules/configure-modules/" noimage="true" %}}
-{{% card link="/data-ai/capture-data/capture-sync/" noimage="true" %}}
+{{% card link="/data/" noimage="true" %}}
 {{< /cards >}}
 
 To capture data from the power sensor and sync it in the cloud, see the [data management service](/data-ai/capture-data/capture-sync/).

@@ -102,7 +102,7 @@ If you are running into this issue, consider the following solutions:
 For general configuration, development, and usage info, see:
 
 {{< cards >}}
-{{% card link="/data-ai/capture-data/capture-sync/" noimage="true" %}}
+{{% card link="/data/" noimage="true" %}}
 {{< /cards >}}
 
 You can also use the camera component with the following services:
