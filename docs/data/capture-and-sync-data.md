@@ -379,5 +379,5 @@ go run main.go
   into training datasets for machine learning.
 - [Supported Resources](/data/#supported-resources) -- which components
   and services support data capture.
-- [Advanced Configuration](/data-ai/capture-data/advanced/advanced-data-capture-sync/) --
+- [Advanced Configuration](/data/advanced-data-capture-sync/) --
   JSON-level config, retention policies, and sync optimization.

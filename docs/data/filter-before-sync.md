@@ -6,6 +6,7 @@ layout: "docs"
 type: "docs"
 description: "Use filtering to collect and sync only certain images."
 aliases:
+  - /data-ai/capture-data/filter-before-sync/
   - /how-tos/image-data/
   - /tutorials/projects/filtered-camera/
 updated: "2025-12-04"
@@ -20,7 +21,7 @@ The following steps use the [`filtered_camera`](https://app.viam.com/module/viam
 Before starting, make sure you have:
 
 - A configured camera component on your machine. See [Configure a camera](/reference/components/camera/) if you need to set one up.
-- The data management service configured. See [Capture and sync edge data](/data-ai/capture-data/capture-sync/) for instructions.
+- The data management service configured. See [Capture and sync edge data](/data/) for instructions.
   {{% /alert %}}
 
 If you want to create your own filtering module, see [Create a Data Filtering Module](/tutorials/configure/pet-photographer/).
@@ -81,7 +82,7 @@ If you were to set `window_seconds` to `3`, the camera would also capture and sy
 {{% tablestep %}}
 **Configure data capture and sync on the filtered camera**
 
-Configure data capture and sync on the filtered camera following the same process as described in [Capture and sync edge data](/data-ai/capture-data/capture-sync/#configure-data-capture-and-sync-for-individual-resources).
+Configure data capture and sync on the filtered camera following the same process as described in [Capture and sync edge data](/data/#configure-data-capture-and-sync-for-individual-resources).
 The filtered camera will only capture image data that passes the filters you configured in the previous step.
 
 Turn off data capture on your original camera component if you haven't already, so that you don't capture duplicate or unfiltered images.
@@ -110,7 +111,7 @@ You can test the vision service from the [**CONTROL** tab](/manage/troubleshoot/
 **(Optional) Trigger sync with custom logic**
 
 By default, the captured data syncs at the regular interval you specified in the data capture config.
-If you need to trigger sync in a different way, see [Conditional cloud sync](/data-ai/capture-data/conditional-sync/) for a documented example of syncing data only at certain times of day.
+If you need to trigger sync in a different way, see [Conditional cloud sync](/data/conditional-sync/) for a documented example of syncing data only at certain times of day.
 
 {{% /tablestep %}}
 {{< /table >}}

@@ -8,6 +8,7 @@ tags: ["data management", "cloud", "sync"]
 images: ["/services/icons/data-cloud-sync.svg"]
 icon: true
 aliases:
+  - /data-ai/capture-data/conditional-sync/
   - /data/trigger-sync/
   - /how-tos/trigger-sync/
   - /services/data/trigger-sync/
@@ -44,7 +45,7 @@ You can also view the [trigger-sync-examples module](https://github.com/viam-lab
 
 {{< expand "Enable data capture and sync on your machine." >}}
 
-Add the [data management service](/data-ai/capture-data/capture-sync/#configure-data-capture-and-sync-for-individual-resources):
+Add the [data management service](/data/#configure-data-capture-and-sync-for-individual-resources):
 
 On your machine's **CONFIGURE** tab, click the **+** icon next to your machine part in the left-hand menu and select **Component or service**.
 
@@ -304,7 +305,7 @@ You have now configured sync to happen during a specific time slot.
 
 ## Test your sync configuration
 
-To test your setup, [configure a webcam](/reference/components/camera/webcam/) or another component and [enable data capture on the component](/data-ai/capture-data/capture-sync/#configure-data-capture-and-sync-for-individual-resources).
+To test your setup, [configure a webcam](/reference/components/camera/webcam/) or another component and [enable data capture on the component](/data/#configure-data-capture-and-sync-for-individual-resources).
 Make sure to physically connect any hardware parts to the computer controlling your machine.
 For a camera component, use the `GetImages` method.
 The data manager will now capture data.

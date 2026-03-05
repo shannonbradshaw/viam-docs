@@ -1,6 +1,6 @@
 ---
 linkTitle: "Filter at the Edge"
-title: "Filter Data Before Sync"
+title: "Filter at the Edge"
 weight: 20
 layout: "docs"
 type: "docs"

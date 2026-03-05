@@ -66,11 +66,11 @@ Note that on micro-RDK devices, captured data is stored in flash memory and may 
 
 ## Advanced configuration
 
-For JSON-level configuration options including retention policies, sync optimization, direct MongoDB capture, and remote parts capture, see [Advanced data capture and sync configurations](/data-ai/capture-data/advanced/advanced-data-capture-sync/).
+For JSON-level configuration options including retention policies, sync optimization, direct MongoDB capture, and remote parts capture, see [Advanced data capture and sync configurations](/data/advanced-data-capture-sync/).
 
 ## Related pages
 
 - [Upload data from other sources](/data-ai/capture-data/upload-other-data/) — sync from arbitrary directories or upload via SDK
-- [Conditional sync](/data-ai/capture-data/conditional-sync/) — sync only during specific time windows
-- [Filter before sync](/data-ai/capture-data/filter-before-sync/) — use ML to filter captured images before syncing
+- [Conditional sync](/data/conditional-sync/) — sync only during specific time windows
+- [Filter before sync](/data/filter-before-sync/) — use ML to filter captured images before syncing
 - [Filter at the Edge](/data/filter-at-the-edge/) — reduce data volume with frequency, threshold, and custom filters

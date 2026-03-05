@@ -29,8 +29,8 @@ You can also monitor your machines through teleop, power your application logic,
 {{< cards >}}
 {{% card link="/data/" noimage="true" %}}
 {{% card link="/data-ai/capture-data/upload-other-data/" noimage="true" %}}
-{{% card link="/data-ai/capture-data/filter-before-sync/" noimage="true" %}}
-{{% card link="/data-ai/capture-data/conditional-sync/" noimage="true" %}}
+{{% card link="/data/filter-before-sync/" noimage="true" %}}
+{{% card link="/data/conditional-sync/" noimage="true" %}}
 {{% card link="/data-ai/capture-data/lorawan/" noimage="true" %}}
 {{< /cards >}}
 {{< /how-to-expand >}}

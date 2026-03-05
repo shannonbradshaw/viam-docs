@@ -78,7 +78,7 @@ When the connection is restored and sync resumes, the service continues sync whe
 If the interruption happens mid-file, sync resumes from the beginning of that file.
 
 To avoid syncing files that are still being written to, the data management service only syncs arbitrary files that haven't been modified in the previous 10 seconds.
-This default can be changed with the [`file_last_modified_millis` config attribute](/data-ai/capture-data/advanced/advanced-data-capture-sync/#click-to-view-data-management-attributes).
+This default can be changed with the [`file_last_modified_millis` config attribute](/data/advanced-data-capture-sync/#click-to-view-data-management-attributes).
 
 ## Automatic data deletion
 
@@ -120,4 +120,4 @@ To ensure that the machine can store all data captured while it has no connectio
 For information about automatic data deletion when storage fills up, see [Automatic data deletion](#automatic-data-deletion) above.
 
 Data capture supports capturing tabular data directly to MongoDB in addition to capturing to disk.
-For more information, see [Capture directly to MongoDB](/data-ai/capture-data/advanced/advanced-data-capture-sync/#capture-directly-to-your-own-mongodb-cluster).
+For more information, see [Capture directly to MongoDB](/data/advanced-data-capture-sync/#capture-directly-to-your-own-mongodb-cluster).
