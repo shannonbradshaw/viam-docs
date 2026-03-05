@@ -1064,5 +1064,5 @@ For an example of setting up text alerts, see the [Detect a Person and Send a Ph
 {{< cards >}}
 {{% card link="/tutorials/projects/helmet/" %}}
 {{% card link="/tutorials/projects/send-security-photo/" %}}
-{{% card link="/data-ai/data/visualize/" %}}
+{{% card link="/data/visualize-data/" %}}
 {{< /cards >}}

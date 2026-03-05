@@ -8,6 +8,11 @@ description: "Build dashboards with Teleop, Grafana, or programmatic charts to v
 date: "2025-01-30"
 aliases:
   - /build/data/visualize-data/
+  - /data/visualize/
+  - /use-cases/sensor-data-visualize/
+  - /how-tos/sensor-data-visualize/
+  - /how-tos/configure-teleop-workspace/
+  - /tutorials/services/visualize-data-grafana/
 ---
 
 ## What Problem This Solves
@@ -77,16 +82,27 @@ The Teleop dashboard is the fastest way to visualize data from a single machine.
    - **Camera feed** -- shows a live camera stream.
    - **Value display** -- shows the current reading from a sensor.
    - **Button** -- triggers an action on the machine.
+
+   See [widget types](/manage/troubleshoot/teleoperate/custom-interface/#widget-types) for the full list of available widgets.
+
 2. To configure a widget, click the **pencil icon** in the top right corner of
    the widget. This opens the widget settings where you select which component
    and data source the widget displays.
+
+   {{<imgproc src="/services/data/visualize-widget-configure.png" alt="Click the pencil icon to configure your widget." style="width:500px" resize="1200x" class="imgzoom fill shadow" >}}
+
 3. Repeat for each widget you want on the dashboard. You can mix camera feeds,
    time-series charts, and value displays on the same workspace.
+
+   {{<imgproc src="/services/data/visualize-workspace.png" resize="1200x" style="width: 700px" class="fill imgzoom shadow" declaredimensions=true alt="Workspace containing multiple widgets displaying sensor data visualizations.">}}
 
 #### Arrange the layout
 
 - Click and drag the **grid icon** in the top left corner of any widget to move
   it to a new position on the workspace.
+
+  {{<imgproc src="/services/data/visualize-widget-move.png" alt="Click the grid icon to move a widget." style="width:500px" resize="1200x" class="imgzoom fill shadow" >}}
+
 - Resize widgets by dragging their edges.
 - The layout saves automatically.
 
@@ -101,36 +117,11 @@ using the Viam CLI.
 
 1. Install the Viam CLI if you have not already:
 
-   ```bash
-   brew tap viamrobotics/brews
-   brew install viam
-   ```
+   {{< readfile "/static/include/how-to/install-cli.md" >}}
 
-   On Linux, download the binary from [the CLI documentation](https://docs.viam.com/dev/tools/cli/).
+2. Configure database credentials:
 
-2. Log in:
-
-   ```bash
-   viam login
-   ```
-
-3. Find your organization ID:
-
-   ```bash
-   viam organizations list
-   ```
-
-4. Configure database credentials:
-
-   ```bash
-   viam data database configure --org-id=<YOUR-ORG-ID> --password=<NEW-PASSWORD>
-   ```
-
-5. Get the database hostname:
-
-   ```bash
-   viam data database hostname --org-id=<YOUR-ORG-ID>
-   ```
+   {{< readfile "/static/include/how-to/query-data.md" >}}
 
 You now have three pieces of information needed by any external tool:
 
@@ -157,6 +148,9 @@ If you do not already have a Grafana instance:
 1. Open your Grafana web UI.
 2. Navigate to **Connections > Add new connection**.
 3. Search for **MongoDB**.
+
+   {{<imgproc src="/tutorials/visualize-data-grafana/search-grafana-plugins.png" resize="800x" style="width: 500px" declaredimensions=true alt="The Grafana plugin search interface showing the results for a search for mongodb" class="shadow imgzoom" >}}
+
 4. Install the **Grafana MongoDB data source** plugin.
 
 {{< alert title="Important" color="caution" >}}
@@ -186,6 +180,10 @@ Grafana dashboards.
    - **Password**: The password you set with the
      `viam data database configure` command.
 
+   {{<imgproc src="/tutorials/visualize-data-grafana/configure-grafana-mongodb-datasource.png" resize="800x" style="width: 500px" declaredimensions=true alt="The Grafana data source plugin configuration page, showing the connection string and username filled in" class="shadow imgzoom" >}}
+
+   For more information on the Grafana MongoDB plugin, see [Configure the MongoDB data source](https://grafana.com/docs/plugins/grafana-mongodb-datasource/latest/configure/).
+
 3. Click **Save & test**. Grafana should confirm the connection is working.
 
 #### Build a Grafana dashboard
@@ -210,6 +208,9 @@ Grafana dashboards.
    ```
 
    Replace `sensor-1` with the name of your component.
+
+   The `${__from}` and `${__to}` variables are [Grafana global variables](https://grafana.com/docs/grafana/latest/dashboards/variables/add-template-variables/#global-variables) populated by the time range selector at the top of your dashboard.
+   When you change the time range, the query updates automatically.
 
 5. Click **Run query** to see results.
 6. Choose a visualization type (Time series, Gauge, Stat, Table, etc.) from the
@@ -289,7 +290,7 @@ Atlas Data Federation as a data store. The general pattern is the same:
 {{< alert title="Tip" color="tip" >}}
 
 Before building dashboards, use [MongoDB Compass](https://www.mongodb.com/products/tools/compass)
-to browse your data and explore its structure. Compass's Schema Analyzer shows
+to browse your data and explore its structure. Compass's [Schema Analyzer](https://www.mongodb.com/docs/compass/current/schema/) shows
 you the fields, types, and value distributions in your data, which helps you
 write accurate queries in your visualization tool.
 
@@ -613,6 +614,8 @@ go run main.go
   editor first to see the actual structure of your data.
 
 {{< /expand >}}
+
+{{<youtube embed_url="https://www.youtube-nocookie.com/embed/CGq3XIRQjUQ">}}
 
 ## What's Next
 
