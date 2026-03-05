@@ -43,6 +43,10 @@ component. The columns are:
 | `additional_parameters` | JSON | Method-specific parameters (e.g., `pin_name`, `reader_name`) |
 | `data` | JSON | The captured reading -- nested structure varies by component type |
 
+{{< alert title="Note" color="note" >}}
+The `readings` table does not include `robot_name` or `part_name` columns. These fields appear in data export responses but are not part of the queryable schema. To filter by machine, use `robot_id` or `part_id` instead.
+{{< /alert >}}
+
 ### The data column
 
 The `data` column contains the actual reading. Its structure depends on
@@ -88,6 +92,12 @@ Viam's query editor supports two languages:
 
 Both are available in the Viam app query editor and through the programmatic
 API.
+
+By default, queries run against the raw `readings` collection. If you use
+[data pipelines](/data/configure-data-pipelines/) to create precomputed
+summaries or enable the hot data store for fast recent queries, you can query
+those data sources programmatically by specifying a different data source type
+in the SDK.
 
 ## Open the query editor
 

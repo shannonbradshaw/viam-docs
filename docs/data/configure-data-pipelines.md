@@ -8,19 +8,14 @@ description: "Create scheduled MQL pipelines that automatically aggregate and su
 date: "2025-01-30"
 aliases:
   - /build/data/configure-data-pipelines/
+  - /data-ai/data/data-pipelines/
 ---
 
 ## What Problem This Solves
 
-Raw captured data grows fast. A single sensor capturing once per second produces
-over 86,000 readings per day. When you need answers like "what was the average
-temperature per location over the last hour?", scanning every raw reading is
-slow and expensive.
+A single sensor capturing once per second produces over 86,000 readings per day. Querying raw readings directly works at small scale, but aggregations like hourly averages or per-location counts become slow as data grows.
 
-Data pipelines solve this by running scheduled MQL aggregation queries against
-your raw data and storing the results as precomputed summaries. Instead of
-scanning 86,000 rows to compute an hourly average, you query a single summary
-document.
+Data pipelines run scheduled MQL aggregation queries against your raw data and store the results as precomputed summaries. Query the summary documents instead of scanning the full dataset.
 
 ## Concepts
 
@@ -73,9 +68,7 @@ Use the hot data store when you need:
 The hot data store is configured per capture method on each component. You
 choose which components send data to it and how many hours of data to retain.
 
-## Steps
-
-### 1. Create a pipeline with the CLI
+## Create a pipeline with the CLI
 
 The fastest way to create a pipeline is with the Viam CLI. This example creates
 a pipeline that computes hourly temperature averages grouped by location.
@@ -97,7 +90,7 @@ The key arguments:
 
 - `--name` -- a descriptive name for the pipeline.
 - `--schedule` -- a cron expression that controls how often the pipeline runs.
-  See the [schedule format table](#3-understand-the-schedule-format) below.
+  See the [schedule format table](#schedule-format) below.
 - `--data-source-type` -- `standard` to query the raw readings collection, or
   `hotstorage` to query the hot data store.
 - `--mql` -- the MQL aggregation pipeline as a JSON string.
@@ -138,7 +131,7 @@ Where `my-pipeline.json` contains the MQL array:
 The CLI prints the pipeline ID on success. Save this ID -- you need it to query
 pipeline results and manage the pipeline.
 
-### 2. Create a pipeline programmatically
+## Create a pipeline programmatically
 
 You can also create pipelines from your own code using the Python SDK or Go SDK.
 
@@ -264,12 +257,19 @@ func main() {
 ```
 
 {{% /tab %}}
+{{% tab name="TypeScript" %}}
+
+{{< read-code-snippet file="/static/include/examples-generated/pipeline-create.snippet.pipeline-create.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18-29" >}}
+
+To create a pipeline that reads data from the hot data store, set the `dataSource` field to `TabularDataSourceType.TABULAR_DATA_SOURCE_TYPE_HOT_STORAGE`.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 Replace the placeholder values with your API key, API key ID, and organization
 ID. Run the script to create the pipeline.
 
-### 3. Understand the schedule format
+## Schedule format
 
 The `schedule` field uses standard cron syntax with five fields:
 `minute hour day-of-month month day-of-week`. The schedule determines both when
@@ -290,7 +290,7 @@ Shorter intervals produce more granular summaries but create more pipeline sink
 documents. Longer intervals produce fewer documents but with longer delays
 before summaries are available.
 
-### 4. Query pipeline results
+## Query pipeline results
 
 Pipeline results are stored in a separate data source called the pipeline sink.
 To query them, specify the pipeline sink data source type and the pipeline ID.
@@ -344,12 +344,17 @@ for _, entry := range tabularData {
 ```
 
 {{% /tab %}}
+{{% tab name="TypeScript" %}}
+
+{{< read-code-snippet file="/static/include/examples-generated/pipeline-query.snippet.pipeline-query.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="19-30" >}}
+
+{{% /tab %}}
 {{< /tabs >}}
 
 The query runs against the pipeline's output documents, not the raw readings.
 The fields available depend on what your pipeline's `$project` stage produces.
 
-### 5. Enable the hot data store for fast recent queries
+## Enable the hot data store for fast recent queries
 
 The hot data store keeps a rolling window of recent raw data for fast access.
 Configure it per capture method on each component.
@@ -442,7 +447,7 @@ The hot data store returns the same document schema as the standard data store.
 The only difference is the data is limited to the configured time window and
 queries execute faster because the dataset is smaller.
 
-### 6. Manage pipelines
+## Manage pipelines
 
 Use the CLI, Python, or Go to list, enable, disable, and delete pipelines.
 
@@ -476,6 +481,11 @@ for _, p := range pipelines {
 	fmt.Printf("%s: %s (enabled=%v)\n", p.ID, p.Name, p.Enabled)
 }
 ```
+
+{{% /tab %}}
+{{% tab name="TypeScript" %}}
+
+{{< read-code-snippet file="/static/include/examples-generated/pipeline-list.snippet.pipeline-list.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18" >}}
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -561,12 +571,17 @@ err = dataClient.DeleteDataPipeline(ctx, pipelineID)
 ```
 
 {{% /tab %}}
+{{% tab name="TypeScript" %}}
+
+{{< read-code-snippet file="/static/include/examples-generated/pipeline-delete.snippet.pipeline-delete.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18" >}}
+
+{{% /tab %}}
 {{< /tabs >}}
 
-Deleting a pipeline removes the pipeline configuration. Results already written
-to the pipeline sink are not deleted.
+Deleting a pipeline removes the pipeline configuration, its execution history,
+and all output results stored in the pipeline sink.
 
-### 7. Monitor pipeline execution
+## Monitor pipeline execution
 
 Each pipeline run produces an execution record with a status. Use this to verify
 your pipelines are running correctly and to diagnose failures.
@@ -580,10 +595,38 @@ The possible statuses are:
 | `COMPLETED` | The run finished successfully and results are in the sink.|
 | `FAILED`    | The run encountered an error. Check the error message.    |
 
-To view execution history, check the pipeline details in the Viam app or use
-the API to list recent runs. Failed runs include an error message that describes
-what went wrong -- typically an invalid MQL stage, a permission issue, or a
-timeout.
+{{< tabs >}}
+{{% tab name="Python" %}}
+
+```python
+runs = await data_client.list_data_pipeline_runs(pipeline_id=PIPELINE_ID)
+for run in runs:
+    print(f"{run.id}: {run.status} ({run.start_time} - {run.end_time})")
+```
+
+{{% /tab %}}
+{{% tab name="Go" %}}
+
+```go
+runs, err := dataClient.ListDataPipelineRuns(ctx, pipelineID)
+if err != nil {
+	logger.Fatal(err)
+}
+for _, run := range runs {
+	fmt.Printf("%s: %s (%s - %s)\n", run.ID, run.Status, run.StartTime, run.EndTime)
+}
+```
+
+{{% /tab %}}
+{{% tab name="TypeScript" %}}
+
+{{< read-code-snippet file="/static/include/examples-generated/pipeline-execution.snippet.pipeline-execution.ts" lang="ts" class="line-numbers linkable-line-numbers" data-line="18" >}}
+
+{{% /tab %}}
+{{< /tabs >}}
+
+Failed runs include an error message that describes what went wrong -- typically
+an invalid MQL stage, a permission issue, or a timeout.
 
 If a pipeline consistently fails, check the MQL query by running it manually
 in the Viam app query editor (using MQL mode) against the same data source. This
@@ -592,7 +635,7 @@ configuration.
 
 ## Try It
 
-1. **Create your first pipeline.** Using the CLI command from step 1, create a
+1. **Create your first pipeline.** Using the CLI command from [Create a pipeline with the CLI](#create-a-pipeline-with-the-cli), create a
    pipeline that counts readings per component per hour. Use this MQL:
    ```json
    [
@@ -610,7 +653,7 @@ configuration.
    Set the schedule to `0 * * * *` (hourly). Wait for the next hour boundary
    and verify results appear in the pipeline sink.
 
-2. **Query the results.** Using the Python or Go code from step 4, query your
+2. **Query the results.** Using the Python or Go code from [Query pipeline results](#query-pipeline-results), query your
    pipeline sink. You should see one document per component with a `count` field
    showing how many readings were captured in that hour.
 
