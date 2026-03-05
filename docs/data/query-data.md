@@ -43,7 +43,9 @@ component. The columns are:
 | `additional_parameters` | JSON | Method-specific parameters (e.g., `pin_name`, `reader_name`) |
 | `data` | JSON | The captured reading -- nested structure varies by component type |
 
-The `data` column is where the actual reading lives. Its structure depends on
+### The data column
+
+The `data` column contains the actual reading. Its structure depends on
 what was captured. A sensor reading might look like:
 
 ```json

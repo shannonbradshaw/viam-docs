@@ -4,11 +4,13 @@ title: "What is Viam?"
 weight: 10
 layout: "docs"
 type: "docs"
+no_list: true
 images: ["/general/understand.png"]
 imageAlt: "Viam platform overview"
-no_list: false
 description: "Viam is a software platform for building, deploying, and managing robotics applications."
 aliases:
+  - /understand/
+  - /understand/what-is-viam/
   - /operate/hello-world/what-is-viam/
   - /operate/modules/basics/
   - /operate/hello-world/quickstart/
@@ -150,8 +152,6 @@ Viam provides these so you can focus on your product.
 - **Built-in billing:** Define pricing tiers—per-machine fees, data costs, or both. Viam handles invoicing and payment collection.
 
 ## Next steps
-
-Now you know about the most important concepts for using Viam.
 
 We recommend putting these concepts into practice by following the [Desk Safari tutorial](/operate/hello-world/tutorial-desk-safari/) to build your first machine.
 

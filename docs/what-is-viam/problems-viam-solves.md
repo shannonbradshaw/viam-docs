@@ -147,5 +147,5 @@ _The fleet is running. Now you maintain it forever._
 ## Next steps
 
 {{< cards >}}
-{{% card link="/understand/what-is-viam/" %}}
+{{% card link="/what-is-viam/" %}}
 {{< /cards >}}
