@@ -13,4 +13,5 @@ aliases:
 
 {{< cards >}}
 {{% card link="/foundation/initialize-a-viam-machine/" %}}
+{{% card link="/foundation/setup-micro/" %}}
 {{< /cards >}}

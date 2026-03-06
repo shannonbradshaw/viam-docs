@@ -14,6 +14,11 @@ aliases:
   - /operate/hello-world/what-is-viam/
   - /operate/modules/basics/
   - /operate/hello-world/quickstart/
+  - /operate/hello-world/
+  - /operate/hello-world/building/
+  - /tutorials/build-a-mock-robot/
+  - /tutorials/how-to-build-a-mock-robot/
+  - /tutorials/configure/build-a-mock-robot/
 date: "2025-01-30"
 ---
 
@@ -99,7 +104,7 @@ No custom sync logic, no managing local storage, no worrying about edge cases.
 
 ### Train and deploy models
 
-[Train models](/data-ai/train/) on data you've captured, or bring models trained elsewhere.
+[Train models](/train/) on data you've captured, or bring models trained elsewhere.
 Deploy to your fleet with the same versioning and update mechanisms as code.
 
 - **Train in Viam:** Select captured data, annotate, choose a model architecture, and start a training job. No GPU provisioning, no training pipeline setup. Viam handles it.

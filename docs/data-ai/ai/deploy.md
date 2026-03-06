@@ -73,7 +73,7 @@ You can use these publicly available machine learning models:
 
 The service works with models from various sources:
 
-- You can [train TensorFlow or TensorFlow Lite](/data-ai/train/train-tf-tflite/) or [other model frameworks](/data-ai/train/train/) on data from your machines.
+- You can [train TensorFlow or TensorFlow Lite](/train/train-a-model/) or [other model frameworks](/train/custom-training-scripts/) on data from your machines.
 - You can use [ML models](https://app.viam.com/registry?type=ML+Model) from the [registry](https://app.viam.com/registry).
 - You can upload externally trained models from a model file on the [**MODELS** tab](https://app.viam.com/models).
 - You can use models trained outside the Viam platform whose files are on your machine.

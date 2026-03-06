@@ -1,12 +1,13 @@
 ---
-linkTitle: "Hot Data Store"
-title: "Hot Data Store"
+linkTitle: "Hot data store"
+title: "Hot data store"
 weight: 35
 layout: "docs"
 type: "docs"
 description: "Store a rolling window of recent data for fast queries while continuing to write all data to blob storage."
 date: "2025-01-30"
 aliases:
+  - /data/hot-data-store/
   - /build/data/hot-data-store/
   - /data-ai/data/hot-data-store/
 ---
@@ -14,8 +15,8 @@ aliases:
 ## What Problem This Solves
 
 Querying the full history of captured data means scanning blob storage, which
-can be slow for large datasets. When you only need recent data — the last few
-hours or days — the hot data store gives you significantly faster query
+can be slow for large datasets. When you only need recent data (the last few
+hours or days), the hot data store gives you significantly faster query
 performance by keeping a rolling window of recent data in a database optimized
 for fast reads.
 
@@ -156,7 +157,7 @@ queries execute faster because the dataset is smaller.
 Queries to the hot data store _only_ return data within the configured time
 window. For example, if your hot data store retains 24 hours of data and you
 query for temperature readings above 25°C, but no readings above 25°C were
-recorded in the last 24 hours, the query returns zero results — even if older
+recorded in the last 24 hours, the query returns zero results, even if older
 data in blob storage contains matching readings. To query your full data
 history, use the default blob storage data source.
 

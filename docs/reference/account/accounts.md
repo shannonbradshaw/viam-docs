@@ -10,6 +10,7 @@ aliases:
   - /fleet/account/
   - /reference/account/accounts/
   - /cloud/account/
+  - /operate/control/api-keys/
 ---
 
 Viam has a [web UI](https://app.viam.com/) for managing and building machines.

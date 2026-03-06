@@ -10,6 +10,7 @@ aliases:
   - /reference/apis/billing-client/
   - /build/program/apis/billing-client/
   - /appendix/apis/billing-client/
+  - /manage/reference/billing-client/
 date: "2024-09-14"
 # updated: ""  # When the content was last entirely checked
 ---

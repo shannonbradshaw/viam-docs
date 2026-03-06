@@ -18,6 +18,7 @@ tags:
     "data",
   ]
 aliases:
+  - /data-ai/reference/data-client/
   - /program/apis/data-client/
   - /reference/apis/data-client/
   - /build/program/apis/data-client/

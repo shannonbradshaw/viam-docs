@@ -11,5 +11,8 @@ card:
   title: Glossary
 aliases:
   - /reference/glossary/
-  - /reference/glossary/  - "/appendix/glossary/"
+  - "/appendix/glossary/"
+  - /data-ai/reference/glossary/
+  - /manage/reference/glossary/
+  - /operate/reference/glossary/
 ---

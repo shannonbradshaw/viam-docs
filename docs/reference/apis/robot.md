@@ -10,6 +10,7 @@ aliases:
   - /reference/apis/robot/
   - /build/program/apis/robot/
   - /appendix/apis/robot/
+  - /manage/reference/robot/
 date: "2022-01-01"
 # updated: ""  # When the content was last entirely checked
 ---

@@ -8,6 +8,7 @@ tags: ["sensor", "components", "lorawan", "gateway", "node"]
 icon: true
 images: ["/icons/components/sensor.svg"]
 aliases:
+  - /data/lorawan/
   - /data-ai/capture-data/lorawan/
 ---
 

@@ -8,6 +8,23 @@ description: "Install viam-agent and viam-server on your machine and connect it 
 date: "2025-01-30"
 aliases:
   - /build/foundation/initialize-a-viam-machine/
+  - /operate/install/
+  - /operate/reference/prepare/
+  - /operate/install/setup/
+  - /installation/viam-server-setup/
+  - /how-tos/configure/
+  - /installation/prepare/
+  - /installation/macos-install/
+  - /installation/linux-install/
+  - /installation/install/
+  - /installation/install/linux-install/
+  - /installation/install/macos-install
+  - /getting-started/installation/
+  - /getting-started/macos-install/
+  - /getting-started/linux-install/
+  - /installation/
+  - /get-started/installation/
+  - /operate/get-started/setup/
 ---
 
 ## What Problem This Solves

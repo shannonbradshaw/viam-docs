@@ -15,6 +15,7 @@ aliases:
   - /ml/vision/segmentation/
   - /ml/vision/
   - /get-started/quickstarts/detect-people/
+  - /operate/reference/services/vision/
 description: "Run machine learning inference locally on your robot or remotely in the cloud using vision services, ML model services, or SDKs."
 date: "2025-09-12"
 ---

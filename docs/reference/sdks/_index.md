@@ -8,6 +8,22 @@ aliases:
   - /reference/sdks/
   - /sdks/
   - /reference/sdks/
+  - /operate/control/sdks/
+  - /operate/control/
+  - /dev/reference/sdks/
+  - /operate/control/headless-app/
+  - /product-overviews/sdk-as-client/
+  - /program/sdk-as-client/
+  - /program/
+  - /program/run/
+  - /program/debug/
+  - /how-tos/develop-app/
+  - /use-cases/develop-app/
+  - /operate/control/web-app/
+  - /operate/control/mobile-app/
+  - /operate/control/viam-applications/
+  - /operate/control/kiosk-app/
+  - /operate/control/voice-app/
 ---
 
 ## Backend SDKs

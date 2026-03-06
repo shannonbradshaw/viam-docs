@@ -8,6 +8,20 @@ description: "Train a classification or object detection model from a labeled da
 date: "2025-01-30"
 aliases:
   - /build/train/train-a-model/
+  - /use-cases/deploy-ml/
+  - /manage/ml/train-model/
+  - /ml/train-model/
+  - /services/ml/train-model/
+  - /tutorials/data-management-tutorial/
+  - /tutorials/data-management/
+  - /data-management/data-management-tutorial/
+  - /tutorials/services/data-management-tutorial/
+  - /tutorials/services/data-mlmodel-tutorial/
+  - /extend/modular-resources/examples/tflite-module/
+  - /modular-resources/examples/tflite-module/
+  - /registry/examples/tflite-module/
+  - /data-ai/ai/train-tflite/
+  - /data-ai/train/train-tf-tflite/
 ---
 
 ## What Problem This Solves

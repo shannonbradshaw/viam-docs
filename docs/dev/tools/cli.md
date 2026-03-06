@@ -632,7 +632,7 @@ Removing the `viam data export` string, you can use the same filter parameters (
 
 You cannot use the `--binary-data-ids` argument when using `filter`.
 
-See [Create a dataset](/data-ai/train/create-dataset/) for more information.
+See [Create a dataset](/train/create-a-dataset/) for more information.
 
 ### `infer`
 
@@ -1566,7 +1566,7 @@ You can set a default profile by using the `VIAM_CLI_PROFILE_NAME` environment v
 
 ### `training-script`
 
-Manage training scripts for [custom ML training](/data-ai/train/train/).
+Manage training scripts for [custom ML training](/train/custom-training-scripts/).
 
 ```sh {class="command-line" data-prompt="$"}
 viam training-script upload --framework=<framework> --org-id=<org-id> --path=<path-to-script> --script-name=<script-name> --type=<type>

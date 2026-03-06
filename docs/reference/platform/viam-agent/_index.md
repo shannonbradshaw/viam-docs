@@ -8,6 +8,7 @@ date: "2025-02-14"
 aliases:
   - /configure/agent/
   - /reference/platform/viam-agent/
+  - /manage/reference/
 # updated: ""  # When the content was last entirely checked
 # SMEs: James, Ale
 ---

@@ -28,28 +28,29 @@ You can also monitor your machines through teleop, power your application logic,
 {{< how-to-expand "Capture data" "4" "BEGINNER-FRIENDLY" "" "data-platform-capture" >}}
 {{< cards >}}
 {{% card link="/data/" noimage="true" %}}
-{{% card link="/data/upload-other-data/" noimage="true" %}}
-{{% card link="/data/filter-before-sync/" noimage="true" %}}
-{{% card link="/data/conditional-sync/" noimage="true" %}}
-{{% card link="/data/lorawan/" noimage="true" %}}
+{{% card link="/data/capture-sync/upload-other-data/" noimage="true" %}}
+{{% card link="/data/filter-at-the-edge/" noimage="true" %}}
+{{% card link="/data/capture-sync/conditional-sync/" noimage="true" %}}
+{{% card link="/data/capture-sync/lorawan/" noimage="true" %}}
 {{< /cards >}}
 {{< /how-to-expand >}}
 
 {{< how-to-expand "Work with data" "4" "BEGINNER-FRIENDLY" "" "data-platform-work" >}}
 {{< cards >}}
-{{% card link="/data/query-reference/" noimage="true" %}}
+{{% card link="/data/query/query-reference/" noimage="true" %}}
 {{% card link="/data/visualize-data/" noimage="true" %}}
 {{% card link="/data/trigger-on-data/" noimage="true" %}}
-{{% card link="/data/export-data/" noimage="true" %}}
+{{% card link="/data/export/export-data/" noimage="true" %}}
 {{< /cards >}}
 {{< /how-to-expand >}}
 
 {{< how-to-expand "Train an ML model" "5" "INTERMEDIATE" "" "data-platform-ai" >}}
 {{< cards >}}
-{{% card link="/data-ai/train/create-dataset/" noimage="true" %}}
-{{% card link="/data-ai/train/annotate-images/" noimage="true" %}}
-{{% card link="/data-ai/train/train-tf-tflite/" noimage="true" %}}
-{{% card link="/data-ai/train/train/" noimage="true" %}}
+{{% card link="/train/create-a-dataset/" noimage="true" %}}
+{{% card link="/train/annotate-images/" noimage="true" %}}
+{{% card link="/train/automate-annotation/" noimage="true" %}}
+{{% card link="/train/train-a-model/" noimage="true" %}}
+{{% card link="/train/custom-training-scripts/" noimage="true" %}}
 {{< /cards >}}
 {{< /how-to-expand >}}
 

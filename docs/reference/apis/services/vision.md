@@ -8,6 +8,7 @@ aliases:
   - /appendix/apis/services/vision/
   - /reference/apis/services/vision/
   - /services/vision/segmentation/
+  - /data-ai/reference/vision-client/
 icon: true
 images: ["/services/icons/vision.svg"]
 tags: ["vision", "computer vision", "CV", "services"]

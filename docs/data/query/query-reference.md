@@ -5,6 +5,7 @@ weight: 15
 layout: "docs"
 type: "docs"
 aliases:
+  - /data/query-reference/
   - /manage/data/query/
   - /data/query/
   - /use-cases/sensor-data-query/
@@ -16,7 +17,7 @@ updated: "2025-09-12"
 description: "Query reference: supported operators, SQL limitations, third-party tools, and performance best practices."
 ---
 
-For a step-by-step guide to querying captured data using SQL and MQL, see [Query Data](/data/query-data/).
+For a step-by-step guide to querying captured data using SQL and MQL, see [Query Data](/data/query/query-data/).
 
 ## Prerequisites
 
@@ -31,7 +32,7 @@ See [Role-Based Access Control](/manage/manage/rbac/) for details.
 
 Navigate to the [**Query** page](https://app.viam.com/data/query) and select **SQL** or **MQL**.
 
-You can optionally change the data source to query data from a configured [hot data store](/data/hot-data-store/).
+You can optionally change the data source to query data from a configured [hot data store](/data/query/hot-data-store/).
 
 {{< alert title="Tip: Query Assistant" color="tip" >}}
 For help with writing queries, use the **Query Assistant** button in the top right corner.
@@ -62,7 +63,7 @@ Fill in a **Name** for your query and click **Save query**.
 {{% /tab %}}
 {{< /tabs >}}
 
-For Python and Go examples, see [Query Data](/data/query-data/#query-data-programmatically).
+For Python and Go examples, see [Query Data](/data/query/query-data/#query-data-programmatically).
 
 ## Query using third-party tools
 
@@ -180,7 +181,7 @@ db.readings.aggregate(
 
 ## Query optimization and performance best practices
 
-1. When querying large datasets, whether from default storage or a [hot data store](/data/hot-data-store/), you can improve the query's efficiency by specifying the following parameters in the query:
+1. When querying large datasets, whether from default storage or a [hot data store](/data/query/hot-data-store/), you can improve the query's efficiency by specifying the following parameters in the query:
 
    - `organization_id`
    - `location_id`
@@ -198,9 +199,9 @@ db.readings.aggregate(
    If you don't need all fields, use `$project` early to reduce the fields in the processing dataset.
    If you only need a certain number of results, use `$limit` early in the pipeline to reduce data processing.
 
-1. If you are frequently querying recent data, use the [hot data store](/data/hot-data-store/) which provides faster data access.
+1. If you are frequently querying recent data, use the [hot data store](/data/query/hot-data-store/) which provides faster data access.
 
-1. If you frequently perform the same types of queries, for example for dashboards, use [data pipelines](/data/configure-data-pipelines/).
+1. If you frequently perform the same types of queries, for example for dashboards, use [data pipelines](/data/query/configure-data-pipelines/).
    Data pipelines allow you to pre-compute a materialized view of your data at specified intervals.
 
 ## Supported query languages

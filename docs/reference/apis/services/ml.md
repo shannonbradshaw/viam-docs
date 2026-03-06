@@ -11,6 +11,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/services/ml/
   - /reference/apis/services/ml/
+  - /data-ai/reference/ml-model-client/
+  - /data-ai/reference/ml-training-client/
 # updated: ""  # When the content was last entirely checked
 ---
 

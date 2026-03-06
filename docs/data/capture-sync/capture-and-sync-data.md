@@ -1,19 +1,20 @@
 ---
-linkTitle: "Capture and Sync Data"
-title: "Capture and Sync Data"
+linkTitle: "Capture and sync data"
+title: "Capture and sync data"
 weight: 5
 layout: "docs"
 type: "docs"
 description: "Capture data from any resource and sync it to the cloud."
 date: "2025-01-30"
 aliases:
+  - /data/capture-and-sync-data/
   - /build/foundation/capture-and-sync-data/
   - /foundation/capture-and-sync-data/
 ---
 
 ## What Problem This Solves
 
-Your machine generates useful data — camera images, sensor readings, detection
+Your machine generates useful data: camera images, sensor readings, detection
 results. This how-to shows you how to use Viam's data management service to
 capture this data automatically and sync it to the cloud.
 
@@ -22,9 +23,9 @@ capture this data automatically and sync it to the cloud.
 ### Data capture
 
 Data capture records the output of any component on your machine. You configure
-it through the Viam app — select which components to capture from, which API
+it through the Viam app: select which components to capture from, which API
 methods to record, and how often. Captured data is written to the local
-filesystem first, so your machine continues capturing even if it temporarily
+filesystem (`~/.viam/capture` by default; see [Capture directories](/data/#capture-directories) for platform-specific paths), so your machine continues capturing even if it temporarily
 loses network connectivity.
 
 ### Cloud sync
@@ -84,7 +85,21 @@ component's data capture is independent -- you can have a camera capturing
 images every 2 seconds and a sensor capturing readings every 10 seconds at the
 same time.
 
-### 4. Verify data is being captured
+### 4. Sync data from another directory (optional)
+
+You can also sync files from directories outside of the default capture path.
+This is useful for uploading a batch of existing data or syncing files that another process writes to a folder on your machine.
+
+In the data management service configuration, add the directory path to **Additional paths** (or `"additional_sync_paths"` in JSON mode).
+
+{{< alert title="Caution" color="caution" >}}
+Data synced from additional paths is deleted from the device after upload, just like captured data.
+If you want to keep a local copy, copy the data to a new folder and sync that folder instead.
+{{< /alert >}}
+
+{{<imgproc src="/services/data/data-sync-temp.png" resize="x1100" declaredimensions=true alt="Data service configured with an additional sync path." style="width: 600px" class="shadow imgzoom" >}}
+
+### 5. Verify data is syncing
 
 Wait 30 seconds to a minute for data to accumulate and sync, then:
 
@@ -99,7 +114,7 @@ Wait 30 seconds to a minute for data to accumulate and sync, then:
 
 If you see data flowing in, capture and sync are working correctly.
 
-### 5. Explore the Data tab
+### 6. Explore the Data tab
 
 With data flowing, familiarize yourself with the Data tab's query capabilities:
 
@@ -371,7 +386,7 @@ go run main.go
 
 ## What's Next
 
-- [Query Data](/data/query-data/) -- write more advanced queries, set up
+- [Query Data](/data/query/query-data/) -- write more advanced queries, set up
   data pipelines, and export data.
 - [Add Computer Vision](/vision-detection/add-computer-vision/) -- run ML
   models on your camera feed and capture detection results.
@@ -379,5 +394,5 @@ go run main.go
   into training datasets for machine learning.
 - [Supported Resources](/data/#supported-resources) -- which components
   and services support data capture.
-- [Advanced Configuration](/data/advanced-data-capture-sync/) --
+- [Advanced Configuration](/data/capture-sync/advanced-data-capture-sync/) --
   JSON-level config, retention policies, and sync optimization.

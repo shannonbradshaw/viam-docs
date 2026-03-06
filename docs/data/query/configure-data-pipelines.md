@@ -1,12 +1,13 @@
 ---
-linkTitle: "Configure Data Pipelines"
-title: "Configure Data Pipelines"
+linkTitle: "Configure data pipelines"
+title: "Configure data pipelines"
 weight: 30
 layout: "docs"
 type: "docs"
 description: "Create scheduled MQL pipelines that automatically aggregate and summarize captured data."
 date: "2025-01-30"
 aliases:
+  - /data/configure-data-pipelines/
   - /build/data/configure-data-pipelines/
   - /data-ai/data/data-pipelines/
 ---
@@ -356,14 +357,14 @@ The fields available depend on what your pipeline's `$project` stage produces.
 
 ## Use the hot data store as a pipeline data source
 
-Pipelines can query the [hot data store](/data/hot-data-store/) instead of blob
+Pipelines can query the [hot data store](/data/query/hot-data-store/) instead of blob
 storage. The hot data store keeps a rolling window of recent raw data optimized
-for fast reads — useful when your pipeline only needs to process recent
+for fast reads. This is useful when your pipeline only needs to process recent
 readings.
 
 To use it, set `--data-source-type hotstorage` in the CLI or set the data
 source type to `TABULAR_DATA_SOURCE_TYPE_HOT_STORAGE` in the SDK. See
-[Hot Data Store](/data/hot-data-store/) for setup and configuration.
+[Hot Data Store](/data/query/hot-data-store/) for setup and configuration.
 
 ## Manage pipelines
 
@@ -575,7 +576,7 @@ configuration.
    pipeline sink. You should see one document per component with a `count` field
    showing how many readings were captured in that hour.
 
-3. **Enable the hot data store.** Follow the [Hot Data Store](/data/hot-data-store/)
+3. **Enable the hot data store.** Follow the [Hot Data Store](/data/query/hot-data-store/)
    guide to enable hot storage on a sensor component with a 24-hour window.
    Query it using the hot storage data source type and verify you get recent
    readings back quickly.
@@ -625,7 +626,7 @@ reusing the group key.
 
 {{< expand "Hot data store query returns no data" >}}
 
-See [Hot Data Store](/data/hot-data-store/) for configuration and query details.
+See [Hot Data Store](/data/query/hot-data-store/) for configuration and query details.
 Common causes: the time window has expired (data older than `stored_hours` is
 removed), hot storage is not enabled on the component, or data has not yet been
 captured and synced.
@@ -653,9 +654,9 @@ active for.
 
 ## What's Next
 
-- [Hot Data Store](/data/hot-data-store/) -- configure fast recent-data queries
+- [Hot Data Store](/data/query/hot-data-store/) -- configure fast recent-data queries
   and use the hot data store as a pipeline data source.
-- [Query Data](/data/query-data/) -- learn more MQL patterns to use in
+- [Query Data](/data/query/query-data/) -- learn more MQL patterns to use in
   your pipeline aggregation queries.
 - [Filter at the Edge](/data/filter-at-the-edge/) -- reduce the volume of
   raw data before it reaches the cloud, making your pipelines faster and cheaper.

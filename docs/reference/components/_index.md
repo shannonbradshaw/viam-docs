@@ -7,4 +7,5 @@ no_list: true
 description: "Components represent physical hardware on your machine, including motors, cameras, sensors, and more."
 aliases:
   - /reference/components/
+  - /operate/reference/components/
 ---

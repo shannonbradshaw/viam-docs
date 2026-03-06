@@ -7,6 +7,7 @@ type: "docs"
 description: "Download data from Viam using the data client API or the CLI."
 tags: ["data management", "cloud", "sync"]
 aliases:
+  - /data/export-data/
   - /data-ai/data/export/
   - /how-tos/export-data/
   - /manage/data/export/

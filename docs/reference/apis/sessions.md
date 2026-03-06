@@ -18,6 +18,7 @@ tags:
   ]
 aliases:
   - /program/apis/sessions/
+  - /operate/reference/sessions/
   - /reference/apis/sessions/
   - /build/program/apis/sessions/
   - /appendix/apis/sessions/

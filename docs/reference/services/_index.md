@@ -7,4 +7,5 @@ no_list: true
 description: "Services are built-in software packages that add high-level functionality to your machine."
 aliases:
   - /reference/services/
+  - /operate/reference/services/
 ---

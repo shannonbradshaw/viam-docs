@@ -1,25 +1,26 @@
 ---
-linkTitle: "Stop Data Capture"
-title: "Stop or Disable Data Capture"
+linkTitle: "Stop data capture"
+title: "Stop or disable data capture"
 weight: 6
 layout: "docs"
 type: "docs"
 description: "Stop capturing data for specific resources, all resources, or disable cloud sync."
 date: "2025-01-30"
 aliases:
+  - /data/stop-data-capture/
   - /build/foundation/stop-data-capture/
   - /foundation/stop-data-capture/
 ---
 
-## What Problem This Solves
+## What problem this solves
 
-You have data capture running but need to turn it off — either temporarily
+You have data capture running but need to turn it off, either temporarily
 (during maintenance, testing, or debugging) or permanently (you're done
 collecting data for a component).
 
-## Steps
+You can stop data capture at different levels of granularity: disable it for a single resource, turn it off for all resources on a machine, or leave capture running locally but stop syncing to the cloud.
 
-### 1. Stop data capture for a specific resource
+## Stop data capture for a specific resource
 
 To stop capturing data from a single component while leaving other components'
 capture running:
@@ -33,7 +34,7 @@ capture running:
 The component stops capturing immediately. Other components with data capture
 configured continue capturing normally.
 
-### 2. Stop data capture for all resources
+## Stop data capture for all resources
 
 To stop all data capture across your entire machine at once:
 
@@ -43,11 +44,11 @@ To stop all data capture across your entire machine at once:
 4. Click **Save**.
 
 This disables capture for every component on the machine. Individual component
-capture configurations are preserved — when you re-enable capturing, each
+capture configurations are preserved. When you re-enable capturing, each
 component resumes capturing with its previously configured methods and
 frequencies.
 
-### 3. Disable cloud sync
+## Disable cloud sync
 
 To stop syncing captured data to the cloud while optionally continuing to
 capture locally:
@@ -96,11 +97,11 @@ persist, check that the machine has network connectivity and that the
 
 {{< /expand >}}
 
-## What's Next
+## What's next
 
-- [Filter Data Before Sync](/data/filter-at-the-edge/) -- reduce data
-  volume by filtering at the edge before syncing to the cloud.
-- [Configure Data Pipelines](/data/configure-data-pipelines/) -- create
+- [Filter at the edge](/data/filter-at-the-edge/) -- reduce data
+  volume by filtering before syncing to the cloud.
+- [Configure data pipelines](/data/query/configure-data-pipelines/) -- create
   scheduled pipelines to aggregate and summarize captured data.
-- [Supported Resources](/data/#supported-resources) -- which components
+- [Supported resources](/data/#supported-resources) -- which components
   and services support data capture.

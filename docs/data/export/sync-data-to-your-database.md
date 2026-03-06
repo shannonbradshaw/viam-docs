@@ -1,12 +1,13 @@
 ---
-linkTitle: "Sync Data to Your Database"
-title: "Sync Data to Your Database"
+linkTitle: "Sync data to your database"
+title: "Sync data to your database"
 weight: 40
 layout: "docs"
 type: "docs"
 description: "Use Viam as an ingestion layer and sync captured data to your own MongoDB database."
 date: "2025-01-30"
 aliases:
+  - /data/sync-data-to-your-database/
   - /build/data/sync-data-to-your-database/
 ---
 
@@ -746,9 +747,9 @@ go build -o sync-data .
 
 ## What's Next
 
-- [Configure Data Pipelines](/data/configure-data-pipelines/) -- set up
+- [Configure Data Pipelines](/data/query/configure-data-pipelines/) -- set up
   windowed roll-ups and derived metrics to reduce data volume before syncing.
 - [Visualize Data](/data/visualize-data/) -- connect Grafana or other
   dashboard tools to your Viam data using the MongoDB connection URI.
-- [Query Data](/data/query-data/) -- write advanced SQL and MQL queries
+- [Query Data](/data/query/query-data/) -- write advanced SQL and MQL queries
   against your data in Viam's cloud before pulling it to your own systems.

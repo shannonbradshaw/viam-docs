@@ -16,6 +16,7 @@ tags:
     "fleet management",
   ]
 aliases:
+  - /manage/reference/fleet/
   - /program/apis/fleet/
   - /reference/apis/fleet/
   - /reference/apis/fleet/

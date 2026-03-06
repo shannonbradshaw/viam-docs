@@ -10,6 +10,7 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/services/data/
   - /reference/apis/services/data/
+  - /data-ai/reference/data-management-client/
 # updated: ""  # When the content was last entirely checked
 ---
 

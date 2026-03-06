@@ -11,6 +11,12 @@ date: "2024-08-13"
 aliases:
   - /architecture/
   - /reference/architecture/
+  - /data-ai/reference/
+  - /data-ai/reference/architecture/
+  - /dev/reference/architecture/
+  - /manage/reference/architecture/
+  - /operate/reference/
+  - /operate/reference/architecture/
 # updated: ""  # When the content was last entirely checked
 ---
 
