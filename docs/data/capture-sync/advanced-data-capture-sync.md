@@ -10,6 +10,7 @@ description: "JSON-level configuration for retention policies, sync optimization
 aliases:
   - /data/advanced-data-capture-sync/
   - /data-ai/capture-data/advanced/advanced-data-capture-sync/
+  - /data-ai/capture-data/advanced/
 date: "2025-02-10"
 updated: "2025-12-04"
 ---

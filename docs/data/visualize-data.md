@@ -71,7 +71,7 @@ The Viam Teleop dashboard is the fastest way to visualize data from a single mac
    - **Value display** -- shows the current reading from a sensor.
    - **Button** -- triggers an action on the machine.
 
-   See [widget types](/manage/troubleshoot/teleoperate/custom-interface/#widget-types) for the full list of available widgets.
+   See [widget types](/monitor/custom-interface/#widget-types) for the full list of available widgets.
 
 2. To configure a widget, click the **pencil icon** in the top right corner of
    the widget. This opens the widget settings where you select which component

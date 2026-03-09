@@ -177,6 +177,20 @@ h7,
 
 .td-content > h3 {
   margin-bottom: 0.667rem;
+  margin-top: 1.5rem;
+}
+
+// The float:left on ol > li::before creates floats that escape the ol's
+// block formatting context. Since h3 has clear:both, it clears past those
+// floats, creating an oversized gap. flow-root contains the floats in
+// the ol's own BFC so they don't affect adjacent elements.
+// Zero the last li's margin-bottom because flow-root prevents it from
+// collapsing with the ol's margin, which would add unwanted extra space.
+.td-content > ol {
+  display: flow-root;
+}
+.td-content > ol > li:last-child {
+  margin-bottom: 0;
 }
 
 /* END Adjust Heading sizes*/

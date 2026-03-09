@@ -1,6 +1,6 @@
 ---
-linkTitle: "Your First Project"
-title: "Your First Project"
+linkTitle: "Your First Viam Project"
+title: "Your First Viam Project"
 weight: 17
 layout: "docs"
 type: "docs"
@@ -9,7 +9,7 @@ description: "Build a complete quality inspection system with Viam—from camera
 date: "2025-01-30"
 ---
 
-**Time:** ~60 minutes
+**Time:** ~45 minutes
 
 ## Before You Begin
 
@@ -36,15 +36,15 @@ In this tutorial you will work through a series of tasks that are common to many
 
 | Part                               | Time    | What You'll Do                                         |
 | ---------------------------------- | ------- | ------------------------------------------------------ |
-| [Part 1: Vision Pipeline](part-1/) | ~15 min | Set up camera, ML model, and vision service            |
-| [Part 2: Data Capture](part-2/)    | ~10 min | Configure automatic image capture and cloud sync       |
-| [Part 3: Control Logic](part-3/)   | ~15 min | Generate module, write inspection logic, test from CLI |
+| [Part 1: Vision Pipeline](part-1/) | ~10 min | Set up camera, ML model, and vision service            |
+| [Part 2: Data Capture](part-2/)    | ~5 min  | Configure automatic image capture and cloud sync       |
+| [Part 3: Control Logic](part-3/)   | ~10 min | Generate module, write inspection logic, test from CLI |
 | [Part 4: Deploy a Module](part-4/) | ~10 min | Deploy module, configure detection data capture        |
 | [Part 5: Productize](part-5/)      | ~10 min | Build monitoring dashboard with Teleop                 |
 
 {{< expand "Full Section Outline" >}}
 
-**[Part 1: Vision Pipeline](part-1/)** (~15 min)
+**[Part 1: Vision Pipeline](part-1/)** (~10 min)
 
 - [1.1 Verify Your Machine is Online](part-1/#11-verify-your-machine-is-online)
 - [1.2 Locate Your Machine Part](part-1/#12-locate-your-machine-part)
@@ -53,13 +53,13 @@ In this tutorial you will work through a series of tasks that are common to many
 - [1.5 Add an ML Model Service](part-1/#15-add-an-ml-model-service)
 - [1.6 Add a Vision Service](part-1/#16-add-a-vision-service)
 
-**[Part 2: Data Capture](part-2/)** (~10 min)
+**[Part 2: Data Capture](part-2/)** (~5 min)
 
 - [2.1 Configure Data Capture](part-2/#21-configure-data-capture)
 - [2.2 View Captured Data](part-2/#22-view-captured-data)
 - [2.3 Summary](part-2/#23-summary)
 
-**[Part 3: Control Logic](part-3/)** (~15 min)
+**[Part 3: Control Logic](part-3/)** (~10 min)
 
 - [3.1 Generate the Module Scaffolding](part-3/#31-generate-the-module-scaffolding)
 - [3.2 Add Remote Machine Connection](part-3/#32-add-remote-machine-connection)

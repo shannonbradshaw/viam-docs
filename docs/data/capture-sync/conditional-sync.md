@@ -104,7 +104,7 @@ The sensor can return additional readings alongside `should_sync`.
 
 The RDK provides a helper function for building sync sensors: `datamanager.CreateShouldSyncReading(bool)` returns a properly formatted readings map.
 
-1. Follow the [module development guide](/operate/modules/support-hardware/) to create a sensor module.
+1. Follow the [module development guide](/build-modules/write-a-driver-module/) to create a sensor module.
 2. Implement `Readings()` to return `"should_sync": true` when sync should proceed and `"should_sync": false` otherwise.
 3. Deploy the module and [configure the data manager](#configure-the-data-manager) with your sensor's name.
 

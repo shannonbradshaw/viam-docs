@@ -388,7 +388,7 @@ go run main.go
 
 - [Query Data](/data/query/query-data/) -- write more advanced queries, set up
   data pipelines, and export data.
-- [Add Computer Vision](/vision-detection/add-computer-vision/) -- run ML
+- [Add Computer Vision](/vision/configure/) -- run ML
   models on your camera feed and capture detection results.
 - [Create a Dataset](/train/create-a-dataset/) -- organize captured images
   into training datasets for machine learning.

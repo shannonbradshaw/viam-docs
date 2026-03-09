@@ -216,6 +216,6 @@ See this [blog post](https://koen.vervloesem.eu/blog/how-to-stop-brltty-from-cla
 
 ### Additional assistance
 
-You can find general Viam troubleshooting information in the [Troubleshooting section](/manage/troubleshoot/troubleshoot/).
+You can find general Viam troubleshooting information in the [Troubleshooting section](/monitor/troubleshoot/).
 
 {{< snippet "social.md" >}}

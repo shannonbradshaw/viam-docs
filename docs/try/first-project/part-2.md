@@ -12,7 +12,7 @@ date: "2025-01-30"
 
 **Skills:** Data capture configuration, cloud sync, browsing captured data.
 
-**Time:** ~10 min
+**Time:** ~5 min
 
 For inspection applications such as this one, monitoring defect detection is important both to ensure production line health and product quality.
 You want to ensure the vision model is detecting a very high percentage of defects and quickly detect any problems.

@@ -220,6 +220,10 @@ Test with a variety of images:
 
 ### 5. Deploy the model to a machine
 
+{{< alert title="Tip" color="tip" >}}
+The steps below get your model running quickly. For the full guide to configuring ML model services, vision services, and cloud inference, see [Configure computer vision](/vision/configure/).
+{{< /alert >}}
+
 Deploying a model requires two service configurations: an ML model service that
 loads the model file, and a vision service that uses the ML model to process
 camera frames.
@@ -461,9 +465,9 @@ for _, job := range jobs {
 
 ## What's Next
 
-- [Add Computer Vision](/vision-detection/add-computer-vision/) -- build
+- [Add Computer Vision](/vision/configure/) -- build
   applications that use your trained model to process live camera feeds.
-- [Detect Objects (2D)](/vision-detection/detect-objects-2d/) -- use your
+- [Detect Objects (2D)](/vision/detect/) -- use your
   object detection model to find and locate objects in camera images.
-- [Classify Objects](/build/stationary-vision/classify-objects/) -- use your
+- [Classify Images](/vision/classify/) -- use your
   classification model to categorize images from your machine's camera.

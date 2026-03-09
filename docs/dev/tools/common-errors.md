@@ -12,7 +12,7 @@ no_list: true
 This document lists common errors encountered when working with Viam, and provides steps to resolve them.
 While many common issues and their possible resolutions are presented here, this list is not comprehensive.
 
-To view logs or get a remote shell on a machine see [Troubleshoot](/manage/troubleshoot/troubleshoot/).
+To view logs or get a remote shell on a machine see [Troubleshoot](/monitor/troubleshoot/).
 
 If you have encountered an error that is not listed here, we'd love to hear from you on our [Community Discord](https://discord.gg/viam)!
 Please post the error message you received along with how you were able to trigger it and we'll see if we can help.
@@ -162,7 +162,7 @@ When a machine is disconnected, it will continue to run with its locally-cached 
 
 **Full Error:** `Error: cannot parse config: JSON: cannot unmarshal string into Go struct field Component.components.frame of type float64.`
 
-**Description:** A [frame](/reference/services/frame-system/) attribute may be malformed, and is preventing the parsing of the component's configuration.
+**Description:** A [frame](/motion-planning/frame-system/) attribute may be malformed, and is preventing the parsing of the component's configuration.
 
 **Solution:** Check the **CONFIGURE** tab for your machine and look for a `frame` attribute, either in **Frame** or **JSON** mode.
 If you see a `frame` attribute that you didn't create yourself, delete the whole `frame` object from the JSON config.
@@ -285,7 +285,7 @@ This can happen when there is a slow internet connection, when the module is try
 
 - Try using a faster internet connection.
 - If you are the module author, consider packaging the module with required dependencies so they don't need to be downloaded on startup.
-  For Python modules, you can package your module with dependencies by using the PyInstaller steps when [uploading your module](/operate/modules/deploy-module/#package-and-upload-the-module).
+  For Python modules, you can package your module with dependencies by using the PyInstaller steps when [uploading your module](/build-modules/deploy-a-module/#package-and-upload-the-module).
 - If the problem persists, try setting the `VIAM_MODULE_STARTUP_TIMEOUT` or `VIAM_RESOURCE_CONFIGURATION_TIMEOUT` environment variables on your machine to a higher value.
   You can set these environment variables when you start `viam-server`, for instance `VIAM_MODULE_STARTUP_TIMEOUT=6m30 VIAM_RESOURCE_CONFIGURATION_TIMEOUT=3m0s viam-server -config example-machine.json`.
   Pass a sequence of numbers and time units, for example "6m30s50ms" for a timeout of 6 minutes, 30 seconds, and 50 milliseconds, or "5m" for a timeout of 5 minutes.
@@ -331,7 +331,7 @@ You can use any Viam SDK to implement a camera module, but only Go-based modules
 
 1. Check networking:
 
-   1. Check if your machine is showing as online on Viam and [check its logs](/manage/troubleshoot/troubleshoot/#check-logs).
+   1. Check if your machine is showing as online on Viam and [check its logs](/monitor/troubleshoot/#check-logs).
       When `viam-server` starts it runs a set of network checks which you can view in the logs.
 
    ```sh {class="command-line" data-prompt="$"}

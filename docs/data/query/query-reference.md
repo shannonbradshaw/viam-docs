@@ -24,7 +24,7 @@ For a step-by-step guide to querying captured data using SQL and MQL, see [Query
 {{% expand "Data query permissions" %}}
 
 Users with owner or operator roles at the organization, location, or machine level can query data.
-See [Role-Based Access Control](/manage/manage/rbac/) for details.
+See [Role-Based Access Control](/organization/rbac/) for details.
 
 {{% /expand%}}
 

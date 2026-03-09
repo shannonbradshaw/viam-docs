@@ -36,6 +36,9 @@ aliases:
   - /data/how-sync-works/
   - /data-ai/capture-data/advanced/how-sync-works/
   - /data/capture-sync/how-sync-works/
+  - /data-ai/
+  - /data-ai/capture-data/
+  - /data-ai/data/
 ---
 
 Viam's data management service captures data from configured resources, writes it to local storage, and syncs it to the cloud.

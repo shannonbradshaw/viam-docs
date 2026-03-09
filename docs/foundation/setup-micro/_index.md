@@ -276,7 +276,7 @@ You can now configure the models you included in your firmware and test them:
 You can update the firmware on your microcontroller without a physical connection.
 
 {{% hiddencontent %}}
-Over-the-air updates are available for `viam-server` and the Micro-RDK. For information about `viam-server` see [Deploy software packages to machines](/manage/software/deploy-software/).
+Over-the-air updates are available for `viam-server` and the Micro-RDK. For information about `viam-server` see [Deploy software packages to machines](/fleet/deploy-software/).
 The following information covers the Micro-RDK.
 {{% /hiddencontent %}}
 
@@ -345,7 +345,7 @@ There is no way to roll back to previous firmware after a bad upgrade without re
 
 ### Update multiple microcontrollers at the same time
 
-To update the firmware version for a group of microcontrollers at the same time, you can [create a fragment](/manage/software/deploy-software/) with the OTA service configuration and apply it to multiple machines.
+To update the firmware version for a group of microcontrollers at the same time, you can [create a fragment](/fleet/deploy-software/) with the OTA service configuration and apply it to multiple machines.
 Then, whenever you update the `version` field in the fragment, the version will be updated for each machine that has that fragment in its config, triggering a firmware update the next time the devices fetch their configs.
 
 ### Build and host OTA firmware

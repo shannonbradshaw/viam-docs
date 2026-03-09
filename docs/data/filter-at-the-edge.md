@@ -166,7 +166,7 @@ From the **Select model** dropdown, select the name of your ML model service (fo
 
 The `filtered-camera` {{< glossary_tooltip term_id="modular-resource" text="modular component" >}} pulls the stream of images from your camera component and applies the vision service to it.
 
-Configure a `filtered-camera` component on your machine, following the [attribute guide in the README](https://github.com/erh/filtered_camera?tab=readme-ov-file#configure-your-filtered-camera).
+Configure a `filtered-camera` component on your machine, following the [attribute guide in the module listing](https://app.viam.com/module/viam/filtered-camera).
 Use the name of your camera component as the `"camera"` to pull images from, and select the name of the vision service you just configured as your `"vision"` service.
 Then add all or some of the labels your ML model uses as classifications or detections in `"classifications"` or `"objects"`.
 
@@ -215,8 +215,8 @@ Once you save your configuration, place an object that your ML model can detect 
 Images that pass your filter will be captured and will sync at the specified sync interval, which may mean you have to wait and then refresh the page for data to appear.
 Your images will begin to appear under the **DATA** tab.
 
-If no data appears after the sync interval, check the [**Logs**](/manage/troubleshoot/troubleshoot/#check-logs) and ensure that the condition for filtering is met.
-You can test the vision service from the [**CONTROL** tab](/manage/troubleshoot/teleoperate/default-interface/) to see its classifications and detections live.
+If no data appears after the sync interval, check the [**Logs**](/monitor/troubleshoot/#check-logs) and ensure that the condition for filtering is met.
+You can test the vision service from the [**CONTROL** tab](/monitor/teleoperate/) to see its classifications and detections live.
 
 {{% /tablestep %}}
 {{% tablestep %}}

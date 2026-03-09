@@ -646,7 +646,7 @@ The Oxidation-Reduction Potential (ORP) probe uses a two-point calibration proce
 You can query captured data in the Viam app from the **DATA** page.
 To build a dashboard to monitor your captured data using charts and graphs, configure widgets on the **TELEOP** page.
 
-For more information, see [Visualize data](/data-ai/data/visualize/).
+For more information, see [Visualize data](/data/visualize-data/).
 
 ## Troubleshooting
 

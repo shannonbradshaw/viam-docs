@@ -322,7 +322,7 @@ block.
 
 ## What's Next
 
-- [Add a Camera](/hardware/add-a-camera/) — Configure your first hardware component and
-  see a live feed.
+- [Add a Camera](/hardware/common-components/add-a-camera/) — Configure your first hardware
+  component and see a live feed.
 - [Capture and Sync Data](/data/capture-and-sync-data/) — Start recording data from
   your machine to the cloud.

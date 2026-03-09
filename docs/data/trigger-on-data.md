@@ -147,5 +147,5 @@ Viam also supports triggers for machine status events and log monitoring:
 - **Part is online / Part is offline**: alert when a machine part comes online or goes offline
 - **Conditional logs ingestion**: alert when machine logs contain errors, warnings, or info messages
 
-For these trigger types, see [Alert on machine telemetry](/manage/troubleshoot/alert/).
+For these trigger types, see [Alert on machine telemetry](/monitor/alert/).
 For a full reference of all trigger attributes, see [Trigger configuration](/reference/configuration/triggers/).
