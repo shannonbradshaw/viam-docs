@@ -1,17 +1,24 @@
 ---
-linkTitle: "Hardware"
-title: "Hardware"
+linkTitle: "Configure hardware"
+title: "Configure hardware"
 weight: 35
 layout: "docs"
 type: "docs"
 no_list: true
-description: "Add and configure hardware like cameras, sensors, and motors."
+description: "Understand how Viam represents hardware, add components to your machine, and configure them."
+manualLink: "/hardware/configure-hardware/"
 aliases:
   - /hardware-components/
+  - /hardware/
 ---
 
 Add and configure the hardware your machine needs.
 
 {{< cards >}}
-{{% card link="/hardware/add-a-camera/" %}}
+{{% card link="/hardware/configure-hardware/" %}}
+{{% card link="/hardware/common-components/" %}}
+{{% card link="/hardware/component-types/" %}}
+{{% card link="/hardware/machine-configuration/" %}}
+{{% card link="/hardware/fragments/" %}}
+{{% card link="/build-modules/from-hardware-to-logic/" %}}
 {{< /cards >}}

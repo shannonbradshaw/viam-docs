@@ -8,6 +8,8 @@ description: "Build a module that monitors sensors, coordinates components, or r
 date: "2025-03-06"
 aliases:
   - /development/write-a-logic-module/
+  - /manage/software/control-logic
+  - /operate/modules/control-logic/
 ---
 
 Your machine has resources -- sensors, motors, cameras -- that work individually.
@@ -654,6 +656,33 @@ viam module restart --part-id <machine-part-id>
 3. Wait for one poll interval, then send `{"command": "get_alerts"}`.
 4. You should see alerts in the response.
 5. Send `{"command": "acknowledge"}` to clear them.
+
+### 8. Schedule logic with jobs (optional)
+
+Instead of running a continuous background loop, you can use
+{{< glossary_tooltip term_id="job" text="jobs" >}} to have `viam-server` call
+your service's `DoCommand` method on a schedule. This is useful for periodic
+tasks that don't need sub-second polling.
+
+1. In the [Viam app](https://app.viam.com), click the **+** icon next to your
+   machine part and select **Job**.
+2. Name the job and click **Create**.
+3. Set the **Schedule** to one of:
+   - **Interval** -- a Go duration string like `5s`, `1m`, or `2h30m`.
+   - **Cron** -- a 5- or 6-part cron expression (e.g., `0 */5 * * *`).
+4. Select your service resource by name.
+5. Select the `DoCommand` **Method** and specify the **Command**, for example:
+   ```json
+   { "command": "get_alerts" }
+   ```
+6. Click **Save**.
+
+`viam-server` calls `DoCommand` with the specified arguments on the configured
+schedule. You can view job history (last 10 successes and failures) in the
+machine's configuration.
+
+Jobs also support calling other gRPC methods on resources (such as
+`GetReadings` on a sensor), but only `DoCommand` accepts command arguments.
 
 ## Try It
 

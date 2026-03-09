@@ -8,9 +8,17 @@ description: "Reference for module developers: lifecycle, interfaces, meta.json 
 date: "2025-03-05"
 aliases:
   - /development/module-reference/
+  - /operate/modules/other-hardware/lifecycle-module/
+  - /operate/modules/lifecycle-module/
+  - /operate/modules/advanced/logging/
+  - /operate/modules/create-module/metajson/
+  - /operate/reference/naming-modules/
+  - /operate/modules/other-hardware/naming-modules/
+  - /operate/modules/advanced/module-naming/
+  - /operate/modules/advanced/metajson/
 ---
 
-This page is a quick-reference for module developers. For step-by-step
+This page is a reference for module developers. For step-by-step
 instructions, see [Write a Module](/build-modules/write-a-driver-module/) and
 [Deploy a Module](/build-modules/deploy-a-module/).
 
@@ -77,6 +85,13 @@ TCP mode is used automatically on Windows or when the Unix socket path would
 exceed the OS limit (103 characters on macOS). Force TCP mode by setting
 `"tcp_mode": true` in the module config or setting `VIAM_TCP_SOCKETS=true`.
 
+### Data directory
+
+Every module receives a persistent data directory at
+`~/.viam/module-data/<robot-id>/<module-name>/`. The path is available inside
+the module via the `VIAM_MODULE_DATA` environment variable. This directory
+persists across module restarts and reconfigurations.
+
 ### Timeouts
 
 | Event | Timeout | Behavior on timeout |
@@ -87,22 +102,6 @@ exceed the OS limit (103 characters on macOS). Force TCP mode by setting
 | Module closure (removal + process stop) | ~30 seconds total | Process killed |
 | First-run setup script | 1 hour (configurable via `first_run_timeout`) | Module startup fails |
 | Crash restart retry interval | 5 seconds | Next attempt after delay |
-
-## Module protocol
-
-Modules communicate with `viam-server` over gRPC using the `ModuleService`
-defined in `proto/viam/module/v1/module.proto`:
-
-| RPC | Direction | Purpose |
-|-----|-----------|---------|
-| `Ready` | server → module | Handshake: module returns its supported API/model pairs. |
-| `AddResource` | server → module | Create a new resource instance from config. |
-| `ReconfigureResource` | server → module | Update an existing resource with new config. |
-| `RemoveResource` | server → module | Destroy a resource instance. |
-| `ValidateConfig` | server → module | Validate config and return implicit dependencies. |
-
-The module also connects back to the parent `viam-server` to access other
-resources (dependencies) on the machine.
 
 ## Resource interfaces (Go)
 
@@ -250,6 +249,105 @@ In Python, the default behavior when you don't implement a method differs from G
 | No-op close | Embed `resource.TriviallyCloseable` | Default on `ResourceBase` |
 | Skip config validation | Embed `resource.TriviallyValidateConfig` | Default on `EasyResource` |
 
+## Logging
+
+From modules you can log at the resource level or at the machine level.
+Resource-level logging is recommended because it makes it easier to identify
+which component or service produced a message. Resource-level error logs also
+appear in the **ERROR LOGS** section of each resource's configuration card.
+
+{{< tabs >}}
+{{% tab name="Python" %}}
+
+```python
+# Resource-level logging (recommended):
+self.logger.debug("debug info")
+self.logger.info("info")
+self.logger.warn("warning info")
+self.logger.error("error info")
+self.logger.exception("error info", exc_info=True)
+self.logger.critical("critical info")
+```
+
+For machine-level logging instead of resource-level:
+
+```python
+from viam.logging import getLogger
+
+LOGGER = getLogger(__name__)
+
+LOGGER.debug("debug info")
+LOGGER.info("info")
+LOGGER.warn("warning info")
+LOGGER.error("error info")
+```
+
+{{% /tab %}}
+{{% tab name="Go" %}}
+
+```go
+func (c *component) someFunction(ctx context.Context, a int) {
+  // Log with severity info:
+  c.logger.CInfof(ctx, "performing some function with a=%v", a)
+  // Log with severity debug (using value wrapping):
+  c.logger.CDebugw(ctx, "performing some function", "a" ,a)
+  // Log with severity warn:
+  c.logger.CWarnw(ctx, "encountered warning for component", "name", c.Name())
+  // Log with severity error without a parameter:
+  c.logger.CError(ctx, "encountered an error")
+}
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+To see debug-level logs, run `viam-server` with the `-debug` flag or
+[configure debug logging](/operate/reference/viam-server/#logging) for your
+machine or individual resource.
+
+## Common gotchas
+
+**Always call `Reconfigure` from your constructor.**
+Your constructor and `Reconfigure` should share the same config-reading logic.
+The typical pattern is for the constructor to create the struct, then call
+`Reconfigure` to populate it from config. This avoids duplicating config
+parsing and ensures a newly created resource is fully configured.
+
+**Clean up in `Close()`.**
+If your resource starts background goroutines, opens connections, or holds
+hardware handles, `Close()` must stop them. Leaked goroutines accumulate across
+reconfigurations and can cause instability.
+In Python, `close()` must be idempotent — it may be called more than once.
+
+**Return the right dependency names from `Validate`.**
+Dependencies listed as required in `Validate` (Go) or `validate_config`
+(Python) must match actual resource names in the machine config. If the name
+is wrong, `viam-server` waits for a resource that will never exist, and your
+resource will not start. Use optional dependencies for resources that improve
+functionality but aren't strictly needed.
+
+**Prefer `Reconfigure` over `AlwaysRebuild`.**
+`AlwaysRebuild` (Go) or omitting `reconfigure()` (Python) causes the resource
+to be destroyed and re-created on every config change. This is simpler but
+causes a brief availability gap. Implementing `Reconfigure` to update state
+in-place provides seamless reconfiguration.
+
+## Module protocol
+
+Modules communicate with `viam-server` over gRPC using the `ModuleService`
+defined in `proto/viam/module/v1/module.proto`:
+
+| RPC | Direction | Purpose |
+|-----|-----------|---------|
+| `Ready` | server → module | Handshake: module returns its supported API/model pairs. |
+| `AddResource` | server → module | Create a new resource instance from config. |
+| `ReconfigureResource` | server → module | Update an existing resource with new config. |
+| `RemoveResource` | server → module | Destroy a resource instance. |
+| `ValidateConfig` | server → module | Validate config and return implicit dependencies. |
+
+The module also connects back to the parent `viam-server` to access other
+resources (dependencies) on the machine.
+
 ## meta.json schema
 
 Every module has a `meta.json` file that describes the module to the registry.
@@ -289,7 +387,7 @@ The full schema is available at `https://dl.viam.dev/module.schema.json`.
 | `visibility` | string | Yes | `private`, `public`, or `public_unlisted`. |
 | `url` | string | No | Source repo URL. Required for cloud builds. |
 | `description` | string | Yes | Short description shown in the registry. |
-| `models` | array | Yes | List of API/model pairs the module provides. |
+| `models` | array | No | List of API/model pairs the module provides. Deprecated: models are now inferred from the module binary. |
 | `models[].api` | string | Yes | Resource API (e.g., `rdk:component:sensor`). |
 | `models[].model` | string | Yes | Model triplet (e.g., `my-org:my-module:my-sensor`). |
 | `models[].description` | string | No | Short model description (max 100 chars). |
@@ -303,6 +401,54 @@ The full schema is available at `https://dl.viam.dev/module.schema.json`.
 | `build.path` | string | No | Path to built artifact. Default: `module.tar.gz`. |
 | `build.arch` | array | No | Target platforms. Default: `["linux/amd64", "linux/arm64"]`. |
 | `build.darwin_deps` | array | No | Homebrew dependencies for macOS builds (e.g., `["go", "pkg-config"]`). |
+| `applications` | array | No | Viam applications provided by the module. See [Applications](#applications). |
+
+### Applications
+
+If your module provides a [Viam application](/operate/control/viam-applications/),
+define it in the `applications` array in `meta.json`.
+
+Each application object has the following properties:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `name` | string | The application name, used in the application's URL (`name_publicnamespace.viamapps.com`). Must be all-lowercase, alphanumeric and hyphens only, cannot start or end with a hyphen, and must be unique within your organization's namespace. |
+| `type` | string | `"single_machine"` or `"multi_machine"`. Whether the application can access one machine or multiple machines. |
+| `entrypoint` | string | Path to the HTML entry point (e.g., `"dist/index.html"`). |
+| `fragmentIds` | []string | Fragment IDs a machine must contain to be selectable from the machine picker. Single-machine applications only. |
+| `logoPath` | string | URL or relative path to the logo for the machine picker screen. Single-machine applications only. |
+| `customizations` | object | Override branding on the authentication screen. Properties: `heading` (max 60 chars), `subheading` (max 256 chars). |
+
+For example, if your organization namespace is `acme` and your application name
+is `dashboard`, your application is accessible at:
+
+```txt
+https://dashboard_acme.viamapps.com
+```
+
+### Organization namespace
+
+When uploading modules to the Viam Registry, you must set a unique namespace
+for your organization.
+
+**Create a namespace:** In the Viam app, click your org's **Settings** in the
+top right of the navigation bar, then click **Set a public namespace**. Enter a
+name and click **Set namespace**. Namespaces may only contain letters, numbers,
+and hyphens (`-`).
+
+**Rename a namespace:**
+
+1. Navigate to your organization settings page.
+2. Click **Rename** next to your current namespace.
+3. Enter the new namespace name and click **Rename**.
+4. Update the module code and `meta.json` for each module your organization owns
+   to reflect the new namespace.
+5. (Recommended) Update the `model` field in machine configurations that
+   reference the old namespace. Old references continue to work, but updating
+   avoids confusion.
+
+When you rename a namespace, Viam reserves the old namespace for backwards
+compatibility — it cannot be reused.
 
 ## CLI commands
 
@@ -366,6 +512,8 @@ user's home directory), `--no-progress` (hide transfer progress).
 
 ## Environment variables
 
+### Runtime
+
 These environment variables are available inside a running module process
 (including [first-run scripts](#first-run-scripts)):
 
@@ -377,8 +525,25 @@ These environment variables are available inside a running module process
 | `VIAM_MODULE_ID` | Registry module ID (registry modules only). |
 | `VIAM_HOME` | Path to the Viam home directory (`~/.viam`). |
 
+### Cloud-connected
+
+When the machine is connected to Viam Cloud, these additional variables are
+available inside the module process:
+
+| Variable | Description |
+|----------|-------------|
+| `VIAM_API_KEY` | API key (if an API key auth handler is configured). |
+| `VIAM_API_KEY_ID` | API key ID (if an API key auth handler is configured). |
+| `VIAM_MACHINE_ID` | Cloud machine ID. |
+| `VIAM_MACHINE_PART_ID` | Cloud machine part ID. |
+| `VIAM_MACHINE_FQDN` | Machine's fully qualified domain name. |
+| `VIAM_LOCATION_ID` | Cloud location ID. |
+| `VIAM_PRIMARY_ORG_ID` | Primary organization ID. |
+
 Custom environment variables can be added in the module's machine config under
 the `env` field.
+
+### Build-time
 
 The following variables are set during [cloud builds](#build), not at runtime:
 
@@ -387,11 +552,14 @@ The following variables are set during [cloud builds](#build), not at runtime:
 | `VIAM_BUILD_OS` | Target operating system (e.g., `linux`, `darwin`). |
 | `VIAM_BUILD_ARCH` | Target architecture (e.g., `amd64`, `arm64`). |
 
-The following variable controls module startup behavior:
+### Server-side
+
+The following variables control `viam-server` startup behavior (not passed to modules):
 
 | Variable | Description |
 |----------|-------------|
 | `VIAM_MODULE_STARTUP_TIMEOUT` | Override the default 5-minute startup timeout (e.g., `10m`, `30s`). |
+| `VIAM_RESOURCE_CONFIGURATION_TIMEOUT` | Override the default 2-minute per-resource configuration timeout. |
 
 ## Supported platforms
 
@@ -405,33 +573,6 @@ The following variable controls module startup behavior:
 | `darwin/arm64` | Yes |
 | `windows/amd64` | Yes |
 | `any` | No (use for platform-independent modules) |
-
-## Common gotchas
-
-**Always call `Reconfigure` from your constructor.**
-Your constructor and `Reconfigure` should share the same config-reading logic.
-The typical pattern is for the constructor to create the struct, then call
-`Reconfigure` to populate it from config. This avoids duplicating config
-parsing and ensures a newly created resource is fully configured.
-
-**Clean up in `Close()`.**
-If your resource starts background goroutines, opens connections, or holds
-hardware handles, `Close()` must stop them. Leaked goroutines accumulate across
-reconfigurations and can cause instability.
-In Python, `close()` must be idempotent — it may be called more than once.
-
-**Return the right dependency names from `Validate`.**
-Dependencies listed as required in `Validate` (Go) or `validate_config`
-(Python) must match actual resource names in the machine config. If the name
-is wrong, `viam-server` waits for a resource that will never exist, and your
-resource will not start. Use optional dependencies for resources that improve
-functionality but aren't strictly needed.
-
-**Prefer `Reconfigure` over `AlwaysRebuild`.**
-`AlwaysRebuild` (Go) or omitting `reconfigure()` (Python) causes the resource
-to be destroyed and re-created on every config change. This is simpler but
-causes a brief availability gap. Implementing `Reconfigure` to update state
-in-place provides seamless reconfiguration.
 
 ## Registry validation rules
 

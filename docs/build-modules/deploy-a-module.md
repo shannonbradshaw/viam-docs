@@ -9,6 +9,11 @@ date: "2025-01-30"
 aliases:
   - /build/development/deploy-a-module/
   - /development/deploy-a-module/
+  - /extend/modular-resources/upload/
+  - /modular-resources/upload/
+  - /registry/upload/
+  - /how-tos/upload-module/
+  - /operate/modules/deploy-module/
 ---
 
 A module that only runs locally on your development machine is useful for testing
@@ -163,14 +168,91 @@ Make sure all scripts are executable:
 chmod +x setup.sh build.sh run.sh
 ```
 
-### 3. Deploy with cloud build (recommended)
+### 3. Write a README (recommended)
+
+Document your module and its models so users know how to configure and use
+them. If you plan to make your module public, a good README is essential.
+
+{{< expand "Module README template" >}}
+
+````md
+# `my-sensor-module`
+
+This module implements the [Viam sensor API](https://docs.viam.com/dev/reference/apis/components/sensor/) in a `my-org:my-sensor-module:my-sensor` model.
+With this model, you can gather temperature and humidity data from a custom HTTP endpoint.
+
+Navigate to the **CONFIGURE** tab of your machine's page.
+Click the **+** button, select **Component or service**, then select the `sensor / my-sensor-module:my-sensor` model provided by the [`my-sensor-module` module](https://app.viam.com/module/my-org/my-sensor-module).
+Click **Add module**, enter a name for your sensor, and click **Create**.
+
+## Models
+
+This module provides the following model(s):
+
+- [`my-org:my-sensor-module:my-sensor`](#my-sensor) - A custom sensor that reads temperature and humidity from an HTTP endpoint
+````
+
+{{< /expand >}}
+
+{{< expand "Model README template" >}}
+
+````md
+# Model `my-org:my-sensor-module:my-sensor`
+
+A description of what this model does and what hardware or services it supports.
+
+## Configuration
+
+The following attribute template can be used to configure this model:
+
+```json
+{
+  "source_url": "<string>",
+  "poll_interval": <float>
+}
+```
+
+### Attributes
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `source_url` | string | Yes | The HTTP endpoint to read sensor data from |
+| `poll_interval` | float | No | Polling interval in seconds (default: 10.0) |
+
+### Example Configuration
+
+```json
+{
+  "source_url": "https://api.example.com/sensor/data",
+  "poll_interval": 5.0
+}
+```
+
+## DoCommand
+
+If your model implements DoCommand, document each supported command.
+
+### Example DoCommand
+
+```json
+{
+  "command": "calibrate",
+  "offset": 1.5
+}
+```
+````
+
+{{< /expand >}}
+
+You can point your module's registry page to a README by setting the
+`markdown_link` field in `meta.json` to a file path (e.g., `README.md`) or a
+section anchor (e.g., `README.md#my-sensor`).
+
+### 4. Deploy with cloud build (recommended)
 
 Cloud build is the recommended way to deploy modules. It uses GitHub Actions to
 compile your module for every target platform automatically, so you don't need
-to cross-compile locally. This eliminates a common class of errors where a
-binary built for one architecture (e.g., `linux/amd64`) is uploaded for a
-different one (e.g., `linux/arm64`), resulting in exec format errors on the
-target machine.
+to cross-compile locally.
 
 The generator creates the workflow file at
 `.github/workflows/deploy.yml`. To use it:
@@ -223,7 +305,7 @@ viam module build start --ref master
 ```
 {{< /alert >}}
 
-### 4. Deploy manually (alternative)
+### 5. Deploy manually (alternative)
 
 If you cannot use cloud build, you can build and upload from the command line.
 
@@ -247,9 +329,19 @@ cd my-sensor-module
 bash build.sh
 ```
 
-Python modules don't require cross-compilation since they run in an
-interpreter, but native dependencies (C extensions) may need to be built for
-the target platform.
+The generated `build.sh` uses [PyInstaller](https://pypi.org/project/pyinstaller/)
+to compile your module into a standalone executable containing the Python
+interpreter and all dependencies.
+
+{{< alert title="PyInstaller limitations" color="note" >}}
+- PyInstaller does not support relative imports in entrypoints (imports
+  starting with `.`). If you get `"ImportError: attempted relative import with
+  no known parent package"`, see the
+  [PyInstaller workaround](https://github.com/pyinstaller/pyinstaller/issues/2560).
+- PyInstaller does not support cross-compilation. Use
+  [cloud build](#4-deploy-with-cloud-build-recommended) to build for multiple
+  architectures automatically.
+{{< /alert >}}
 
 {{% /tab %}}
 {{% tab name="Go" %}}
@@ -290,7 +382,7 @@ tar -czf dist/archive.tar.gz -C dist module
 viam module upload --version=0.1.0 --platform=linux/arm64 dist/archive.tar.gz
 ```
 
-### 5. Configure the module on a machine
+### 6. Configure the module on a machine
 
 Once your module is in the registry, any machine in your organization can use it.
 
@@ -312,7 +404,7 @@ Once your module is in the registry, any machine in your organization can use it
 `viam-server` downloads the module from the registry, starts it, and makes the
 component available. Test it from the **CONTROL** tab.
 
-### 6. Manage versions
+### 7. Manage versions
 
 **Release a new version:**
 
@@ -344,7 +436,7 @@ upload `v0.2.0`, all machines update automatically within a few minutes.
 You can view version history and details for your module in the
 [Viam registry](https://app.viam.com/registry).
 
-### 7. Keep meta.json in sync with your code
+### 8. Keep meta.json in sync with your code
 
 As you add models to your module, you can auto-detect them from a built binary
 instead of editing `meta.json` by hand:
@@ -362,7 +454,7 @@ Then push the updated metadata to the registry:
 viam module update
 ```
 
-### 8. Download a module
+### 9. Download a module
 
 To download a module from the registry (for testing or inspection):
 

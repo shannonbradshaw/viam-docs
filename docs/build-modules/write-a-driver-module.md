@@ -10,6 +10,35 @@ aliases:
   - /build/development/write-a-module/
   - /development/write-a-module/
   - /development/write-a-driver-module/
+  - /registry/create/
+  - /use-cases/create-module/
+  - /how-tos/create-module/
+  - /how-tos/sensor-module/
+  - /registry/advanced/iterative-development/
+  - /build/program/extend/modular-resources/
+  - /program/extend/modular-resources/
+  - /extend/
+  - /extend/modular-resources/
+  - /extend/modular-resources/create/
+  - /build/program/extend/modular-resources/key-concepts/
+  - /modular-resources/key-concepts/
+  - /modular-resources/
+  - /extend/modular-resources/examples/custom-arm/
+  - /modular-resources/examples/custom-arm/
+  - /registry/examples/custom-arm/
+  - /program/extend/modular-resources/examples/
+  - /extend/modular-resources/examples/
+  - /modular-resources/examples/
+  - /registry/examples/
+  - /operate/get-started/other-hardware/
+  - /operate/get-started/other-hardware/create-module/
+  - /operate/modules/other-hardware/create-module/
+  - /how-tos/hello-world-module/
+  - /operate/get-started/other-hardware/hello-world-module/
+  - /operate/modules/create-module/hello-world-module/
+  - /operate/modules/supported-hardware/hello-world-module/
+  - /operate/modules/support-hardware/
+  - /operate/modules/
 ---
 
 You want to use hardware that Viam doesn't support out of the box. A driver
@@ -936,6 +965,71 @@ The directory is created automatically by `viam-server` at
 defaults to `~/.viam`) and persists across module
 restarts and reconfigurations.
 
+### 8. Add multiple models to one module (optional)
+
+A single module can provide multiple models, even across different APIs
+(for example, a sensor and a camera). There is no limit on the number of models
+per module.
+
+To add a second model:
+
+1. Run `viam module generate` again in a separate directory to generate
+   the new model's scaffolding. Do not register it -- you only need the
+   generated resource file.
+2. Copy the generated resource file into your existing module's source
+   directory.
+3. Update the entry point to register both models.
+
+{{< tabs >}}
+{{% tab name="Python" %}}
+
+Import the new model in `src/main.py`. `run_from_registry()` automatically
+discovers all imported resource classes:
+
+```python
+import asyncio
+from viam.module.module import Module
+from models.my_sensor import MySensor  # noqa: F401
+from models.my_camera import MyCamera  # noqa: F401
+
+if __name__ == "__main__":
+    asyncio.run(Module.run_from_registry())
+```
+
+{{% /tab %}}
+{{% tab name="Go" %}}
+
+Add more `resource.APIModel` entries to `ModularMain`:
+
+```go
+package main
+
+import (
+    mymodule "my-org/my-module"
+    "go.viam.com/rdk/components/camera"
+    "go.viam.com/rdk/components/sensor"
+    "go.viam.com/rdk/module"
+    "go.viam.com/rdk/resource"
+)
+
+func main() {
+    module.ModularMain(
+        resource.APIModel{sensor.API, mymodule.SensorModel},
+        resource.APIModel{camera.API, mymodule.CameraModel},
+    )
+}
+```
+
+Each model needs its own `init()` function calling `resource.RegisterComponent`
+(or `resource.RegisterService`) with its API, model, and constructor.
+
+{{% /tab %}}
+{{< /tabs >}}
+
+4. Delete the temporary generated directory.
+5. Update `meta.json` to list all models (or use `viam module update-models
+   --binary ./bin/module` to detect them automatically from a Go binary).
+
 ## Try It
 
 1. Generate a sensor module using `viam module generate`.
@@ -968,9 +1062,10 @@ restarts and reconfigurations.
 
 {{< expand "Module times out on startup" >}}
 
-`viam-server` expects the module to respond to a ready check within about 15
-seconds of launch. If your module does heavy initialization (loading large
-files, connecting to slow services), it may time out.
+`viam-server` expects the module to complete startup within 5 minutes (the
+default `VIAM_MODULE_STARTUP_TIMEOUT`). If your module does heavy
+initialization (loading large files, connecting to slow services), it may
+time out.
 
 - Move slow initialization out of `init()` or model registration and into the
   constructor instead, where it runs per-resource rather than blocking module
@@ -1009,6 +1104,16 @@ To deploy changes:
 
 - Use `viam module reload-local --part-id <id>` to rebuild and redeploy.
 - Use `viam module restart --part-id <id>` to restart without rebuilding.
+
+If `reload-local` fails:
+
+- **"no build command"** -- Your `meta.json` is missing a `build.build` field.
+  Add the path to your build script (e.g., `"build": "./build.sh"`).
+- **"could not find module ID"** -- Run the command from the directory
+  containing `meta.json`, or use `--home <path>` to specify the module
+  directory.
+- **PermissionDenied errors** -- Try `--home $HOME` to ensure the CLI can
+  locate the module metadata.
 
 {{< /expand >}}
 
