@@ -41,7 +41,7 @@ The fleet management API supports the following methods:
 
 To use the fleet management API, you need to instantiate a `ViamClient` and then instantiate a `AppClient`.
 
-You need an API key and API key ID at least [Machine operator permissions](/manage/manage/rbac/#organization-settings-and-roles) to use the fleet management API.
+You need an API key and API key ID at least [Machine operator permissions](/organization/rbac/#organization-settings-and-roles) to use the fleet management API.
 To get an API key (and corresponding ID), use the [web UI](/operate/control/api-keys/#add-an-api-key)
 to the [Viam CLI](/dev/tools/cli/#create-an-organization-api-key).
 
@@ -145,7 +145,7 @@ const appClient = appClient.appClient;
 {{% /tab %}}
 {{% tab name="From within a Module" %}}
 
-See [Use platform APIs from within a module](/operate/modules/advanced/platform-apis/).
+See [Use platform APIs from within a module](/build-modules/platform-apis/).
 
 {{% /tab %}}
 {{< /tabs >}}

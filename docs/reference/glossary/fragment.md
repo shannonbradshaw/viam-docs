@@ -1,7 +1,7 @@
 ---
 title: Fragment
 id: fragment
-full_link: /manage/fleet/reuse-configuration/
+full_link: /fleet/reuse-configuration/
 short_description: A reusable configuration block that you can share across multiple machines.
 aliases:
   - /reference/glossary/fragment/
@@ -10,4 +10,4 @@ aliases:
 
 A reusable configuration block that you can share across multiple machines.
 
-For more information, see [Fragments](/manage/fleet/reuse-configuration/).
+For more information, see [Fragments](/fleet/reuse-configuration/).

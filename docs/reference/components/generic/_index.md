@@ -42,7 +42,7 @@ If you want to use most of an existing API but need just a few other functions, 
 
 {{% alert title="Example usage" color="tip" %}}
 
-See [Deploy control logic](/operate/modules/control-logic/) for an example of how to use the generic component API, including how to call `DoCommand()` from the SDKs or the web UI.
+See [Deploy control logic](/build-modules/write-a-logic-module/) for an example of how to use the generic component API, including how to call `DoCommand()` from the SDKs or the web UI.
 
 {{% /alert %}}
 
@@ -94,5 +94,5 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{< /cards >}}

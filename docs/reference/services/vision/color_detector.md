@@ -224,12 +224,12 @@ import (
 
 // Grab the camera from the machine
 cameraName := "cam1" // make sure to use the same component name that you have in your machine configuration
-myCam, err := camera.FromProvider(robot, cameraName)
+myCam, err := camera.FromRobot(robot, cameraName)
 if err != nil {
   logger.Fatalf("cannot get camera: %v", err)
 }
 
-myDetector, err := vision.from_robot(robot, "my_detector")
+myDetector, err := vision.FromRobot(robot, "my_detector")
 if err != nil {
     logger.Fatalf("Cannot get vision service: %v", err)
 }
@@ -239,7 +239,7 @@ detections, err := myDetector.DetectionsFromCamera(context.Background(), myCam, 
 if err != nil {
     logger.Fatalf("Could not get detections: %v", err)
 }
-if len(directDetections) > 0 {
+if len(detections) > 0 {
     logger.Info(detections[0])
 }
 
@@ -305,7 +305,7 @@ import (
   "os"
 )
 
-myDetector, err := vision.from_robot(robot, "my_detector")
+myDetector, err := vision.FromRobot(robot, "my_detector")
 if err != nil {
     logger.Fatalf("Cannot get Vision Service: %v", err)
 }
@@ -320,7 +320,6 @@ img, err := jpeg.Decode(file)
 if err != nil {
     logger.Fatalf("Could not decode image: %v", err)
 }
-defer img.Close()
 
 // Apply the detector to the image
 detectionsFromImage, err := myDetector.Detections(context.Background(), img, nil)
@@ -347,5 +346,5 @@ To see more code examples of how to use Viam's Vision Service, see [our example 
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{< /cards >}}

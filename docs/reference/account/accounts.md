@@ -15,7 +15,7 @@ aliases:
 
 Viam has a [web UI](https://app.viam.com/) for managing and building machines.
 To use Viam, you need a free account.
-Accounts can have [different permissions](/manage/manage/rbac/) to different groups of machines.
+Accounts can have [different permissions](/organization/rbac/) to different groups of machines.
 
 ## Create account and log in
 

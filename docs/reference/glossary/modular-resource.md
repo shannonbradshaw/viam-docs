@@ -11,4 +11,4 @@ A modular resource is a {{< glossary_tooltip term_id="model" text="model" >}} of
 A modular resource runs in a module process.
 This differs from built-in resources, which run as part of `viam-server`.
 
-For more information see the [Create a module](/operate/modules/support-hardware/#write-your-module).
+For more information see the [Create a module](/build-modules/write-a-driver-module/#write-your-module).

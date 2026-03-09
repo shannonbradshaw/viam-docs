@@ -13,11 +13,18 @@ aliases:
   - /data-ai/services/vision/detector_3d_segmenter/
   - /reference/services/vision/detector_3d_segmenter/
 # SMEs: Bijan, Khari
+draft: true
 ---
+
+{{< alert title="Deprecated" color="caution" >}}
+The `detector_3d_segmenter` model was removed from the RDK in July 2025. It is no longer available as a built-in vision service model and no replacement module currently exists in the Viam registry.
+
+If you need 3D object localization, see [Measure Depth](/vision/measure-depth/) for combining 2D detections with depth data, and [`GetObjectPointClouds`](/reference/apis/services/vision/#getobjectpointclouds) in the vision service API reference.
+{{< /alert >}}
 
 _Changed in [RDK v0.2.36 and API v0.1.118](/reference/changelog/#vision-service)_
 
-The `detector_3d_segmenter` vision service model takes 2D bounding boxes from an [object detector](/reference/apis/services/vision/#detections), and, using the intrinsic parameters of the chosen camera, projects the pixels in the bounding box to points in 3D space.
+The `detector_3d_segmenter` vision service model took 2D bounding boxes from an [object detector](/reference/apis/services/vision/#detections), and, using the intrinsic parameters of the chosen camera, projected the pixels in the bounding box to points in 3D space.
 If the chosen camera is not equipped to do projections from 2D to 3D, then this vision model will fail.
 The label and the pixels associated with the 2D detections become the label and point cloud associated with the 3D segmenter.
 
@@ -167,6 +174,6 @@ To see more code examples of how to use Viam's vision service, see [our example 
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
-{{% card link="/tutorials/services/navigate-with-rover-base/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
+{{% card link="/navigation/how-to/navigate-to-waypoint/" noimage="true" %}}
 {{< /cards >}}

@@ -10,6 +10,8 @@ date: "2024-10-10"
 aliases:
   - /appendix/apis/components/motor/
   - /reference/apis/components/motor/
+  - /operate/modules/supported-hardware/motor/
+  - /operate/modules/component-apis/motor/
 # updated: ""  # When the content was last entirely checked
 ---
 

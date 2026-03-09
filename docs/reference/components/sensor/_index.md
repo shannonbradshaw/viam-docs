@@ -41,7 +41,7 @@ For additional configuration information, click on the model name:
 {{<resources api="rdk:component:sensor" type="sensor" no-intro="true">}}
 
 {{< alert title="Add support for other models" color="tip" >}}
-If none of the existing models fit your use case, you can [create a modular resource](/operate/modules/support-hardware/) to add support for it.
+If none of the existing models fit your use case, you can [create a modular resource](/build-modules/write-a-driver-module/) to add support for it.
 {{< /alert >}}
 
 {{% /tab %}}
@@ -81,8 +81,8 @@ The [sensor API](/reference/apis/components/sensor/) supports the following meth
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/data/" noimage="true" %}}
 {{< /cards >}}
 
-To capture data from the sensor, see the [data management service](/data-ai/capture-data/capture-sync/).
+To capture data from the sensor, see the [data management service](/data/).

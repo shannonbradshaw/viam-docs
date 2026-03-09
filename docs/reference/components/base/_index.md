@@ -88,12 +88,12 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration, development, and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/tutorials/configure/configure-rover/" noimage="true" %}}
 {{% card link="/tutorials/control/drive-rover/" noimage="true" %}}
 {{< /cards >}}
 
 You can also use the base component with the following services:
 
-- [Navigation service](/reference/services/navigation/): to navigate with GPS
+- [Navigation service](/navigation/reference/navigation-service/): to navigate with GPS
 - [SLAM service](/reference/services/slam/): for mapping

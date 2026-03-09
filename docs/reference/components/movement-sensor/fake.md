@@ -67,7 +67,7 @@ Edit and fill in the attributes as applicable.
 
 ## Test the movement sensor
 
-After you configure your movement sensor, navigate to the [Control tab](/manage/troubleshoot/teleoperate/default-interface/) and select the dedicated movement sensor dropdown panel.
+After you configure your movement sensor, navigate to the [Control tab](/monitor/teleoperate/) and select the dedicated movement sensor dropdown panel.
 This panel presents the data collected by the movement sensor.
 The sections in the panel include the position, orientation, angular velocity, linear velocity, and linear acceleration.
 
@@ -82,6 +82,6 @@ The sections in the panel include the position, orientation, angular velocity, l
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/movement-sensor/" customTitle="Movement sensor API" noimage="true" %}}
 {{< /cards >}}

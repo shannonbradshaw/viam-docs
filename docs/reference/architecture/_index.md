@@ -121,7 +121,7 @@ For more details, see [Machine-to-Machine Communication](/reference/architecture
 
 TLS certificates automatically provided by Viam ensure that all communication is authenticated and encrypted.
 
-Viam uses API keys with [role-based access control (RBAC)](/manage/manage/rbac/) to control access to machines from client code.
+Viam uses API keys with [role-based access control (RBAC)](/organization/rbac/) to control access to machines from client code.
 
 ## Data management flow
 
@@ -142,7 +142,7 @@ Data is captured and synced to the Viam Cloud as follows:
 
 If a device has intermittent internet connectivity, data is stored locally until the machine can reconnect to the cloud.
 
-For more information, see [Data management service](/data-ai/capture-data/capture-sync/).
+For more information, see [Data management service](/data/).
 
 ## Basic machine example
 

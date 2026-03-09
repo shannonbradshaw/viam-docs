@@ -132,7 +132,7 @@ For more information, see [Viam applications](/operate/control/viam-applications
 
 {{% changelog color="added" title="Start modules with a TCP connection" date="2025-07-14" %}}
 
-You can now configure to start modules with a TCP connection. See [Module Configuration](/operate/modules/advanced/module-configuration/) for more information.
+You can now configure to start modules with a TCP connection. See [Module Configuration](/reference/module-configuration/) for more information.
 
 {{% /changelog %}}
 
@@ -171,7 +171,7 @@ Organization owners and location owners can now move machines between locations 
 {{% changelog color="added" title="Module and namespace renaming" date="2025-06-09" %}}
 
 You can now rename modules and organization namespaces through the web UI.
-For more information, see [Rename a module](/operate/modules/advanced/manage-modules/#rename-a-module) and [Update a namespace for your organization](/operate/modules/advanced/metajson/#update-a-namespace-for-your-organization).
+For more information, see [Rename a module](/build-modules/manage-modules/#rename-a-module) and [Update a namespace for your organization](/build-modules/module-reference/#update-a-namespace-for-your-organization).
 
 {{% /changelog %}}
 
@@ -200,7 +200,7 @@ Some older modules use "explicit dependencies" which require users to list the n
 
 This explicit dependency handling is deprecated and not recommended when writing new modules.
 
-We now recommend using dependencies as described in the [Module dependencies](/operate/modules/advanced/dependencies/) documentation.
+We now recommend using dependencies as described in the [Module dependencies](/build-modules/dependencies/) documentation.
 The implicit way of handling dependencies does not require users to list the names of dependencies in the `depends_on` field.
 
 {{% /changelog %}}
@@ -255,7 +255,7 @@ This is a breaking change for Go modules.
 {{% /tab %}}
 {{< /tabs >}}
 
-See [Module dependencies](/operate/modules/advanced/dependencies/) for more information.
+See [Module dependencies](/build-modules/dependencies/) for more information.
 
 {{% /changelog %}}
 
@@ -274,7 +274,7 @@ For more information, see [Configure operating system logging](/manage/fleet/sys
 {{% changelog color="removed" title="Processes" date="2025-05-06" %}}
 
 Processes were removed in `viam-server` v0.74.0.
-Instead [use modules for control logic](/operate/modules/control-logic/#program-control-logic-in-module).
+Instead [use modules for control logic](/build-modules/write-a-logic-module/#program-control-logic-in-module).
 
 {{% /changelog %}}
 
@@ -396,7 +396,7 @@ Backward compatibility is maintained for existing configurations.
 {{% changelog color="removed" title="Managed Processes" date="2025-02-01" %}}
 
 Managed Processes are now deprecated and will be removed in a future version of `viam-server`.
-Instead [use modules for control logic](/operate/modules/control-logic/#program-control-logic-in-module).
+Instead [use modules for control logic](/build-modules/write-a-logic-module/#program-control-logic-in-module).
 
 {{% /changelog %}}
 
@@ -973,7 +973,7 @@ This update enables you to implement custom models of an arm component as a modu
 - `movetoJointPositions`
 - `GetKinematics`
 
-Then, use the [motion planning service](/reference/services/motion/) to specify poses, and Viam handles the rest.
+Then, use the [motion planning service](/motion-planning/reference/motion-service/) to specify poses, and Viam handles the rest.
 
 {{% /changelog %}}
 
@@ -1416,7 +1416,7 @@ You can replace existing Radius Clustering 3D segmenters by [configuring new one
 
 #### Add and remove models using the machine config
 
-You must add and remove models using the [machine config](/operate/modules/configure-modules/#configure-hardware-or-software-on-your-machine).
+You must add and remove models using the [machine config](/hardware/configure-hardware/).
 You will no longer be able to add or remove models using the SDKs.
 
 #### Add machine learning vision models to a vision service
@@ -1436,7 +1436,7 @@ For more information on using data synced to the cloud to train machine learning
 
 {{% changelog date="2023-03-31" color="added" title="Motion planning with new `constraint` parameter" %}}
 
-A new parameter, [`constraint`](/reference/services/motion/constraints/), has been added to the [Motion service API](/reference/apis/services/motion/#api), allowing you to define restrictions on the machine's movement.
+A new parameter, [`constraint`](/motion-planning/constraints/), has been added to the [Motion service API](/reference/apis/services/motion/#api), allowing you to define restrictions on the machine's movement.
 The constraint system also provides flexibility to specify that obstacles should only impact specific frames of a machine.
 
 {{% /changelog %}}
@@ -1490,7 +1490,7 @@ Find more information in the [TypeScript SDK docs](https://ts.viam.dev/).
 
 {{% changelog date="2023-02-28" color="added" title="Frame system visualizer" %}}
 
-When adding [frames](/reference/services/frame-system/) to your machine's config, you can now use the **Frame System** subtab of the **CONFIGURE** tab to more easily visualize the relative positions of frames.
+When adding [frames](/motion-planning/frame-system/) to your machine's config, you can now use the **Frame System** subtab of the **CONFIGURE** tab to more easily visualize the relative positions of frames.
 
 {{% /changelog %}}
 
@@ -1522,7 +1522,7 @@ The movement sensor API now includes a [GetLinearAcceleration](/reference/apis/c
 
 {{% changelog date="2023-01-31" color="added" title="Support for capsule geometry" %}}
 
-The [motion service](/reference/services/motion/) now supports capsule geometries.
+The [motion service](/motion-planning/reference/motion-service/) now supports capsule geometries.
 
 The UR5 arm model has been improved using this new geometry type.
 
@@ -1566,7 +1566,7 @@ There are two new movement sensor {{< glossary_tooltip term_id="model" text="mod
 
 {{% changelog date="2022-12-28" color="improved" title="Motion planning with remote components" %}}
 
-The [motion service](/reference/services/motion/) is now agnostic to the networking topology of a machine.
+The [motion service](/motion-planning/reference/motion-service/) is now agnostic to the networking topology of a machine.
 
 - Kinematic information is now transferred over the robot API.
   This means that the motion service is able to get kinematic information for every component on the machine, regardless of whether it is on a main or remote viam-server.

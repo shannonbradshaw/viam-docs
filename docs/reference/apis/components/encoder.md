@@ -10,6 +10,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/encoder/
   - /reference/apis/components/encoder/
+  - /operate/modules/supported-hardware/encoder/
+  - /operate/modules/component-apis/encoder/
 # updated: ""  # When the content was last entirely checked
 ---
 

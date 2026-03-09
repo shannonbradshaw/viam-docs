@@ -82,6 +82,6 @@ The following attributes are available for `single-axis` gantries:
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/gantry/" customTitle="Gantry API" noimage="true" %}}
 {{< /cards >}}

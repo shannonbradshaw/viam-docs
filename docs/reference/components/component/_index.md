@@ -61,7 +61,7 @@ Add services commonly used with the component.
 
 {{< cards >}}
 {{< relatedcard link="/services/data/" >}}
-{{< relatedcard link="/reference/services/frame-system/" >}}
+{{< relatedcard link="/motion-planning/frame-system/" >}}
 {{< /cards >}}
 
 ## API

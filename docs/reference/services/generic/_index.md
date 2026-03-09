@@ -54,6 +54,6 @@ The [generic service API](/reference/apis/services/generic/) supports the follow
 
 ## Troubleshooting
 
-You can find additional assistance in the [Troubleshooting section](/manage/troubleshoot/troubleshoot/).
+You can find additional assistance in the [Troubleshooting section](/monitor/troubleshoot/).
 
 {{< snippet "social.md" >}}

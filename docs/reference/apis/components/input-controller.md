@@ -11,6 +11,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/input-controller/
   - /reference/apis/components/input-controller/
+  - /operate/modules/supported-hardware/input-controller/
+  - /operate/modules/component-apis/input-controller/
 # updated: ""  # When the content was last entirely checked
 ---
 

@@ -57,7 +57,7 @@ No attributes are available for `fake` encoders.
 
 ## Test the encoder
 
-Once your encoder is configured and your machine is connected, go to the [**CONTROL** tab](/manage/troubleshoot/teleoperate/default-interface/) and click on the encoder's dropdown panel.
+Once your encoder is configured and your machine is connected, go to the [**CONTROL** tab](/monitor/teleoperate/) and click on the encoder's dropdown panel.
 The ticks count is displayed.
 
 ![Encoder control panel.](/components/encoder/control.png)
@@ -71,6 +71,6 @@ The ticks count is displayed.
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/encoder/" customTitle="Encoder API" noimage="true" %}}
 {{< /cards >}}

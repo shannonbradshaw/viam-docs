@@ -406,4 +406,4 @@ For example, `rm ~/Downloads/viam-mymachine1-main.json`.
 
 ## Troubleshooting
 
-You can find additional assistance in the [Troubleshooting section](/manage/troubleshoot/troubleshoot/).
+You can find additional assistance in the [Troubleshooting section](/monitor/troubleshoot/).

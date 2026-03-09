@@ -11,6 +11,8 @@ date: "2025-02-20"
 aliases:
   - /reference/apis/components/button/
   - /reference/apis/components/button/
+  - /operate/modules/supported-hardware/button/
+  - /operate/modules/component-apis/button/
 ---
 
 The button API allows you to get button presses from your [button components](/reference/components/button/).

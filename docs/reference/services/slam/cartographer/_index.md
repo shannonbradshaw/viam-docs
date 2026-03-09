@@ -79,9 +79,9 @@ You can use data from one or more movement sensors on your machine to supplement
 If you choose to use movement sensor data for SLAM, you can:
 
 - Add only inertial measurement unit (IMU) data
-  - Requires a movement sensor that supports [`AngularVelocity`](/reference/services/navigation/#angular-velocity) and [`LinearAcceleration`](/reference/services/navigation/#linear-acceleration) readings
+  - Requires a movement sensor that supports [`AngularVelocity`](/navigation/reference/navigation-service/#angular-velocity) and [`LinearAcceleration`](/navigation/reference/navigation-service/#linear-acceleration) readings
 - Add only odometry data
-  - Requires a movement sensor that collects [`Position`](/reference/services/navigation/#position) and [`Orientation`](/reference/services/navigation/#orientation) data (for example, [`wheeled-odometry`](/reference/components/movement-sensor/wheeled-odometry/))
+  - Requires a movement sensor that collects [`Position`](/navigation/reference/navigation-service/#position) and [`Orientation`](/navigation/reference/navigation-service/#orientation) data (for example, [`wheeled-odometry`](/reference/components/movement-sensor/wheeled-odometry/))
 - Add both IMU _and_ odometry data
   - Requires all four of the above kinds of data, merged together using the [`merged` movement sensor model](/reference/components/movement-sensor/merged/)
   - If you choose this option, be sure to configure data capture on the `merged` sensor and not on the individual movement sensors when following the steps below.

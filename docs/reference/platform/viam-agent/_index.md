@@ -27,7 +27,7 @@ Among other things, `viam-agent`:
 Currently, `viam-agent` is only supported on Linux for amd64 (x86_64) and arm64 (aarch64) CPUs and Windows (native).
 {{< /alert >}}
 
-To provision machines using `viam-agent`, see [Provision Machines](/manage/fleet/provision/setup/).
+To provision machines using `viam-agent`, see [Provision Machines](/fleet/provision-devices/).
 
 ## Installation
 
@@ -295,7 +295,7 @@ You can also start `viam-agent` in fast start mode by setting `VIAM_AGENT_FAST_S
 | `user_idle_minutes` | integer | Optional | Amount of time before considering a user (using the captive web portal or provisioning app) idle, and resuming normal behavior. Used to avoid interrupting provisioning mode (for example for network tests/retries) when a user might be busy entering details. Default: `5` (5 minutes). |
 | `wifi_power_save` | boolean | Optional | If set, will explicitly enable or disable power save for all WiFi connections managed by NetworkManager. If not set, the system default applies. Default: `null`. |
 
-For more detailed instructions on what these settings do, see [Provisioning](/manage/fleet/provision/setup/).
+For more detailed instructions on what these settings do, see [Provisioning](/fleet/provision-devices/).
 
 ## `additional_networks`
 
@@ -334,7 +334,7 @@ If the highest-priority network is not available (or, if `turn_on_hotspot_if_wif
 | `logging_journald_system_max_use_megabytes` | integer | Optional | Sets the maximum disk space `journald` will use for persistent log storage. `-1` to disable. Default: `512` (512 MB). |
 | `os_auto_upgrade_type` | string | Optional | Manage OS package updates using Viam by setting this field. Installs the `unattended-upgrades` package, and replace `20auto-upgrades` and `50unattended-upgrades` in <FILE>/etc/apt/apt.conf.d/</FILE>, with an automatically generated Origins-Pattern list that is generated based on that of `50unattended-upgrades`. Custom repos installed on the system at the time the setting is enabled will be included. Options: `"all"` (automatic upgrades are performed for all packages), `"security"` (automatic upgrades for only packages containing `"security"` in their codename (for example `bookworm-security`)), `"disable"` (disable automatic upgrades), `""` (do not change system settings). Default: `""`. |
 
-For more detailed instructions, see [Configure machine settings](https://docs.viam.com/manage/fleet/system-settings/).
+For more detailed instructions, see [Configure machine settings](/fleet/system-settings/).
 
 ## Agent logs
 

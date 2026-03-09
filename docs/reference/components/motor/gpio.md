@@ -213,6 +213,6 @@ Only the output side of the driver board is different in that more wires connect
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/motor/" customTitle="Motor API" noimage="true" %}}
 {{< /cards >}}

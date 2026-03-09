@@ -48,7 +48,7 @@ Methods to work with datasets:
 
 To use the data client API, you need to instantiate a `ViamClient` and then instantiate a `DataClient`.
 
-You need an API key and API key ID with at least [Machine operator permissions](/manage/manage/rbac/#organization-settings-and-roles) to use the data client API.
+You need an API key and API key ID with at least [Machine operator permissions](/organization/rbac/#organization-settings-and-roles) to use the data client API.
 To get an API key (and corresponding ID), use the [web UI](/operate/control/api-keys/#add-an-api-key)
 to the [Viam CLI](/dev/tools/cli/#create-an-organization-api-key).
 
@@ -153,7 +153,7 @@ const dataClient = viamClient.dataClient;
 {{% /tab %}}
 {{% tab name="From within a Module" %}}
 
-See [Use platform APIs from within a module](/operate/modules/advanced/platform-apis/).
+See [Use platform APIs from within a module](/build-modules/platform-apis/).
 
 {{% /tab %}}
 {{< /tabs >}}

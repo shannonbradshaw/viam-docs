@@ -144,7 +144,7 @@ Classifications overlay text from the `GetClassifications` method of the [vision
 - `classifier_name`: The name of the classifier in the [vision service](/reference/services/vision/).
 - `confidence_threshold`: The threshold above which to display classifications.
 - `max_classifications`: _Optional_. The maximum number of classifications to display on the camera stream at any given time. Default: `1`.
-- `valid_labels`: _Optional_. An array of labels that you to see detections for on the camera stream. If not specified, all labels from the classifier are used.
+- `valid_labels`: _Optional_. An array of labels to see classifications for on the camera stream. If not specified, all labels from the classifier are used.
 
 ### Crop
 
@@ -267,7 +267,7 @@ The Detections transform takes the input image and overlays the detections from 
 
 - `detector_name`: The name of the detector configured in the [vision service](/reference/services/vision/).
 - `confidence_threshold`: Specify to only display detections above the specified threshold (decimal between 0 and 1).
-- `valid_labels`: _Optional_. An array of labels that you to see detections for on the camera stream. If not specified, all labels from the classifier are used.
+- `valid_labels`: _Optional_. An array of labels to see detections for on the camera stream. If not specified, all labels from the detector are used.
 
 ### Resize
 
@@ -291,7 +291,7 @@ The Resize transform resizes the image to the specified height and width.
 **Attributes:**
 
 - `width_px`: Specify the expected width for the aligned image. Value must be >= 0.
-- `height_px`: Specify the expected width for the aligned image. Value must be >= 0.
+- `height_px`: Specify the expected height for the aligned image. Value must be >= 0.
 
 ### Rotate
 
@@ -314,7 +314,7 @@ This feature is useful for when the camera is installed upside down or sideways 
 
 **Attributes:**
 
-- `angle_deg`: Rotate the image by a specific angle in degrees.
+- `angle_degs`: Rotate the image by a specific angle in degrees.
 
 ## View the camera stream
 

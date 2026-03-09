@@ -173,7 +173,7 @@ This wiring example corresponds to the [example config above](#encoder-config).
 
 ## Test the motor
 
-Once your motor is configured and connected, go to the [**CONTROL** tab](/manage/troubleshoot/teleoperate/default-interface/) and click on the motor's dropdown panel.
+Once your motor is configured and connected, go to the [**CONTROL** tab](/monitor/teleoperate/) and click on the motor's dropdown panel.
 Use the buttons to try turning your motor forwards or backwards at different power levels and check whether it moves as expected.
 
 ![Motor control panel.](/components/motor/control.png)
@@ -186,7 +186,7 @@ The position, orientation, and linear and angular velocity of the rover changing
 
 {{<gif webm_src="/components/encoded-motor/controls_change.webm" mp4_src="/components/encoded-motor/controls_change.mp4" alt="The control tab of a movement sensor on a base with encoded motors as it turns">}}
 
-If the motor does not appear on the **CONTROL** tab, or if you notice unexpected behavior, check your machine's [**LOGS** tab](/manage/troubleshoot/troubleshoot/#check-logs) for errors, and review the configuration.
+If the motor does not appear on the **CONTROL** tab, or if you notice unexpected behavior, check your machine's [**LOGS** tab](/monitor/troubleshoot/#check-logs) for errors, and review the configuration.
 
 ## Control motor velocity with encoder feedback
 
@@ -201,6 +201,6 @@ If the motor does not appear on the **CONTROL** tab, or if you notice unexpected
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/motor/" customTitle="Motor API" noimage="true" %}}
 {{< /cards >}}

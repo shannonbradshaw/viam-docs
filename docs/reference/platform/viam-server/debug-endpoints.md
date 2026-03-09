@@ -90,7 +90,7 @@ Available layout options include:
 ## Next Steps
 
 {{< cards >}}
-{{% card link="/manage/troubleshoot/troubleshoot/" %}}
+{{% card link="/monitor/troubleshoot/" %}}
 {{% card link="/reference/platform/viam-server/manage-viam-server/" %}}
 {{% card link="/dev/tools/common-errors/" %}}
 {{< /cards >}}

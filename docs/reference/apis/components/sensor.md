@@ -10,6 +10,8 @@ date: "2022-10-10"
 aliases:
   - /appendix/apis/components/sensor/
   - /reference/apis/components/sensor/
+  - /operate/modules/supported-hardware/sensor/
+  - /operate/modules/component-apis/sensor/
 # updated: ""  # When the content was last entirely checked
 ---
 

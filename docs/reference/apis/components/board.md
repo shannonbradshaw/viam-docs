@@ -10,6 +10,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/board/
   - /reference/apis/components/board/
+  - /operate/modules/supported-hardware/board/
+  - /operate/modules/component-apis/board/
 # updated: ""  # When the content was last entirely checked
 ---
 

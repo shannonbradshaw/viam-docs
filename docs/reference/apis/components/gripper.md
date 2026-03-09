@@ -10,6 +10,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/gripper/
   - /reference/apis/components/gripper/
+  - /operate/modules/supported-hardware/gripper/
+  - /operate/modules/component-apis/gripper/
 # updated: ""  # When the content was last entirely checked
 ---
 

@@ -10,6 +10,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/base/
   - /reference/apis/components/base/
+  - /operate/modules/supported-hardware/base/
+  - /operate/modules/component-apis/base/
 # updated: ""  # When the content was last entirely checked
 ---
 

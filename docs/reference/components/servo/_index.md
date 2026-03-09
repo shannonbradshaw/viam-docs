@@ -24,7 +24,7 @@ The servo component provides an API for controlling the angular position of a se
 
 If you have a physical ["RC" or "hobby" servo motor](https://learn.adafruit.com/adafruit-motor-selection-guide/rc-servos) with built-in potentiometer position sensors, configure it as a servo component.
 
-If you have an industrial servo motor, configure or [create](/operate/modules/support-hardware/) a [motor component](/reference/components/motor/) that supports your hardware.
+If you have an industrial servo motor, configure or [create](/build-modules/write-a-driver-module/) a [motor component](/reference/components/motor/) that supports your hardware.
 
 ## Configuration
 
@@ -76,5 +76,5 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{< /cards >}}

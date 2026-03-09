@@ -307,4 +307,4 @@ priority=20
 
 ### Additional troubleshooting
 
-You can find additional assistance in the [Troubleshooting section](/manage/troubleshoot/troubleshoot/).
+You can find additional assistance in the [Troubleshooting section](/monitor/troubleshoot/).

@@ -10,6 +10,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/gantry/
   - /reference/apis/components/gantry/
+  - /operate/modules/supported-hardware/gantry/
+  - /operate/modules/component-apis/gantry/
 # updated: ""  # When the content was last entirely checked
 ---
 

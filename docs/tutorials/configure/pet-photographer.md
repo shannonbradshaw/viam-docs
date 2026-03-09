@@ -24,7 +24,7 @@ After following this tutorial, you will understand how to control sync parameter
 Note: Consider this tutorial alongside filtered camera tutorial.
 -->
 
-If your machine [captures](/data-ai/capture-data/capture-sync/) a lot of data, you might want to filter captured data to selectively store only the data you are interested in.
+If your machine [captures](/data/) a lot of data, you might want to filter captured data to selectively store only the data you are interested in.
 For example, you might want to use your smart machine's camera to capture images based on specific criteria, such as the presence of a certain color, and omit captured images that don't meet that criteria.
 
 In this tutorial, you will use a custom {{< glossary_tooltip term_id="module" text="module" >}} to function as a color filter, and use it with a [camera](/reference/components/camera/) to only capture images where your pet is in the frame in the following way:
@@ -97,7 +97,7 @@ Follow the instructions below to download the `colorfilter` module in your prefe
    ```
 
 1. Navigate to the Go color filter directory, `colorfilter`.
-1. Inside of the `module` directory, [compile the executable](/operate/modules/support-hardware/#test-your-module-locally) that runs your module.
+1. Inside of the `module` directory, [compile the executable](/build-modules/write-a-driver-module/#test-your-module-locally) that runs your module.
 1. Save the path to your module's executable for later use.
 1. [Add the `colorfilter` module to your smart machine as a local module](#add-as-a-local-module) and continue the tutorial from there.
 
@@ -142,7 +142,7 @@ For example, the camera's <file>client.py</file> file is located at <file>[/comp
    - Exclude the `get_images` method, which you will customize to add filtering functionality in the upcoming section.
    - Include the other methods within the class corresponding to your resource type (in this case, the `CameraClient` class).
 
-For more information, refer to [Write your new resource model definition](/operate/modules/support-hardware/#write-your-module).
+For more information, refer to [Write your new resource model definition](/build-modules/write-a-driver-module/#write-your-module).
 
 {{% /tab %}}
 {{% tab name="Go"%}}
@@ -154,14 +154,14 @@ For example, the camera's <file>client.go</file> file is located at <file>[/comp
    Exclude the `Read` method, which you will replace with a method, `Next`, to add filtering functionality in the upcoming section.
    - You can create your own code or copy the code from the [viam-labs `colorfilter` repository's <file>color_filter.go</file>](https://github.com/viam-labs/modular-filter-examples/blob/main/colorfilter/color_filter.go) file.
 
-For more information, refer to [Write your new resource model definition](/operate/modules/support-hardware/#write-your-module).
+For more information, refer to [Write your new resource model definition](/build-modules/write-a-driver-module/#write-your-module).
 
 {{% /tab %}}
 {{< /tabs >}}
 
 The filter function in your custom filter module must contain two critical elements:
 
-1. A utility function that will check if the caller of the filter function is the [data management service](/data-ai/capture-data/capture-sync/).
+1. A utility function that will check if the caller of the filter function is the [data management service](/data/).
 1. A safeguard that ensures if the data management service is not the caller, an error and the unfiltered data is returned.
 
 {{< alert title="Important" color="note" >}}
@@ -702,7 +702,7 @@ In this code:
 {{% /tab %}}
 {{< /tabs >}}
 
-For more information, see [Write your new resource model definition](/operate/modules/support-hardware/#write-your-module).
+For more information, see [Write your new resource model definition](/build-modules/write-a-driver-module/#write-your-module).
 
 #### Code an entry point file
 
@@ -810,9 +810,9 @@ func mainWithArgs(ctx context.Context, args []string, logger logging.Logger) (er
 {{% /tab %}}
 {{< /tabs >}}
 
-For more information, see [Create a new module](/operate/modules/support-hardware/).
+For more information, see [Create a new module](/build-modules/write-a-driver-module/).
 
-Once you've written your filter module, [compile your module into a single executable](/operate/modules/support-hardware/#test-your-module-locally) that runs your module when executed.
+Once you've written your filter module, [compile your module into a single executable](/build-modules/write-a-driver-module/#test-your-module-locally) that runs your module when executed.
 
 Note the absolute path to your module’s executable for use in the next section.
 
@@ -823,7 +823,7 @@ Whether you've downloaded the `colorfilter` module, or written your own color fi
 1. Navigate to the **CONFIGURE** tab of your machine's page.
 1. Click the **+** (Create) button next to your main part in the left-hand menu and select **Local module**, then **Local module**.
 
-1. Enter a name or use the suggested name for your local module, enter the [module's executable path](/operate/modules/support-hardware/#test-your-module-locally), then click **Create**.
+1. Enter a name or use the suggested name for your local module, enter the [module's executable path](/build-modules/write-a-driver-module/#test-your-module-locally), then click **Create**.
    - The name must use only lowercase characters.
 1. Then, click the **Save** button in the top right corner of the page to save your changes.
 
@@ -833,12 +833,12 @@ Whether you've downloaded the `colorfilter` module, or written your own color fi
 
 Next, add the following services to your smart machine to support the color filter module:
 
-- The [data management service](/data-ai/capture-data/capture-sync/) enables your smart machine to capture data and sync it to the cloud.
+- The [data management service](/data/) enables your smart machine to capture data and sync it to the cloud.
 - The [vision service](/reference/apis/services/vision/#detections) enables your smart machine to perform color detection on objects in a camera stream.
 
 ### Add the data management service
 
-To enable data capture on your machine, add and configure the [data management service](/data-ai/capture-data/capture-sync/) to capture and store data on your machine's computer:
+To enable data capture on your machine, add and configure the [data management service](/data/) to capture and store data on your machine's computer:
 
 {{< tabs >}}
 {{% tab name="Config Builder" %}}
@@ -855,7 +855,7 @@ To enable data capture on your machine, add and configure the [data management s
 
    ![An instance of the data management service named "dm". The cloud sync and capturing options are toggled on and the directory is empty. The interval is set to 0.1](/tutorials/pet-photographer/data-management-services.png)
 
-   For more detailed information, see [Add the data management service](/data-ai/capture-data/capture-sync/).
+   For more detailed information, see [Add the data management service](/data/).
    {{% /tab %}}
    {{% tab name="JSON Template" %}}
    Add the data management service to the services array in your rover’s raw JSON configuration:
@@ -1012,5 +1012,5 @@ Try these other tutorials for more on working with the data management and visio
 {{% card link="/tutorials/projects/pet-treat-dispenser/" %}}
 {{% card link="/tutorials/projects/guardian/" %}}
 {{% card link="/tutorials/projects/send-security-photo/" %}}
-{{% card link="/data-ai/ai/deploy/"  %}}
+{{% card link="/vision/configure/"  %}}
 {{< /cards >}}

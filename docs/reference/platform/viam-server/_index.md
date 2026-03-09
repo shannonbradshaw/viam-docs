@@ -47,7 +47,7 @@ The machine setup steps copy your machine's credentials to your machine.
 When you turn on your machine, `viam-server` starts up and uses the provided credentials to fetch its configuration from Viam.
 
 `viam-server` ensures that any configured {{< glossary_tooltip term_id="module" text="modules" >}}, {{< glossary_tooltip term_id="resource" text="built-in resources" >}} and {{< glossary_tooltip term_id="modular-resource" text="modular resources" >}} are loaded on startup.
-`viam-server` handles [dependency](/operate/modules/advanced/dependencies/) management between resources.
+`viam-server` handles [dependency](/build-modules/dependencies/) management between resources.
 
 After start-up, `viam-server` manages:
 
@@ -123,7 +123,7 @@ During machine shutdown, `viam-server` handles modular resource instances simila
 
 ## Logging
 
-Log messages appear under the [**LOGS** tab](/manage/troubleshoot/troubleshoot/#check-logs) for a machine.
+Log messages appear under the [**LOGS** tab](/monitor/troubleshoot/#check-logs) for a machine.
 
 The default log level for `viam-server` and any running resources is `"Info"`.
 Logs are stored for 30 days before they are deleted.

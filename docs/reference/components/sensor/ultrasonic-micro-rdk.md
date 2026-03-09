@@ -121,7 +121,7 @@ The following attributes are available for `ultrasonic` sensors:
 Check out the [sensor API](/reference/apis/components/sensor/) or check out one of these guides:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/sensor/" customTitle="Sensor API" noimage="true" %}}
 {{% card link="/data/" noimage="true" %}}
 {{< /cards >}}

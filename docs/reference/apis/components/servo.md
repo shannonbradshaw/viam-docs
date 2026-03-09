@@ -10,6 +10,8 @@ date: "2022-10-10"
 aliases:
   - /appendix/apis/components/servo/
   - /reference/apis/components/servo/
+  - /operate/modules/supported-hardware/servo/
+  - /operate/modules/component-apis/servo/
 # updated: ""  # When the content was last entirely checked
 ---
 

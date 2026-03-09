@@ -152,4 +152,4 @@ Remove-Item C:\Windows\system32\config\systemprofile\.viam -Recurse
 
 ## Troubleshooting
 
-You can find assistance in the [Troubleshooting section](/manage/troubleshoot/troubleshoot/).
+You can find assistance in the [Troubleshooting section](/monitor/troubleshoot/).

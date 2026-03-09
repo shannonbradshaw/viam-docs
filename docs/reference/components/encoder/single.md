@@ -72,6 +72,6 @@ Viam also supports a model of encoder called [`"incremental"`](../incremental/) 
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/encoder/" customTitle="Encoder API" noimage="true" %}}
 {{< /cards >}}

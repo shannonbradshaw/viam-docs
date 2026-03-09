@@ -10,6 +10,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/camera/
   - /reference/apis/components/camera/
+  - /operate/modules/supported-hardware/camera/
+  - /operate/modules/component-apis/camera/
 # updated: ""  # When the content was last entirely checked
 ---
 

@@ -18,9 +18,9 @@ This allows you to aggregate the API methods supported by multiple sensors into 
 
 This is especially useful if you want to get readings of position and orientation _or_ linear and angular velocity at the same time, which are normally separately supported and returned by [`GPS`](/reference/components/movement-sensor/#configuration) or [`IMU`](/reference/components/movement-sensor/#configuration) models, respectively.
 
-To reduce velocity error when your machine is using the [navigation service](/reference/services/navigation/), aggregate `Position()` from a [`GPS`](/reference/components/movement-sensor/#configuration) and `Orientation()` from an [`IMU`](/reference/components/movement-sensor/#configuration) movement sensor in a `merged` model.
+To reduce velocity error when your machine is using the [navigation service](/navigation/reference/navigation-service/), aggregate `Position()` from a [`GPS`](/reference/components/movement-sensor/#configuration) and `Orientation()` from an [`IMU`](/reference/components/movement-sensor/#configuration) movement sensor in a `merged` model.
 
-Configure a [navigation service](/reference/services/navigation/) to use your merged sensor to navigate.
+Configure a [navigation service](/navigation/reference/navigation-service/) to use your merged sensor to navigate.
 
 Before configuring a `merged` movement sensor, configure each movement sensor you want to merge as an individual component according to its [model's configuration instructions](/reference/components/movement-sensor/#configuration).
 Reference the `name` you configure for each individual component in the `merged` sensor's configuration attributes:
@@ -113,7 +113,7 @@ For instance, in the **JSON Example** above, if both `"imu-wit"` and `"mpu6050"`
 
 ## Test the movement sensor
 
-After you configure your movement sensor, navigate to the [Control tab](/manage/troubleshoot/teleoperate/default-interface/) and select the dedicated movement sensor dropdown panel.
+After you configure your movement sensor, navigate to the [Control tab](/monitor/teleoperate/) and select the dedicated movement sensor dropdown panel.
 This panel presents the data collected by the movement sensor.
 
 ## Troubleshooting
@@ -125,6 +125,6 @@ This panel presents the data collected by the movement sensor.
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/movement-sensor/" customTitle="Movement sensor API" noimage="true" %}}
 {{< /cards >}}

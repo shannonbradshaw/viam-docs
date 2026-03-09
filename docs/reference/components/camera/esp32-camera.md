@@ -41,7 +41,7 @@ Finish building and flashing custom firmware, then return to this guide.
 
 {{< alert title="Data management not supported" color="caution" >}}
 
-The `esp32-camera` camera model does not currently support the [data management service](/data-ai/capture-data/capture-sync/).
+The `esp32-camera` camera model does not currently support the [data management service](/data/).
 
 {{< /alert >}}
 

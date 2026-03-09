@@ -10,6 +10,8 @@ date: "2022-10-10"
 aliases:
   - /appendix/apis/components/movement-sensor/
   - /reference/apis/components/movement-sensor/
+  - /operate/modules/orted-hardware/movement-sensor/
+  - /operate/modules/component-apis/movement-sensor/
 # updated: ""  # When the content was last entirely checked
 ---
 

@@ -292,7 +292,7 @@ To make your module accessible to `viam-server`, add it as a local module:
 1. Navigate to the **CONFIGURE** tab of your machine's page.
 1. Click the **+** (Create) icon next to your machine part in the left-hand menu and select **Local module**, then **Local module**.
 1. Enter a **Name** for this instance of your modular resource, for example `my-custom-base-module`.
-1. Enter the module's [executable path](/operate/modules/support-hardware/#test-your-module-locally).
+1. Enter the module's [executable path](/build-modules/write-a-driver-module/#test-your-module-locally).
    This path must be the absolute path to the executable on your machine's filesystem.
    Add the path to where you downloaded the [compiled binary](https://github.com/viam-labs/tutorial-intermode/blob/main/intermode-base/intermode-model).
 1. Then, click the **Create** button, and click **Save** in the upper right corner to save your config.
@@ -314,11 +314,11 @@ Now that `viam-server` can find the module, you can add the base component it pr
 1. Click **Create** to create the modular resource provided by the local module.
 1. Click **Save** in the top right corner.
 
-For more information on modules and how they work, see the [Create a module](/operate/modules/support-hardware/).
+For more information on modules and how they work, see the [Create a module](/build-modules/write-a-driver-module/).
 
 ### Control the rover
 
-After you configured the base, go to the [**CONTROL**](/manage/troubleshoot/teleoperate/default-interface/#web-ui) tab and expand the base component to view the controls to enable keyboard or discrete control over your machine's movement.
+After you configured the base, go to the [**CONTROL**](/monitor/teleoperate/#web-ui) tab and expand the base component to view the controls to enable keyboard or discrete control over your machine's movement.
 
 {{< alert title="Caution" color="caution" >}}
 Be careful, the Intermode is a large and powerful rover - make sure you have the shutoff key in hand for emergencies and make sure your rover has sufficient space to drive around without hitting anyone or anything.
@@ -345,7 +345,7 @@ If your rover has a [`camera`](/reference/components/camera/) or a [`movement_se
 {{< cards >}}
 {{% card link="/tutorials/control/drive-rover/" %}}
 {{% card link="/tutorials/services/color-detection-scuttle/" %}}
-{{% card link="/tutorials/services/navigate-with-rover-base/" %}}
+{{% card link="/navigation/how-to/navigate-to-waypoint/" %}}
 {{< /cards >}}
 
 {{< snippet "social.md" >}}

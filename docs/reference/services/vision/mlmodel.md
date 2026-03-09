@@ -30,14 +30,14 @@ Before configuring your `mlmodel` detector or classifier, you need to:
 
 <h4>1. Train or upload an ML model</h4>
 
-You can add an [existing model](/data-ai/ai/deploy/) or [train a TensorFlow or a TensorFlow Lite](/train/train-a-model/) or [another model](/train/custom-training-scripts/) for object detection and classification using your data in the [Viam Cloud](/data-ai/capture-data/capture-sync/).
+You can add an [existing model](/vision/configure/) or [train a TensorFlow or a TensorFlow Lite](/train/train-a-model/) or [another model](/train/custom-training-scripts/) for object detection and classification using your data in the [Viam Cloud](/data/).
 
 {{% /manualcard %}}
 {{% manualcard %}}
 
 <h4>2. Deploy your ML model</h4>
 
-To use ML models with your machine, use a suitable [ML model service](/data-ai/ai/deploy/) to deploy and run the model.
+To use ML models with your machine, use a suitable [ML model service](/vision/configure/) to deploy and run the model.
 
 {{% /manualcard %}}
 {{< /cards >}}
@@ -131,15 +131,16 @@ The following attributes are available for an `mlmodel` detector or classifier:
 <!-- prettier-ignore -->
 | Parameter | Type | Required? | Description |
 | --------- | ---- | --------- | ----------- |
-| `mlmodel_name` | string | **Required** | The name of the [ML model service](/data-ai/ai/deploy/) you want to use the model from. |
+| `mlmodel_name` | string | **Required** | The name of the [ML model service](/vision/configure/) you want to use the model from. |
 | `camera_name` | string | Optional | The default camera to use for calls to  `DetectionsFromCamera`, `ClassificationsFromCamera`, or `GetObjectPointClouds`. |
 | `remap_output_names` | object | Optional | The names of your output tensors, mapped to the service requirements. See [Tensor names](#tensor-names) for more information. |
 | `remap_input_names` | object | Optional | The name of your input tensor, mapped to the service requirements. See [Tensor names](#tensor-names) for more information. |
 | `input_image_bgr` | bool | Optional | Set this to `true` if the ML model service expects the input image to have BGR pixels, rather than RGB pixels. <br> Default: `false` |
-| `input_image_mean_value` | array | Optional | The standard deviation of the RGB (or BGR) values. Only required if the ML model service expects the input image to be normalized. <br> Default: `[0.5, 0.5, 0.5]` |
+| `input_image_mean_value` | array | Optional | The mean of the RGB (or BGR) values. Used to normalize input images for Float32 models. Each pixel channel is normalized as: `((value / 255.0) - mean) / std_dev`. <br> Default: `[0.5, 0.5, 0.5]` |
 | `input_image_std_dev` | array | Optional | The standard deviation of the RGB (or BGR) values. Only required if the ML model service expects the input image to be normalized. <br> Default: `[0.5, 0.5, 0.5]` |
 | `default_minimum_confidence` | number | Optional | Set this to apply a minimum confidence score filter on all outputs. If left blank, no confidence filter is applied. <br> Example: `0.81` |
-| `label_confidences` | object | Optional | A map that filters on label names, applying a specified minimum confidence to a specific label. `label_confidences` overwrites `default_minimum_confidence`. If you set `label_confidences`, then `default_minimum_confidence` does not apply (the service will only use `label_confidences`). If you leave this attribute blank, no filtering on labels is applied. <br> Example: `{"DOG": 0.8, "CARROT": 0.3}` |
+| `label_confidences` | object | Optional | A map that filters on label names, applying a specified minimum confidence to a specific label. `label_confidences` overwrites `default_minimum_confidence`. If you set `label_confidences`, then `default_minimum_confidence` does not apply (the service will only use `label_confidences`). If you leave this attribute blank, no filtering on labels is applied. Labels not included in the map are silently excluded from results, regardless of their confidence score. Label matching is case-insensitive. <br> Example: `{"DOG": 0.8, "CARROT": 0.3}` |
+| `xmin_ymin_xmax_ymax_order` | array | Optional | An array of four integers that maps the order of bounding box coordinates in your model's output tensor. Each integer indicates the position of `xmin` (0), `ymin` (1), `xmax` (2), `ymax` (3) in the output. For example, `[0, 1, 2, 3]` means the model outputs `[xmin, ymin, xmax, ymax]`. <br> Default: `[1, 0, 3, 2]` (assumes TFLite convention: `[ymin, xmin, ymax, xmax]`) |
 | `label_path` | string | Optional | The path to a file containing labels for the configured ML model. Set this to overwrite the default label path for this model. |
 
 ### Tensor names
@@ -228,7 +229,7 @@ The feature is only available for classifiers that were uploaded after September
 
 {{<gif webm_src="/services/vision/mug-classifier.webm" mp4_src="/services/vision/mug-classifier.mp4" alt="A classification model run against an image containing a mug." max-width="250px" class="alignright">}}
 
-If you have images stored in the [Viam Cloud](/data-ai/capture-data/capture-sync/), you can run your classifier against your images.
+If you have images stored in the [Viam Cloud](/data/), you can run your classifier against your images.
 
 1. Navigate to the [Data tab](https://app.viam.com/data/view) and click on the **Images** subtab.
 2. Click on an image to open the side menu, and select the **Actions** tab under the **Data** tab.
@@ -239,7 +240,7 @@ If the classifier's results exceed the confidence threshold, the **Run model** s
 
 ### Live camera footage
 
-You can test your detector or classifier from the [**Control tab**](/manage/troubleshoot/teleoperate/default-interface/#web-ui) or with code using a camera that is part of your machine.
+You can test your detector or classifier from the [**Control tab**](/monitor/teleoperate/#web-ui) or with code using a camera that is part of your machine.
 
 #### Test your vision service
 
@@ -356,12 +357,12 @@ import (
 )
 
 cameraName := "cam1"
-myCam, err := camera.FromProvider(robot, cameraName)
+myCam, err := camera.FromRobot(robot, cameraName)
 if err != nil {
   logger.Fatalf("cannot get camera: %v", err)
 }
 
-myDetector, err := vision.from_robot(robot, "my_detector")
+myDetector, err := vision.FromRobot(robot, "my_detector")
 if err != nil {
     logger.Fatalf("Cannot get vision service: %v", err)
 }
@@ -371,7 +372,7 @@ detections, err := myDetector.DetectionsFromCamera(context.Background(), myCam, 
 if err != nil {
     logger.Fatalf("Could not get detections: %v", err)
 }
-if len(directDetections) > 0 {
+if len(detections) > 0 {
     logger.Info(detections[0])
 }
 
@@ -438,22 +439,22 @@ import (
 )
 
 cameraName := "cam1"
-myCam, err := camera.FromProvider(robot, cameraName)
+myCam, err := camera.FromRobot(robot, cameraName)
 if err != nil {
   logger.Fatalf("cannot get camera: %v", err)
 }
 
-myClassifier, err := vision.from_robot(robot, "my_classifier")
+myClassifier, err := vision.FromRobot(robot, "my_classifier")
 if err != nil {
     logger.Fatalf("Cannot get vision service: %v", err)
 }
 
 // Get the top 2 classifications with the highest confidence scores from the camera output
-classifications, err := visService.ClassificationsFromCamera(context.Background(), myCam, 2, nil)
+classifications, err := myClassifier.ClassificationsFromCamera(context.Background(), myCam, 2, nil)
 if err != nil {
     logger.Fatalf("Could not get classifications: %v", err)
 }
-if len(directClassifications) > 0 {
+if len(classifications) > 0 {
     logger.Info(classifications[0])
 }
 
@@ -468,7 +469,7 @@ if err != nil {
 
 // Apply the color classifier to the image from your camera (configured as "cam1")
 // Get the top 2 classifications with the highest confidence scores
-classificationsFromImage, err := visService.GetClassifications(context.Background(), img, 2, nil)
+classificationsFromImage, err := myClassifier.Classifications(context.Background(), img, 2, nil)
 if err != nil {
     logger.Fatalf("Could not get classifications: %v", err)
 }
@@ -525,7 +526,7 @@ import (
   "os"
 )
 
-myDetector, err := vision.from_robot(robot, "my_detector")
+myDetector, err := vision.FromRobot(robot, "my_detector")
 if err != nil {
     logger.Fatalf("Cannot get Vision Service: %v", err)
 }
@@ -540,7 +541,6 @@ img, err := jpeg.Decode(file)
 if err != nil {
     logger.Fatalf("Could not decode image: %v", err)
 }
-defer img.Close()
 
 // Apply the detector to the image
 detectionsFromImage, err := myDetector.Detections(context.Background(), img, nil)
@@ -595,7 +595,7 @@ import (
   "os"
 )
 
-myClassifier, err := vision.from_robot(robot, "my_classifier")
+myClassifier, err := vision.FromRobot(robot, "my_classifier")
 if err != nil {
     logger.Fatalf("Cannot get Vision Service: %v", err)
 }
@@ -610,7 +610,6 @@ img, err := jpeg.Decode(file)
 if err != nil {
     logger.Fatalf("Could not decode image: %v", err)
 }
-defer img.Close()
 
 // Apply the classifier to the image
 classificationsFromImage, err := myClassifier.Classifications(context.Background(), img, nil)
@@ -640,5 +639,5 @@ To see more code examples of how to use Viam's vision service, see [our example 
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{< /cards >}}

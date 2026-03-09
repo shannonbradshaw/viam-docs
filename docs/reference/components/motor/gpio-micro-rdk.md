@@ -166,6 +166,6 @@ See [PWM signals on `esp32` pins](/reference/components/board/esp32/#pwm-signals
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/motor/" customTitle="Motor API" noimage="true" %}}
 {{< /cards >}}

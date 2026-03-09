@@ -41,7 +41,7 @@ You choose how to group your machines.
 1. Log into [Viam](https://app.viam.com) in a web browser.
 1. Click the dropdown in the upper-right corner of the **FLEET** page and use the **+** button to create a new organization.
 1. Name the organization.
-1. From the **Data region** dropdown, choose the [geographic location](/manage/manage/data-regions/) where Viam should store your application data.
+1. From the **Data region** dropdown, choose the [geographic location](/organization/data-regions/) where Viam should store your application data.
 1. Click **Create**.
 
 ## Create location

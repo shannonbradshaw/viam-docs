@@ -17,7 +17,7 @@ no_list: true
 {{<imgproc src="/billing-menu.png" resize="400x" declaredimensions=true alt="Payment and billing menu item" class="alignright shadow">}}
 
 To access the **Payment and billing** page, click on the organization name in the top right of the navigation bar and then click on **Payment and billing**.
-You must be an [organization owner](/manage/manage/rbac/) to see this page.
+You must be an [organization owner](/organization/rbac/) to see this page.
 
 The **Payment and billing** page shows you:
 
@@ -38,7 +38,7 @@ For Pricing information, please see [pricing & billing explained](https://www.vi
 ## Add a payment method
 
 1. Click on the organization name in the top right of the navigation bar and then click on **Payment and billing**.
-   You must be an [organization owner](https://docs.viam.com/manage/manage/rbac/) to see this page.
+   You must be an [organization owner](/organization/rbac/) to see this page.
 1. Under **Payment method**, click **Add payment method**.
 1. Fill in the form with your credit card details or a US bank account.
 
@@ -48,7 +48,7 @@ To replace the credit card details or bank account details used for an organizat
 Follow these steps:
 
 1. Click on the organization name in the top right of the navigation bar and then click on **Payment and billing**.
-   You must be an [organization owner](https://docs.viam.com/manage/manage/rbac/) to see this page.
+   You must be an [organization owner](/organization/rbac/) to see this page.
 1. Under **Payment method**, click **Remove payment method**.
 1. Confirm the removal when prompted.
 1. Under **Payment method**, click **Add payment method**.
@@ -64,7 +64,7 @@ Organizations without valid payment methods may experience limitations on their 
 You can view all your invoices for your organization:
 
 1. Click on the organization name in the top right of the navigation bar and then click on **Payment and billing**.
-   You must be an [organization owner](https://docs.viam.com/manage/manage/rbac/) to see this page.
+   You must be an [organization owner](/organization/rbac/) to see this page.
 1. Find the **Invoices** section of the **Payment & Billing** page.
 1. Click on **Download (PDF)** next to the relevant billing period.
 
@@ -77,7 +77,7 @@ Invoices may be generated monthly or annually depending on your billing configur
 You can set alerts to receive an email notification when your monthly spend exceeds a certain threshold:
 
 1. Click on the organization name in the top right of the navigation bar and then click on **Payment and billing**.
-   You must be an [organization owner](https://docs.viam.com/manage/manage/rbac/) to see this page.
+   You must be an [organization owner](/organization/rbac/) to see this page.
 1. Scroll to the bottom of the **Payment & Billing** page.
 1. Click **Set amount** and enter a monthly threshold amount.
 

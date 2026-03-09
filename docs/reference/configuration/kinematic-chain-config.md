@@ -16,9 +16,9 @@ aliases:
 
 If you are developing a new {{< glossary_tooltip term_id="modular-resource" text="modular resource" >}} to support a component with a complex kinematic chain (for example, a new robotic arm model), you need to add a file to your driver that details the attachment of the intermediate reference frames on the component.
 
-The [motion service](/reference/services/motion/) uses these intermediate reference frames when calculating movements.
+The [motion service](/motion-planning/reference/motion-service/) uses these intermediate reference frames when calculating movements.
 
-For example, an [arm](/reference/components/arm/) has a reference frame originating where the arm is attached to a surface, but it also has links and joints whose frames of reference matter when attempting to move the arm to a [pose](/operate/mobility/orientation-vector/) with [`MoveToPosition()`](/reference/apis/components/arm/#movetoposition).
+For example, an [arm](/reference/components/arm/) has a reference frame originating where the arm is attached to a surface, but it also has links and joints whose frames of reference matter when attempting to move the arm to a [pose](/motion-planning/reference/orientation-vectors/) with [`MoveToPosition()`](/reference/apis/components/arm/#movetoposition).
 
 This file can be a JSON file like [this xArm6 file](https://github.com/viam-modules/viam-ufactory-xarm/blob/main/arm/xarm6_kinematics.json), or a [<file>.URDF</file> file](https://industrial-training-master.readthedocs.io/en/melodic/_source/session3/Intro-to-URDF.html).
 

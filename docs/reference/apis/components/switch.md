@@ -11,6 +11,8 @@ date: "2025-02-20"
 aliases:
   - /reference/apis/components/switch/
   - /reference/apis/components/switch/
+  - /operate/modules/supported-hardware/switch/
+  - /operate/modules/component-apis/switch/
 ---
 
 The switch API allows you to give commands to your [switch components](/reference/components/switch/) for reading the state of a physical switch that has multiple discrete positions.

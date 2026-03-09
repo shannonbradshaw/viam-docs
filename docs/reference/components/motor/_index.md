@@ -76,5 +76,5 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{< /cards >}}

@@ -111,7 +111,7 @@ The driver data sheet (for a real, not fake, motor) will specify which one to us
 
 ## Test the motor
 
-Once your motor is configured and your machine is connected, go to the [**CONTROL** tab](/manage/troubleshoot/teleoperate/default-interface/) and click on the motor's dropdown panel.
+Once your motor is configured and your machine is connected, go to the [**CONTROL** tab](/monitor/teleoperate/) and click on the motor's dropdown panel.
 Use the buttons to try turning your motor forwards or backwards at different power levels and notice how the **Position** number changes.
 
 ![Motor control panel.](/components/motor/control.png)
@@ -125,6 +125,6 @@ Use the buttons to try turning your motor forwards or backwards at different pow
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/motor/" customTitle="Motor API" noimage="true" %}}
 {{< /cards >}}

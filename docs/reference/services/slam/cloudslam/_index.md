@@ -20,7 +20,7 @@ SLAM Algorithms can have varying levels of resource requirements in order to run
 In order to better support running SLAM on resource limited machines, Viam provides a service to run SLAM algorithms for machines in the cloud as well as management of the maps generated in their location.
 
 CloudSLAM can be used with both a live machine or with previously captured data in your location.
-In [live mode](#mapping-with-a-live-machine-online-mode) using the [data management service](/data-ai/capture-data/capture-sync/) and the [cloudslam-wrapper](https://github.com/viam-modules/cloudslam-wrapper) module, Viam takes your LiDAR camera and movement sensor data from your local machine and sends it to the cloudslam server.
+In [live mode](#mapping-with-a-live-machine-online-mode) using the [data management service](/data/) and the [cloudslam-wrapper](https://github.com/viam-modules/cloudslam-wrapper) module, Viam takes your LiDAR camera and movement sensor data from your local machine and sends it to the cloudslam server.
 The CloudSLAM server will then process that data and produce a map that can then be used on any machine in your location.
 When using an [offline machine](#using-previously-captured-data-offline-mode), you can select data from specific sensors over a period of time to build a map with.
 
@@ -70,15 +70,15 @@ To use CloudSLAM on a live machine, you must meet the following requirements:
 1. A cloudslam supported algorithm must be configured on the machine. Currently only the [cartographer module](../cartographer/) is supported.
    Please configure a supported algorithm on the machine before continuing.
 
-2. A location owner [API key](/manage/manage/access/) or higher.
+2. A location owner [API key](/organization/access/) or higher.
 
 ### Configuration
 
 To use CloudSLAM you must enable data capture and configure your `cloudslam-wrapper` SLAM service:
 
 {{< alert title="Tip: Managing Data Capture" color="tip" >}}
-Note that when the [data management service](/data-ai/capture-data/capture-sync/) is enabled, it continuously monitors and syncs your machine’s sensor data while the machine is running.
-To avoid incurring charges while not in use, [turn off data capture for your sensors](/data-ai/capture-data/capture-sync/#stop-data-capture-or-data-sync) once you have finished your SLAM session.
+Note that when the [data management service](/data/) is enabled, it continuously monitors and syncs your machine’s sensor data while the machine is running.
+To avoid incurring charges while not in use, [turn off data capture for your sensors](/data/#stop-data-capture-or-data-sync) once you have finished your SLAM session.
 {{< /alert >}}
 
 {{< tabs name="Create new map">}}
@@ -93,7 +93,7 @@ To avoid incurring charges while not in use, [turn off data capture for your sen
 
    On the panel that appears, you can manage the capturing and syncing functions.
    You can also specify the **directory**, the sync **interval**, and any **tags** to apply to captured data.
-   See the [data management service](/data-ai/capture-data/capture-sync/) for more information.
+   See the [data management service](/data/) for more information.
 
 2. Enable data capture for your camera, and for your movement sensor if you would like to use IMU data, odometry data, or both:
 
@@ -184,7 +184,7 @@ You _do not_ need to configure data capture on the individual IMU and odometer.
 This example JSON configuration:
 
 - adds the `viam:rplidar`, `viam:cartographer`, and `viam:cloudslam-wrapper` modules
-- configures the `viam:slam:cartographer`, `viam:cloudslam-wrapper:cloudslam`, and the [data management](/data-ai/capture-data/capture-sync/) services
+- configures the `viam:slam:cartographer`, `viam:cloudslam-wrapper:cloudslam`, and the [data management](/data/) services
 - adds a `viam:lidar:rplidar` camera with data capture configured
 
   ```json {class="line-numbers linkable-line-numbers"}
@@ -382,7 +382,7 @@ This feature can also be used with SLAM algorithms that CloudSLAM does not curre
 
 - A SLAM algorithm must be configured on the machine. This algorithm does **not** need to be supported by cloudslam to work.
 
-- A location owner API Key or higher. See [Add an API key](/manage/manage/access/) to learn how to create a key!
+- A location owner API Key or higher. See [Add an API key](/organization/access/) to learn how to create a key!
 
 ### Configuration
 
@@ -431,7 +431,7 @@ The following attributes are available for `viam:cloudslam-wrapper:cloudslam`
 | Name    | Type   | Required?    | Description |
 | ------- | ------ | ------------ | ----------- |
 | `slam_service` | string | **Required** | The name of the SLAM Service on the machine to use with cloudslam. |
-| `api_key` | string | **Required** | An [API key](/manage/manage/access/) with location owner or higher permission. |
+| `api_key` | string | **Required** | An [API key](/organization/access/) with location owner or higher permission. |
 | `api_key_id` | string | **Required** | The associated API key ID with the API key. |
 | `organization_id` | string | **Required** | The organization ID of your [organization](/reference/glossary/#organization). |
 | `location_id` | string | **Required** | The location ID of your [location](/reference/glossary/#location). |

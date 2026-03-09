@@ -134,7 +134,7 @@ The following attributes are available for `model1` arms:
 
 ## Test the component
 
-After you configure your component, navigate to the [**CONTROL** tab](/manage/troubleshoot/teleoperate/default-interface/) and select the **Component** dropdown panel.
+After you configure your component, navigate to the [**CONTROL** tab](/monitor/teleoperate/) and select the **Component** dropdown panel.
 
 Then _explain how to interact with the panel_.
 

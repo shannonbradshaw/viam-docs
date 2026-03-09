@@ -88,12 +88,12 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration, development, and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/components/motor/encoded-motor/" noimage="true" %}}
 {{< /cards >}}
 
 You can also use the encoder component with the following services:
 
-- [Data management service](/data-ai/capture-data/capture-sync/): To capture and sync the encoder's data
-- [Motion service](/reference/services/motion/): To move machines or components of machines
-- [Navigation service](/reference/services/navigation/): To navigate with GPS
+- [Data management service](/data/): To capture and sync the encoder's data
+- [Motion service](/motion-planning/reference/motion-service/): To move machines or components of machines
+- [Navigation service](/navigation/reference/navigation-service/): To navigate with GPS

@@ -10,6 +10,8 @@ date: "2022-01-01"
 aliases:
   - /appendix/apis/components/arm/
   - /reference/apis/components/arm/
+  - /operate/modules/supported-hardware/arm/
+  - /operate/modules/component-apis/arm/
 # updated: ""  # When the content was last entirely checked
 ---
 

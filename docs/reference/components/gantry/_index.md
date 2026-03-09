@@ -80,10 +80,10 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{< /cards >}}
 
 You can also use the gantry component with the following services:
 
-- [Motion service](/reference/services/motion/): To move machines or components of machines
-- [Frame system service](/reference/services/frame-system/): To configure the positions of your components
+- [Motion service](/motion-planning/reference/motion-service/): To move machines or components of machines
+- [Frame system service](/motion-planning/frame-system/): To configure the positions of your components

@@ -85,13 +85,13 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration and development info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/data/" noimage="true" %}}
 {{< /cards >}}
 
 To capture data from the movement sensor or use it for motion, see the following services:
 
-- [data management service](/data-ai/capture-data/capture-sync/): to capture and sync the movement sensor's data
-- [motion service](/reference/services/motion/): to move machines or components of machines
-- [navigation service](/reference/services/navigation/): to navigate with GPS
+- [data management service](/data/): to capture and sync the movement sensor's data
+- [motion service](/motion-planning/reference/motion-service/): to move machines or components of machines
+- [navigation service](/navigation/reference/navigation-service/): to navigate with GPS
 - [SLAM service](/reference/services/slam/): for mapping

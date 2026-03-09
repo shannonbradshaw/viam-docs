@@ -73,4 +73,4 @@ While in a slam session, you should:
 - when using a wheeled base, try to include an [odometry movement sensor](/reference/components/movement-sensor/wheeled-odometry/). This helps the SLAM algorithm keep track of where the machine is moving.
 - it is important to note that the [adxl345 accelerometer](https://github.com/viam-modules/analog-devices/) on the [Viam Rover 1](/try/rover-resources/rover-tutorial-1/) **will not** satisfy the movement sensor requirement.
 
-You can find additional assistance in the [Troubleshooting section](/manage/troubleshoot/troubleshoot/).
+You can find additional assistance in the [Troubleshooting section](/monitor/troubleshoot/).

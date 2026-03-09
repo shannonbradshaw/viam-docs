@@ -10,6 +10,8 @@ date: "2022-10-10"
 aliases:
   - /appendix/apis/components/power-sensor/
   - /reference/apis/components/power-sensor/
+  - /operate/modules/orted-hardware/power-sensor/
+  - /operate/modules/component-apis/power-sensor/
 # updated: ""  # When the content was last entirely checked
 ---
 

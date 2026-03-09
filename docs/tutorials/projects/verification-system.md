@@ -92,7 +92,7 @@ The model can detect a variety of objects, which you can see in the <file>[label
 If you wish to train your own ML model, see [Train a Model](/train/train-a-model/).
 {{< /alert >}}
 
-To run the machine learning model on your machine, use the [ML model service](/data-ai/ai/deploy/):
+To run the machine learning model on your machine, use the [ML model service](/vision/configure/):
 
 1. On your machine's **CONFIGURE** tab, click the **+** icon next to your machine part in the left-hand menu and select **Component or service**.
 1. Select type `ML model`, then select model `TFLite CPU`.
