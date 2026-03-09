@@ -374,5 +374,5 @@ VISUALIZE tab because they only exist during the `Move` call.
   use the motion service to move the arm while avoiding obstacles.
 - [Configure Motion Constraints](/motion-planning/constraints/): restrict how
   the arm moves between poses.
-- [Motion Planning Algorithms](/motion-planning/algorithms/): understand how
+- [Motion Planning Algorithms](/motion-planning/reference/algorithms/): understand how
   the planner computes collision-free paths.

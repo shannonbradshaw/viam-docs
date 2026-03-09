@@ -53,7 +53,6 @@ your hardware.
 
 {{< cards >}}
 {{% card link="/motion-planning/frame-system/" noimage="true" %}}
-{{% card link="/motion-planning/kinematics/" noimage="true" %}}
 {{% card link="/motion-planning/obstacles/" noimage="true" %}}
 {{% card link="/motion-planning/camera-calibration/" noimage="true" %}}
 {{< /cards >}}
@@ -87,6 +86,6 @@ your hardware.
 
 {{< cards >}}
 {{% card link="/motion-planning/constraints/" noimage="true" %}}
-{{% card link="/motion-planning/algorithms/" noimage="true" %}}
+{{% card link="/motion-planning/reference/algorithms/" noimage="true" %}}
 {{% card link="/motion-planning/reference/" noimage="true" %}}
 {{< /cards >}}

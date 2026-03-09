@@ -125,7 +125,7 @@ The builtin motion service supports the following commands via `DoCommand`:
 ## What's Next
 
 - [Motion Service API](/motion-planning/reference/api/): full API reference.
-- [Motion Planning Algorithms](/motion-planning/algorithms/): how the planner
+- [Motion Planning Algorithms](/motion-planning/reference/algorithms/): how the planner
   works.
 - [Configure Motion Constraints](/motion-planning/constraints/): restrict arm
   movement during planning.

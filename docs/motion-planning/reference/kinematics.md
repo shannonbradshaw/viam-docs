@@ -237,116 +237,7 @@ to `viam-server` and reference it in the module's configuration. The exact
 configuration depends on the module. Consult the module's documentation for the
 specific attribute name.
 
-### 4. Read joint positions and end effector pose
-
-Once kinematics are configured, you can read the arm's current state.
-
-{{< tabs >}}
-{{% tab name="Python" %}}
-
-```python
-from viam.components.arm import Arm
-
-arm = Arm.from_robot(machine, "my-arm")
-
-# Read current joint positions (in degrees for revolute joints)
-joint_positions = await arm.get_joint_positions()
-print(f"Joint positions: {joint_positions.values}")
-
-# Read end effector position (in mm, relative to arm base)
-end_position = await arm.get_end_position()
-print(f"End effector position:")
-print(f"  x={end_position.x:.1f} mm")
-print(f"  y={end_position.y:.1f} mm")
-print(f"  z={end_position.z:.1f} mm")
-print(f"  orientation: o_x={end_position.o_x:.3f}, "
-      f"o_y={end_position.o_y:.3f}, "
-      f"o_z={end_position.o_z:.3f}, "
-      f"theta={end_position.theta:.1f}")
-```
-
-{{% /tab %}}
-{{% tab name="Go" %}}
-
-```go
-myArm, err := arm.FromRobot(machine, "my-arm")
-if err != nil {
-    logger.Fatal(err)
-}
-
-// Read current joint positions (in degrees for revolute joints)
-jointPositions, err := myArm.JointPositions(ctx, nil)
-if err != nil {
-    logger.Fatal(err)
-}
-fmt.Printf("Joint positions: %v\n", jointPositions.Values)
-
-// Read end effector position (in mm, relative to arm base)
-endPosition, err := myArm.EndPosition(ctx, nil)
-if err != nil {
-    logger.Fatal(err)
-}
-pt := endPosition.Point()
-fmt.Printf("End effector position:\n")
-fmt.Printf("  x=%.1f mm\n", pt.X)
-fmt.Printf("  y=%.1f mm\n", pt.Y)
-fmt.Printf("  z=%.1f mm\n", pt.Z)
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-The joint positions are reported in the order defined by the kinematics file,
-starting from the base joint. For a 6-axis arm, you get 6 values.
-
-### 5. Move to specific joint positions
-
-You can command the arm to move to a specific set of joint angles. This bypasses
-inverse kinematics and directly sets each joint.
-
-{{< tabs >}}
-{{% tab name="Python" %}}
-
-```python
-from viam.proto.component.arm import JointPositions
-
-# Move all joints to their zero positions (home position)
-home = JointPositions(values=[0, 0, 0, 0, 0, 0])
-await arm.move_to_joint_positions(home)
-print("Arm moved to home position")
-
-# Read back the joint positions to confirm
-current = await arm.get_joint_positions()
-print(f"Current joint positions: {current.values}")
-```
-
-{{% /tab %}}
-{{% tab name="Go" %}}
-
-```go
-// Move all joints to their zero positions (home position)
-home := &armapi.JointPositions{Values: []float64{0, 0, 0, 0, 0, 0}}
-err = myArm.MoveToJointPositions(ctx, home, nil)
-if err != nil {
-    logger.Fatal(err)
-}
-fmt.Println("Arm moved to home position")
-
-// Read back the joint positions to confirm
-current, err := myArm.JointPositions(ctx, nil)
-if err != nil {
-    logger.Fatal(err)
-}
-fmt.Printf("Current joint positions: %v\n", current.Values)
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-The number of values must match the number of joints in the kinematics model.
-Each value must be within the joint's configured limits.
-
-### 6. Verify kinematics in the VISUALIZE tab
+### 4. Verify kinematics in the VISUALIZE tab
 
 The Viam app can render a 3D visualization of your arm based on its kinematic
 model:
@@ -370,12 +261,11 @@ have incorrect link lengths, joint axes, or joint limits.
 
 1. Run the kinematics check from step 1 to confirm your arm module has a
    built-in kinematics file.
-2. Read joint positions and end effector pose (step 4). Move the arm using the
-   CONTROL tab and run the code again to see the values change.
-3. Move to the home position using joint positions (step 5), then read back the
-   end effector position. This is your arm's home TCP location.
-4. Open the VISUALIZE tab and compare the rendered arm to the physical arm. Move
-   individual joints and verify the visualization matches.
+2. Open the VISUALIZE tab and compare the rendered arm to the physical arm. Move
+   individual joints using the CONTROL tab and verify the visualization matches.
+3. For reading joint positions and controlling the arm, see
+   [Add an Arm](/hardware/common-components/add-an-arm/) and the
+   [Arm API reference](/dev/reference/apis/components/arm/).
 
 ## Troubleshooting
 

@@ -14,7 +14,7 @@ approach path, and controlling the gripper to grasp it.
 ## Prerequisites
 
 - Arm with [frame system](/motion-planning/frame-system/) and
-  [kinematics](/motion-planning/kinematics/) configured
+  [kinematics](/motion-planning/reference/kinematics/) configured
 - Gripper configured as a component
 - Camera [calibrated](/motion-planning/camera-calibration/) and registered
   in the frame system

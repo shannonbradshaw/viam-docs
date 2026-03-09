@@ -242,7 +242,7 @@ find than unconstrained ones.
 
 - [Move an Arm with Constraints](/motion-planning/motion-how-to/move-arm-with-constraints/):
   practical examples of constrained motion.
-- [Motion Planning Algorithms](/motion-planning/algorithms/): how the planner
+- [Motion Planning Algorithms](/motion-planning/reference/algorithms/): how the planner
   searches for constrained paths.
 - [Define Obstacles](/motion-planning/obstacles/): define the geometry the
   planner uses for collision checking.
