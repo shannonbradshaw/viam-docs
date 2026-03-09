@@ -1,6 +1,6 @@
 ---
-linkTitle: "Kinematics"
-title: "Configure Robot Kinematics"
+linkTitle: "Arm Kinematics"
+title: "Arm Kinematics"
 weight: 20
 layout: "docs"
 type: "docs"
@@ -16,13 +16,18 @@ reach that position. This is the inverse kinematics problem, and solving it
 requires a mathematical model of the arm's physical structure: how long each
 link is, how each joint rotates, and what the limits of each joint are.
 
+{{< alert title="Most arms handle this automatically" color="tip" >}}
+
 Most arm modules in the Viam registry include a kinematics file that describes
 this structure. For standard commercial arms like the UR5e, xArm6, or Viam Arm,
-the module handles kinematics automatically. But you still need to understand
-what the kinematics model contains, how to verify it matches your physical arm,
-and how to read the data it produces. If you are building a custom arm or using
-a module without a built-in kinematics file, you also need to know how to
-provide one.
+the module handles kinematics automatically. You do not need to provide or
+configure a kinematics file for these arms.
+
+This page is relevant if you are building a custom arm, using a module without a
+built-in kinematics file, or need to verify that a kinematics model matches your
+physical arm.
+
+{{< /alert >}}
 
 ## Concepts
 
