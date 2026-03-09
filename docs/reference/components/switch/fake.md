@@ -97,6 +97,6 @@ If your fake switch is not working as expected:
 Check out the [switch API](/reference/apis/components/switch/) or check out one of these guides:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/switch/" customTitle="Switch API" noimage="true" %}}
 {{< /cards >}}

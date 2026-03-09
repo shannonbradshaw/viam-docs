@@ -89,7 +89,7 @@ The following attributes are available for `fake` arms:
 For more configuration and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
 {{% card link="/reference/apis/components/arm/" customTitle="Arm API" noimage="true" %}}
-{{% card link="/operate/mobility/move-arm/" noimage="true" %}}
+{{% card link="/motion-planning/motion-how-to/move-arm-to-pose/" noimage="true" %}}
 {{< /cards >}}

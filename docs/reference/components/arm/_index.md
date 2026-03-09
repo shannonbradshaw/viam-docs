@@ -30,7 +30,7 @@ When controlling an arm, you can place its end effector at arbitrary cartesian p
 
 ## Configuration
 
-For a full guide, see [Configure an arm](/operate/mobility/move-arm/configure-arm/).
+For a full guide, see [Configure an arm](/motion-planning/motion-how-to/move-arm-to-pose/).
 
 To use a robotic arm, you need to add it to your machine's configuration.
 Go to your machine's **CONFIGURE** page, and add a model that supports your arm.
@@ -70,10 +70,10 @@ The [arm API](/reference/apis/components/arm/) supports the following methods:
 ## Motion planning with your arm
 
 The arm API sends requests for the arm to move to a set of joint positions, and reports the arm's current joint positions.
-Viam's motion service provides an [API for moving the end of the arm to a given position, around any obstacles](/reference/services/motion/#api).
+Viam's motion service provides an [API for moving the end of the arm to a given position, around any obstacles](/motion-planning/reference/motion-service/#api).
 
 For each arm model, there is a JSON file that describes the [kinematics parameters of the arm](/reference/configuration/kinematic-chain-config/).
-When you configure an arm model, the arm driver parses the kinematics file for the [frame system](/reference/services/frame-system/) service to use.
+When you configure an arm model, the arm driver parses the kinematics file for the [frame system](/motion-planning/frame-system/) service to use.
 The frame system allows the motion service to calculate where any component of your machine is relative to any other component, other machine, or object in the environment.
 
 ## Troubleshooting
@@ -92,11 +92,11 @@ If none of these steps work, reach out to us on the [Community Discord](https://
 For general configuration, development, and usage info, see:
 
 {{< cards >}}
-{{% card link="/operate/modules/configure-modules/" noimage="true" %}}
-{{% card link="/operate/mobility/move-arm/" noimage="true" %}}
+{{% card link="/hardware/configure-hardware/" noimage="true" %}}
+{{% card link="/motion-planning/motion-how-to/move-arm-to-pose/" noimage="true" %}}
 {{< /cards >}}
 
 You can also use the arm component with the following services:
 
 - [Motion service](/reference/services/slam/): To move machines or components of machines
-- [Frame system service](/reference/services/navigation/): To configure the positions of your components
+- [Frame system service](/motion-planning/frame-system/): To configure the positions of your components

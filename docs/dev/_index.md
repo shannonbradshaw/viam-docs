@@ -303,7 +303,7 @@ std::cout << "co2-monitor get_readings return value " << co2monitor_get_readings
 
 Once you have configured a physical sensor or anything else that provides measurements, you can get sensor readings using the sensor API.
 
-[Collect sensor data →](/data-ai/capture-data/capture-sync/)
+[Collect sensor data →](/data/)
 
   </div>
 </div>
@@ -352,7 +352,7 @@ err = myArmComponent.MoveToPosition(context.Background(), cmdArmPose, nil)
 
 Once you have configured a robotic arm, you can move it using the arm API.
 
-[Move a robotic arm →](/operate/mobility/move-arm/)
+[Move a robotic arm →](/motion-planning/motion-how-to/move-arm-to-pose/)
 
   </div>
   <div class="explanationvisual">
@@ -397,7 +397,7 @@ result, err := myButton.DoCommand(context.Background(), command)
 Using the Viam Registry you can create _{{< glossary_tooltip term_id="resource" text="resources" >}}_ for additional hardware types or models and then deploy them to your machines.
 You can use an existing component or service type or create generic resources.
 
-[Create a module →](/operate/modules/support-hardware/)
+[Create a module →](/build-modules/write-a-driver-module/)
 
   </div>
 </div>
@@ -436,7 +436,7 @@ result, err := myTwilioSvc.DoCommand(context.Background(), command)
 
 Using the Viam Registry you can turn services and your own custom business logic into _{{< glossary_tooltip term_id="module" text="modules" >}}_. You can then deploy your modules to your machines.
 
-[Create a module →](/operate/modules/support-hardware/)
+[Create a module →](/build-modules/write-a-driver-module/)
 
   </div>
 </div>
@@ -547,7 +547,7 @@ tabular_data, count, last = await data_client.tabular_data_by_filter(
 
 You can query synced sensor data, images, and any other binary or timeseries data from all your machines using the data client API.
 
-[Learn about Data Management →](/data-ai/capture-data/capture-sync/)
+[Learn about Data Management →](/data/)
 
   </div>
 </div>
@@ -618,7 +618,7 @@ _, err = motionService.Move(context.Background(), "myArm", destPoseInFrame, worl
 
 The motion service enables your machine to plan and move relative to itself, other machines, and the world. You can use it with the motion service API.
 
-[Try the motion service →](/tutorials/services/plan-motion-with-arm-gripper/)
+[Try the motion service →](/motion-planning/motion-how-to/move-arm-to-pose/)
 
   </div>
   <div class="explanationvisual">
@@ -676,7 +676,7 @@ mode, err := myNav.SetMode(context.Background(), Mode.MODE_WAYPOINT, nil)
 
 Autonomously navigate a machine to defined waypoints using the navigation service API.
 
-[Try the navigation service →](/tutorials/services/navigate-with-rover-base/)
+[Try the navigation service →](/navigation/how-to/navigate-to-waypoint/)
 
   </div>
 </div>
@@ -794,7 +794,7 @@ api_key, api_key_id = await cloud.create_key(
 
 Viam allows you to organize and manage any number of machines. When collaborating with others, you can assign permissions using Role-Based Access Control (RBAC). Programmatically you can do this with the fleet management API.
 
-[Learn about access control →](/manage/manage/rbac/)
+[Learn about access control →](/organization/rbac/)
 
   </div>
 </div>
