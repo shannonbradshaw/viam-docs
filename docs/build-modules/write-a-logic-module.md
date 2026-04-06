@@ -53,7 +53,7 @@ viam module generate
 | Prompt           | What to enter               | Why                              |
 | ---------------- | --------------------------- | -------------------------------- |
 | Module name      | `alert-monitor`             | A short, descriptive name        |
-| Language         | `python` or `go`            | Your implementation language     |
+| Language         | `python`, `go`, or `c++`    | Your implementation language     |
 | Visibility       | `private`                   | Keep it private while developing |
 | Namespace        | Your organization namespace | Scopes the module to your org    |
 | Resource subtype | `generic` (under services)  | Flexible service API             |
@@ -78,6 +78,16 @@ The generator creates a complete project. The key files you will edit:
 | -------------------- | ----------------------------------------------------------- |
 | `alert_monitor.go`   | Service implementation skeleton -- you will edit this       |
 | `cmd/module/main.go` | Entry point -- starts the module server (no changes needed) |
+| `meta.json`          | Module metadata for the registry                            |
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+| File                 | Purpose                                                     |
+| -------------------- | ----------------------------------------------------------- |
+| `src/temp_alert.hpp` | Service class declaration -- you will edit this             |
+| `src/temp_alert.cpp` | Service implementation -- you will edit this                |
+| `main.cpp`           | Entry point -- starts the module server (no changes needed) |
 | `meta.json`          | Module metadata for the registry                            |
 
 {{% /tab %}}
@@ -132,6 +142,66 @@ func (cfg *Config) Validate(path string) ([]string, []string, error) {
     }
     // 1. Declare: return all sensor names as required dependencies
     return cfg.SensorNames, nil, nil
+}
+```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+C++ does not use a separate `Config` struct. Instead, you access attributes
+directly from the `ResourceConfig` passed to `validate` and the constructor.
+
+In `src/temp_alert.hpp`, declare the class with its member variables:
+
+```cpp
+class TempAlert : public viam::sdk::GenericService {
+public:
+    TempAlert(const viam::sdk::Dependencies& deps, const viam::sdk::ResourceConfig& cfg);
+    ~TempAlert();
+    static std::vector<std::string> validate(const viam::sdk::ResourceConfig& cfg);
+    viam::sdk::ProtoStruct do_command(const viam::sdk::ProtoStruct& command) override;
+    viam::sdk::ProtoStruct get_status() override;
+
+private:
+    struct Alert {
+        std::string sensor;
+        double value;
+        double threshold;
+        std::string time;
+    };
+
+    std::vector<std::string> sensor_names_;
+    double threshold_;
+    double poll_interval_secs_;
+    std::unordered_map<std::string, std::shared_ptr<viam::sdk::Sensor>> sensors_;
+    std::vector<Alert> alerts_;
+    std::mutex mu_;
+    std::atomic<bool> stop_flag_{false};
+    std::thread monitor_thread_;
+
+    void monitor();
+};
+```
+
+In `src/temp_alert.cpp`, implement `validate`. It returns the list of
+dependency names, just like the Python and Go versions:
+
+```cpp
+std::vector<std::string> TempAlert::validate(const viam::sdk::ResourceConfig& cfg) {
+    auto attrs = cfg.attributes();
+    if (attrs.find("sensor_names") == attrs.end()) {
+        throw std::runtime_error("sensor_names is required");
+    }
+    if (attrs.find("threshold") == attrs.end()) {
+        throw std::runtime_error("threshold is required");
+    }
+    // 1. Declare: return sensor names as required dependencies
+    auto& names_val = attrs.at("sensor_names");
+    std::vector<std::string> deps;
+    for (const auto& v : names_val.get_unchecked<std::vector<viam::sdk::ProtoValue>>()) {
+        deps.push_back(v.get_unchecked<std::string>());
+    }
+    return deps;
 }
 ```
 
@@ -272,6 +342,38 @@ func newTempAlert(
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+The C++ constructor resolves dependencies by iterating the `Dependencies` map
+and downcasting each match to a `Sensor`. There is no `FromProvider` helper
+like in Go.
+
+```cpp
+TempAlert::TempAlert(const viam::sdk::Dependencies& deps, const viam::sdk::ResourceConfig& cfg)
+    : GenericService(cfg.name()) {
+    auto attrs = cfg.attributes();
+    threshold_ = attrs.at("threshold").get_unchecked<double>();
+    auto* interval = attrs.at("poll_interval_secs").get<double>();
+    poll_interval_secs_ = interval ? *interval : 10.0;
+
+    // 2. Resolve: find each sensor in the dependencies map
+    auto& names_val = attrs.at("sensor_names");
+    for (const auto& v : names_val.get_unchecked<std::vector<viam::sdk::ProtoValue>>()) {
+        auto name = v.get_unchecked<std::string>();
+        sensor_names_.push_back(name);
+        for (const auto& kv : deps) {
+            if (kv.first.short_name() == name) {
+                sensors_[name] = std::dynamic_pointer_cast<viam::sdk::Sensor>(kv.second);
+            }
+        }
+    }
+
+    // Start background monitor thread
+    monitor_thread_ = std::thread([this] { monitor(); });
+}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 4. Implement the background loop
@@ -369,6 +471,39 @@ func (s *TempAlert) checkSensors(ctx context.Context) {
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+C++ uses `std::thread` with a `std::atomic<bool>` flag for stop signaling,
+rather than async tasks (Python) or context cancellation (Go).
+
+```cpp
+void TempAlert::monitor() {
+    while (!stop_flag_.load()) {
+        for (const auto& [name, sensor] : sensors_) {
+            try {
+                // 3. Use: call methods on dependencies
+                auto readings = sensor->get_readings({});
+                auto it = readings.find("temperature");
+                if (it != readings.end()) {
+                    auto* temp = it->second.get<double>();
+                    if (temp && *temp > threshold_) {
+                        std::lock_guard<std::mutex> lock(mu_);
+                        auto now = std::chrono::system_clock::now();
+                        auto time_t = std::chrono::system_clock::to_time_t(now);
+                        alerts_.push_back({name, *temp, threshold_, std::ctime(&time_t)});
+                    }
+                }
+            } catch (const std::exception& e) {
+                // Log and continue -- don't let one sensor failure stop the loop
+            }
+        }
+        std::this_thread::sleep_for(
+            std::chrono::duration<double>(poll_interval_secs_));
+    }
+}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 5. Implement DoCommand
@@ -460,12 +595,64 @@ func (s *TempAlert) DoCommand(
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+The C++ generic service inherits `do_command` from the `Generic` base class.
+Override it to handle your command vocabulary:
+
+```cpp
+viam::sdk::ProtoStruct TempAlert::do_command(const viam::sdk::ProtoStruct& command) {
+    auto it = command.find("command");
+    if (it == command.end()) {
+        throw std::runtime_error("missing 'command' field");
+    }
+    auto cmd = it->second.get_unchecked<std::string>();
+
+    if (cmd == "get_alerts") {
+        std::lock_guard<std::mutex> lock(mu_);
+        std::vector<viam::sdk::ProtoValue> alert_list;
+        for (const auto& a : alerts_) {
+            viam::sdk::ProtoStruct entry;
+            entry["sensor"] = a.sensor;
+            entry["value"] = a.value;
+            entry["threshold"] = a.threshold;
+            entry["time"] = a.time;
+            alert_list.push_back(std::move(entry));
+        }
+        return {{"alerts", std::move(alert_list)}};
+    }
+
+    if (cmd == "get_alert_count") {
+        std::lock_guard<std::mutex> lock(mu_);
+        return {{"count", static_cast<double>(alerts_.size())}};
+    }
+
+    if (cmd == "acknowledge") {
+        std::lock_guard<std::mutex> lock(mu_);
+        alerts_.clear();
+        return {{"status", std::string("ok")}};
+    }
+
+    if (cmd == "set_threshold") {
+        auto max_it = command.find("max_temp");
+        if (max_it == command.end()) {
+            throw std::runtime_error("max_temp is required");
+        }
+        threshold_ = max_it->second.get_unchecked<double>();
+        return {{"status", std::string("ok")}, {"max_temp", threshold_}};
+    }
+
+    throw std::runtime_error("unknown command: " + cmd);
+}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 6. Handle shutdown
 
 When `viam-server` stops the module or reconfigures it, your background loop
-must stop cleanly. Without this, goroutines or async tasks leak.
+must stop cleanly. Without this, goroutines, async tasks, or threads leak.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -528,6 +715,26 @@ func (s *TempAlert) Reconfigure(
     return nil
 }
 ```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+In C++, the destructor handles shutdown. Set the atomic stop flag and join
+the monitor thread to ensure it exits cleanly before the object is destroyed:
+
+```cpp
+TempAlert::~TempAlert() {
+    stop_flag_.store(true);
+    if (monitor_thread_.joinable()) {
+        monitor_thread_.join();
+    }
+}
+```
+
+C++ modules do not support in-place reconfiguration. When the config changes,
+`viam-server` destroys the old instance (calling the destructor) and
+constructs a new one. The `Reconfigurable` interface is deprecated in the C++
+SDK.
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -647,6 +854,8 @@ Jobs also support calling other gRPC methods on resources (such as
   async function without `await` or `create_task`).
 - In Go, ensure the goroutine context is not prematurely canceled. Use
   `context.Background()` for the loop context, not the request context.
+- In C++, ensure the `stop_flag_` is not set prematurely and that the thread
+  is started in the constructor.
 
 {{< /expand >}}
 
@@ -654,8 +863,9 @@ Jobs also support calling other gRPC methods on resources (such as
 
 - Verify the `command` field in your request matches the command names in your
   implementation exactly (case-sensitive).
-- Check that value types match. JSON numbers are `float64` in Go and `float`
-  in Python. If you send `"max_temp": 30`, Go receives it as `float64(30)`.
+- Check that value types match. JSON numbers are `float64` in Go, `float`
+  in Python, and `double` in C++. If you send `"max_temp": 30`, Go receives
+  it as `float64(30)`.
 - Add logging inside `DoCommand` to see the raw command map.
 
 {{< /expand >}}

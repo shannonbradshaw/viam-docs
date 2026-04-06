@@ -63,7 +63,7 @@ viam module generate
 | Prompt           | What to enter               | Why                              |
 | ---------------- | --------------------------- | -------------------------------- |
 | Module name      | `my-sensor-module`          | A short, descriptive name        |
-| Language         | `python` or `go`            | Your implementation language     |
+| Language         | `python`, `go`, or `c++`    | Your implementation language     |
 | Visibility       | `private`                   | Keep it private while developing |
 | Namespace        | Your organization namespace | Scopes the module to your org    |
 | Resource subtype | `sensor`                    | The resource API to implement    |
@@ -98,12 +98,26 @@ The generator creates a complete project with the following files:
 | `.github/workflows/deploy.yml` | CI workflow for cloud builds                           |
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+| File                           | Purpose                                          |
+| ------------------------------ | ------------------------------------------------ |
+| `main.cpp`                     | Entry point -- starts the module server          |
+| `src/my_sensor.hpp`            | Resource class declaration -- you will edit this |
+| `src/my_sensor.cpp`            | Resource implementation -- you will edit this    |
+| `CMakeLists.txt`               | Build configuration (CMake)                      |
+| `conanfile.py`                 | Dependency management (Conan)                    |
+| `conan.lock`                   | Pinned dependency versions                       |
+| `meta.json`                    | Module metadata for the registry                 |
+| `.github/workflows/deploy.yml` | CI workflow for cloud builds                     |
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 2. Implement the resource API
 
-Open the generated resource file. The generator creates a class (Python) or
-struct (Go) with stub methods. You need to make three changes:
+Open the generated resource file. The generator creates a class (Python),
+struct (Go), or class (C++) with stub methods. You need to make three changes:
 
 1. Define your config attributes.
 2. Add validation logic.
@@ -151,6 +165,29 @@ type Config struct {
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+In `src/my_sensor.hpp`, declare your class with private member variables for
+each config attribute:
+
+```cpp
+class MySensor : public viam::sdk::Sensor {
+public:
+    MySensor(const viam::sdk::Dependencies& deps, const viam::sdk::ResourceConfig& cfg);
+    static std::vector<std::string> validate(const viam::sdk::ResourceConfig& cfg);
+    viam::sdk::ProtoStruct do_command(const viam::sdk::ProtoStruct& command) override;
+    viam::sdk::ProtoStruct get_status() override;
+    std::vector<viam::sdk::GeometryConfig> get_geometries(
+        const viam::sdk::ProtoStruct& extra) override;
+    viam::sdk::ProtoStruct get_readings(const viam::sdk::ProtoStruct& extra) override;
+
+private:
+    std::string source_url_;
+    double poll_interval_;
+};
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 #### Add validation logic
@@ -187,6 +224,22 @@ func (cfg *Config) Validate(path string) ([]string, []string, error) {
         return nil, nil, fmt.Errorf("source_url is required")
     }
     return nil, nil, nil // No required or optional dependencies
+}
+```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+Implement the static `validate` method in `src/my_sensor.cpp`. Throw an
+exception for missing required fields:
+
+```cpp
+std::vector<std::string> MySensor::validate(const viam::sdk::ResourceConfig& cfg) {
+    auto attrs = cfg.attributes();
+    if (attrs.find("source_url") == attrs.end()) {
+        throw std::runtime_error("source_url is required");
+    }
+    return {};  // No dependencies
 }
 ```
 
@@ -279,6 +332,26 @@ This is the simplest approach and works well for most modules. For in-place
 reconfiguration, see [Step 6](#6-handle-reconfiguration-optional).
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+Implement the constructor in `src/my_sensor.cpp`. The constructor reads config
+attributes and initializes member variables:
+
+```cpp
+MySensor::MySensor(const viam::sdk::Dependencies& deps, const viam::sdk::ResourceConfig& cfg)
+    : Sensor(cfg.name()) {
+    auto attrs = cfg.attributes();
+    source_url_ = attrs.at("source_url").get_unchecked<std::string>();
+    auto* interval = attrs.at("poll_interval").get<double>();
+    poll_interval_ = interval ? *interval : 10.0;
+}
+```
+
+In C++, there is no separate reconfigure method. The resource is always
+destroyed and re-created when the config changes (the constructor is called
+again with the new config).
+
+{{% /tab %}}
 {{< /tabs >}}
 
 #### Implement the API method
@@ -349,6 +422,19 @@ func (s *MySensor) Readings(
         "temperature": data.Temp,
         "humidity":    data.Humidity,
     }, nil
+}
+```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+Implement `get_readings` in `src/my_sensor.cpp`. The return type is
+`viam::sdk::ProtoStruct`, a map of string keys to values:
+
+```cpp
+viam::sdk::ProtoStruct MySensor::get_readings(const viam::sdk::ProtoStruct& extra) {
+    // Replace this with your actual data source logic
+    return {{"temperature_celsius", 25.0}, {"humidity_pct", 60.0}};
 }
 ```
 
@@ -542,6 +628,77 @@ func (s *MySensor) Readings(
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+`src/my_sensor.hpp`:
+
+```cpp
+#pragma once
+
+#include <string>
+#include <vector>
+
+#include <viam/sdk/components/sensor.hpp>
+#include <viam/sdk/config/resource.hpp>
+#include <viam/sdk/resource/resource.hpp>
+
+class MySensor : public viam::sdk::Sensor {
+public:
+    MySensor(const viam::sdk::Dependencies& deps, const viam::sdk::ResourceConfig& cfg);
+    ~MySensor();
+    static std::vector<std::string> validate(const viam::sdk::ResourceConfig& cfg);
+    viam::sdk::ProtoStruct do_command(const viam::sdk::ProtoStruct& command) override;
+    viam::sdk::ProtoStruct get_status() override;
+    std::vector<viam::sdk::GeometryConfig> get_geometries(
+        const viam::sdk::ProtoStruct& extra) override;
+    viam::sdk::ProtoStruct get_readings(const viam::sdk::ProtoStruct& extra) override;
+
+private:
+    std::string source_url_;
+    double poll_interval_;
+};
+```
+
+`src/my_sensor.cpp`:
+
+```cpp
+#include "my_sensor.hpp"
+
+#include <stdexcept>
+
+#include <viam/sdk/log/logging.hpp>
+
+std::vector<std::string> MySensor::validate(const viam::sdk::ResourceConfig& cfg) {
+    auto attrs = cfg.attributes();
+    if (attrs.find("source_url") == attrs.end()) {
+        throw std::runtime_error("source_url is required");
+    }
+    return {};
+}
+
+MySensor::MySensor(const viam::sdk::Dependencies& deps, const viam::sdk::ResourceConfig& cfg)
+    : Sensor(cfg.name()) {
+    auto attrs = cfg.attributes();
+    source_url_ = attrs.at("source_url").get_unchecked<std::string>();
+    auto* interval = attrs.at("poll_interval").get<double>();
+    poll_interval_ = interval ? *interval : 10.0;
+}
+
+MySensor::~MySensor() {
+    VIAM_RESOURCE_LOG(*this, info) << "Shutting down MySensor";
+}
+
+viam::sdk::ProtoStruct MySensor::do_command(const viam::sdk::ProtoStruct& command) {
+    return {};
+}
+
+viam::sdk::ProtoStruct MySensor::get_readings(const viam::sdk::ProtoStruct& extra) {
+    // Replace this with your actual data source logic
+    return {{"temperature_celsius", 25.0}, {"humidity_pct", 60.0}};
+}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 {{< /expand >}}
@@ -594,6 +751,45 @@ func main() {
 The import of the resource package triggers its `init()` function, which calls
 `resource.RegisterComponent` to register the model. If you add more models,
 add more `resource.APIModel` entries to the `ModularMain` call.
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+`main.cpp`:
+
+```cpp
+#include "src/my_sensor.hpp"
+
+#include <cstdlib>
+#include <iostream>
+
+#include <viam/sdk/common/instance.hpp>
+#include <viam/sdk/module/service.hpp>
+#include <viam/sdk/registry/registry.hpp>
+
+int main(int argc, char** argv) try {
+    viam::sdk::Instance inst;
+    viam::sdk::Model model("my-org", "my-sensor-module", "my-sensor");
+    auto mr = std::make_shared<viam::sdk::ModelRegistration>(
+        viam::sdk::API::get<viam::sdk::Sensor>(),
+        model,
+        [](viam::sdk::Dependencies deps, viam::sdk::ResourceConfig cfg) {
+            return std::make_unique<MySensor>(deps, cfg);
+        },
+        &MySensor::validate);
+    std::vector<std::shared_ptr<viam::sdk::ModelRegistration>> mrs = {mr};
+    auto my_mod = std::make_shared<viam::sdk::ModuleService>(argc, argv, mrs);
+    my_mod->serve();
+    return EXIT_SUCCESS;
+} catch (const viam::sdk::Exception& ex) {
+    std::cerr << ex.what() << "\n";
+    return EXIT_FAILURE;
+}
+```
+
+`main` creates a `ModuleService` with a list of model registrations, then
+calls `serve()` to handle communication with `viam-server`. If you add more
+models, add more `ModelRegistration` entries to the `mrs` vector.
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -653,8 +849,8 @@ manually.
 
 ### 4. Add logging
 
-Both the Python and Go SDKs provide a logger that writes to `viam-server`'s log
-stream, visible in the **LOGS** tab.
+The Python, Go, and C++ SDKs provide a logger that writes to `viam-server`'s
+log stream, visible in the **LOGS** tab.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -674,6 +870,18 @@ s.logger.CInfof(ctx, "Sensor initialized with source URL: %s", s.sourceURL)
 s.logger.CDebugf(ctx, "Raw response from source: %v", data)
 s.logger.CWarnw(ctx, "Source returned unexpected field", "field", fieldName)
 s.logger.CErrorw(ctx, "Failed to connect to source", "error", err)
+```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+#include <viam/sdk/log/logging.hpp>
+
+VIAM_RESOURCE_LOG(*this, info) << "Sensor initialized with source URL: " << source_url_;
+VIAM_RESOURCE_LOG(*this, debug) << "Raw response from source: " << data;
+VIAM_RESOURCE_LOG(*this, warning) << "Source returned unexpected field: " << field_name;
+VIAM_RESOURCE_LOG(*this, error) << "Failed to connect to source: " << err;
 ```
 
 {{% /tab %}}
@@ -805,6 +1013,62 @@ func (s *TempConverterSensor) Readings(
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+class TempConverterSensor : public viam::sdk::Sensor {
+public:
+    TempConverterSensor(const viam::sdk::Dependencies& deps,
+                        const viam::sdk::ResourceConfig& cfg);
+    static std::vector<std::string> validate(const viam::sdk::ResourceConfig& cfg);
+    viam::sdk::ProtoStruct do_command(const viam::sdk::ProtoStruct& command) override;
+    viam::sdk::ProtoStruct get_status() override;
+    std::vector<viam::sdk::GeometryConfig> get_geometries(
+        const viam::sdk::ProtoStruct& extra) override;
+    viam::sdk::ProtoStruct get_readings(const viam::sdk::ProtoStruct& extra) override;
+
+private:
+    std::shared_ptr<viam::sdk::Sensor> source_;
+};
+
+std::vector<std::string> TempConverterSensor::validate(
+    const viam::sdk::ResourceConfig& cfg) {
+    auto attrs = cfg.attributes();
+    if (attrs.find("source_sensor") == attrs.end()) {
+        throw std::runtime_error("source_sensor is required");
+    }
+    // 1. Declare: return the source sensor name as a required dependency
+    return {attrs.at("source_sensor").get_unchecked<std::string>()};
+}
+
+TempConverterSensor::TempConverterSensor(
+    const viam::sdk::Dependencies& deps,
+    const viam::sdk::ResourceConfig& cfg)
+    : Sensor(cfg.name()) {
+    auto attrs = cfg.attributes();
+    auto source_name = attrs.at("source_sensor").get_unchecked<std::string>();
+    // 2. Resolve: find the dependency by iterating the map and casting
+    for (const auto& kv : deps) {
+        if (kv.first.short_name() == source_name) {
+            source_ = std::dynamic_pointer_cast<viam::sdk::Sensor>(kv.second);
+            break;
+        }
+    }
+}
+
+viam::sdk::ProtoStruct TempConverterSensor::get_readings(
+    const viam::sdk::ProtoStruct& extra) {
+    // 3. Use: call methods on the dependency like any typed resource
+    auto readings = source_->get_readings(extra);
+    auto celsius = readings.at("temperature").get_unchecked<double>();
+    return {{"temperature_f", celsius * 9.0 / 5.0 + 32.0}};
+}
+```
+
+C++ does not have a `FromProvider` helper like Go. Iterate the `deps` map
+and use `std::dynamic_pointer_cast` to cast the dependency to the expected type.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 6. Handle reconfiguration (optional)
@@ -872,6 +1136,23 @@ method. Embed one in your struct:
 | `resource.TriviallyReconfigurable` | Config changes are accepted silently with no action.                                 |
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+C++ does not have a reconfigure method. The resource is always destroyed and
+re-created when the config changes -- the constructor is called again with
+the new config, and the destructor runs on the old instance. Use the
+destructor to clean up resources like open connections:
+
+```cpp
+MySensor::~MySensor() {
+    // Clean up resources (close connections, stop threads, etc.)
+}
+```
+
+This is equivalent to Go's `resource.AlwaysRebuild` behavior. The
+`Reconfigurable` interface in the C++ SDK is deprecated.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 7. Use the module data directory
@@ -896,6 +1177,17 @@ cache_path = os.path.join(data_dir, "readings_cache.json")
 ```go
 dataDir := os.Getenv("VIAM_MODULE_DATA")
 cachePath := filepath.Join(dataDir, "readings_cache.json")
+```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+#include <cstdlib>
+#include <string>
+
+const char* data_dir = std::getenv("VIAM_MODULE_DATA");
+std::string cache_path = std::string(data_dir ? data_dir : "/tmp") + "/readings_cache.json";
 ```
 
 {{% /tab %}}
@@ -965,6 +1257,58 @@ Each model needs its own `init()` function calling `resource.RegisterComponent`
 (or `resource.RegisterService`) with its API, model, and constructor.
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+Add more `ModelRegistration` entries to the `mrs` vector in `main.cpp`:
+
+```cpp
+#include "src/my_sensor.hpp"
+#include "src/my_camera.hpp"
+
+#include <cstdlib>
+#include <iostream>
+
+#include <viam/sdk/common/instance.hpp>
+#include <viam/sdk/module/service.hpp>
+#include <viam/sdk/registry/registry.hpp>
+
+int main(int argc, char** argv) try {
+    viam::sdk::Instance inst;
+
+    viam::sdk::Model sensor_model("my-org", "my-module", "my-sensor");
+    auto sensor_mr = std::make_shared<viam::sdk::ModelRegistration>(
+        viam::sdk::API::get<viam::sdk::Sensor>(),
+        sensor_model,
+        [](viam::sdk::Dependencies deps, viam::sdk::ResourceConfig cfg) {
+            return std::make_unique<MySensor>(deps, cfg);
+        },
+        &MySensor::validate);
+
+    viam::sdk::Model camera_model("my-org", "my-module", "my-camera");
+    auto camera_mr = std::make_shared<viam::sdk::ModelRegistration>(
+        viam::sdk::API::get<viam::sdk::Camera>(),
+        camera_model,
+        [](viam::sdk::Dependencies deps, viam::sdk::ResourceConfig cfg) {
+            return std::make_unique<MyCamera>(deps, cfg);
+        },
+        &MyCamera::validate);
+
+    std::vector<std::shared_ptr<viam::sdk::ModelRegistration>> mrs = {
+        sensor_mr, camera_mr
+    };
+    auto my_mod = std::make_shared<viam::sdk::ModuleService>(argc, argv, mrs);
+    my_mod->serve();
+    return EXIT_SUCCESS;
+} catch (const viam::sdk::Exception& ex) {
+    std::cerr << ex.what() << "\n";
+    return EXIT_FAILURE;
+}
+```
+
+Each model gets its own `ModelRegistration` with its API type, model triple,
+constructor lambda, and validation function.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 4. Delete the temporary generated directory.
@@ -990,13 +1334,15 @@ Each model needs its own `init()` function calling `resource.RegisterComponent`
 {{< expand "Module crashes on startup" >}}
 
 - Check the **LOGS** tab for the crash traceback. The most common cause is a
-  missing dependency -- a Python import not in `requirements.txt` or a Go
-  package not in `go.mod`.
+  missing dependency -- a Python import not in `requirements.txt`, a Go
+  package not in `go.mod`, or a C++ library not in `conanfile.py`.
 - For Python, verify the module runs outside of `viam-server`:
   `python3 -m src.main` (from your module directory, with the virtualenv
   activated).
 - For Go, verify the binary runs: `./bin/<your-module-name>` (the output path
   is set in your `Makefile`).
+- For C++, verify the binary runs: `./build/bin/<your-module-name>` (the
+  output path is set in your `CMakeLists.txt`).
 - Check that your entrypoint script has execute permissions: `chmod +x run.sh`.
 
 {{< /expand >}}

@@ -232,17 +232,58 @@ if __name__ == '__main__':
 | `getLogger(name)`                 | Create a logger (`from viam.logging import getLogger`).          |
 | `config.attributes.fields`        | Access raw config attributes (no typed config equivalent to Go). |
 
-### Python and Go defaults
+## Resource interfaces (C++)
 
-In Python, the default behavior when you don't implement a method differs from Go:
+In C++, resources inherit from a base class that defines the API methods as
+pure virtual functions. Your class overrides these methods.
 
-| Behavior                 | Go                                       | Python                                                                                   |
-| ------------------------ | ---------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Seamless reconfigure     | Implement `Reconfigure()`                | Implement `reconfigure()` (called if your class satisfies the `Reconfigurable` protocol) |
-| Rebuild on config change | Embed `resource.AlwaysRebuild`           | Omit `reconfigure()` (default: module destroys and re-creates the resource)              |
-| No-op reconfigure        | Embed `resource.TriviallyReconfigurable` | No equivalent: implement an empty `reconfigure()` instead                                |
-| No-op close              | Embed `resource.TriviallyCloseable`      | Default on `ResourceBase`                                                                |
-| Skip config validation   | Embed `resource.TriviallyValidateConfig` | Default on `EasyResource`                                                                |
+### Constructor
+
+The constructor receives dependencies and the resource config. C++ does not
+have a separate reconfigure method -- the resource is destroyed and
+re-created on every config change:
+
+```cpp
+MySensor::MySensor(
+    const viam::sdk::Dependencies& deps,
+    const viam::sdk::ResourceConfig& cfg)
+    : Sensor(cfg.name()) {
+    auto attrs = cfg.attributes();
+    // Parse attributes, resolve dependencies
+}
+```
+
+### Validate
+
+A static method that checks config and returns dependency names:
+
+```cpp
+static std::vector<std::string> validate(
+    const viam::sdk::ResourceConfig& cfg);
+```
+
+### Cleanup
+
+C++ uses the destructor for cleanup. When `viam-server` removes the resource,
+the shared pointer is released and the destructor runs:
+
+```cpp
+MySensor::~MySensor() {
+    // Stop background threads, release resources
+}
+```
+
+### Python, Go, and C++ defaults
+
+In Python, the default behavior when you don't implement a method differs from Go and C++:
+
+| Behavior                 | Go                                       | Python                                                                                   | C++                                                    |
+| ------------------------ | ---------------------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| Seamless reconfigure     | Implement `Reconfigure()`                | Implement `reconfigure()` (called if your class satisfies the `Reconfigurable` protocol) | Not supported: resource is always destroyed/re-created |
+| Rebuild on config change | Embed `resource.AlwaysRebuild`           | Omit `reconfigure()` (default: module destroys and re-creates the resource)              | Default (only option)                                  |
+| No-op reconfigure        | Embed `resource.TriviallyReconfigurable` | No equivalent: implement an empty `reconfigure()` instead                                | Not applicable                                         |
+| No-op close              | Embed `resource.TriviallyCloseable`      | Default on `ResourceBase`                                                                | Destructor with empty body                             |
+| Skip config validation   | Embed `resource.TriviallyValidateConfig` | Default on `EasyResource`                                                                | Return empty vector from `validate()`                  |
 
 ## Logging
 
@@ -294,6 +335,24 @@ func (c *component) someFunction(ctx context.Context, a int) {
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+#include <viam/sdk/log/logging.hpp>
+
+// Resource-scoped logging (recommended):
+VIAM_RESOURCE_LOG(*this, info) << "Reading sensor";
+VIAM_RESOURCE_LOG(*this, debug) << "Raw value: " << raw;
+VIAM_RESOURCE_LOG(*this, warn) << "Retrying connection";
+VIAM_RESOURCE_LOG(*this, error) << "Failed: " << err;
+
+// Module-level logging (in main.cpp):
+VIAM_MODULE_LOG(info) << "Starting module";
+```
+
+Log levels: `trace`, `debug`, `info`, `warn`, `error`, `fatal`.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 To see debug-level logs, run `viam-server` with the `-debug` flag or
@@ -315,17 +374,18 @@ reconfigurations and can cause instability.
 In Python, `close()` must be idempotent (it may be called more than once).
 
 **Return the right dependency names from `Validate`.**
-Dependencies listed as required in `Validate` (Go) or `validate_config`
-(Python) must match actual resource names in the machine config. If the name
+Dependencies listed as required in `Validate` (Go), `validate_config`
+(Python), or `validate` (C++) must match actual resource names in the machine config. If the name
 is wrong, `viam-server` waits for a resource that will never exist, and your
 resource will not start. Use optional dependencies for resources that improve
 functionality but aren't strictly needed.
 
 **Prefer `Reconfigure` over `AlwaysRebuild`.**
 `AlwaysRebuild` (Go) or omitting `reconfigure()` (Python) causes the resource
-to be destroyed and re-created on every config change. This is simpler but
-causes a brief availability gap. Implementing `Reconfigure` to update state
-in-place provides seamless reconfiguration.
+to be destroyed and re-created on every config change. C++ always rebuilds.
+This is simpler but causes a brief availability gap. In Go and Python,
+implementing `Reconfigure` to update state in-place provides seamless
+reconfiguration.
 
 ## Module protocol
 
@@ -457,7 +517,7 @@ All module CLI commands are under `viam module`. You must be logged in
 | `viam module create --name <name>` | Register a module in the registry and generate `meta.json`.              |
 | `viam module generate`             | Scaffold a complete module project with templates (interactive prompts). |
 
-`generate` flags: `--name`, `--language` (`python` or `go`), `--visibility`,
+`generate` flags: `--name`, `--language` (`python`, `go`, or `cpp`), `--visibility`,
 `--public-namespace`, `--resource-subtype`, `--model-name`, `--register`,
 `--dry-run`.
 

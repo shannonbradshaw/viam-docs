@@ -92,11 +92,47 @@ func (cfg *Config) Validate(path string) ([]string, []string, error) {
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp {class="line-numbers linkable-line-numbers"}
+std::vector<std::string> MyBase::validate(
+    const viam::sdk::ResourceConfig& cfg) {
+    auto attrs = cfg.attributes();
+
+    // Required dependency
+    if (attrs.find("left_motor") == attrs.end()) {
+        throw std::runtime_error(
+            "missing required left_motor attribute");
+    }
+
+    // Return dependency names -- viam-server starts these
+    // before your constructor
+    std::vector<std::string> deps;
+    deps.push_back(
+        attrs.at("left_motor").get_unchecked<std::string>());
+
+    // Optional dependency
+    auto it = attrs.find("right_motor");
+    if (it != attrs.end()) {
+        deps.push_back(
+            it->second.get_unchecked<std::string>());
+    }
+
+    return deps;
+}
+```
+
+In C++, `validate` returns a single `std::vector<std::string>`.
+There is no separate required and optional list: all returned dependencies are treated as required.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 2. Resolve dependencies
 
-In Python, resolve dependencies in the `reconfigure` method. In Go, resolve them in your constructor (or `Reconfigure` method if you are not using `AlwaysRebuild`).
+In Python, resolve dependencies in the `reconfigure` method.
+In Go, resolve them in your constructor (or `Reconfigure` method if you are not using `AlwaysRebuild`).
+In C++, resolve them in the constructor (the C++ SDK does not have a reconfigure method).
 
 Use the dependency name to look up the resource, then cast it to the correct type.
 
@@ -175,6 +211,49 @@ func newMyBase(ctx context.Context, deps resource.Dependencies,
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp {class="line-numbers linkable-line-numbers"}
+#include <viam/sdk/components/motor.hpp>
+
+MyBase::MyBase(const viam::sdk::Dependencies& deps,
+               const viam::sdk::ResourceConfig& cfg)
+    : Base(cfg.name()) {
+    auto attrs = cfg.attributes();
+    auto left_name =
+        attrs.at("left_motor").get_unchecked<std::string>();
+
+    // Iterate deps and downcast to the correct type
+    for (const auto& kv : deps) {
+        if (kv.first.short_name() == left_name) {
+            left_ = std::dynamic_pointer_cast<
+                viam::sdk::Motor>(kv.second);
+        }
+    }
+    if (!left_) {
+        throw std::runtime_error(
+            "left motor dependency not found");
+    }
+
+    // Optional dependency
+    auto it = attrs.find("right_motor");
+    if (it != attrs.end()) {
+        auto right_name =
+            it->second.get_unchecked<std::string>();
+        for (const auto& kv : deps) {
+            if (kv.first.short_name() == right_name) {
+                right_ = std::dynamic_pointer_cast<
+                    viam::sdk::Motor>(kv.second);
+            }
+        }
+    }
+}
+```
+
+The C++ SDK does not provide a `FromDependencies` helper.
+Instead, iterate the `Dependencies` map (`std::unordered_map<Name, std::shared_ptr<Resource>>`) and use `std::dynamic_pointer_cast` to downcast each resource to the correct type.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 {{% alert title="Note" color="note" %}}
@@ -227,6 +306,22 @@ func (b *myBase) SetPower(
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp {class="line-numbers linkable-line-numbers"}
+void MyBase::set_power(
+    const viam::sdk::Vector3& linear,
+    const viam::sdk::Vector3& angular,
+    const viam::sdk::ProtoStruct& extra) {
+    left_->set_power(linear.y() + angular.z(), extra);
+    if (right_) {
+        right_->set_power(
+            linear.y() - angular.z(), extra);
+    }
+}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 {{% alert title="Accessing built-in services" color="tip" %}}
@@ -235,6 +330,8 @@ Some services like the motion service are available by default as part of `viam-
 **Python:** `req_deps.append("rdk:service:motion/builtin")`
 
 **Go:** `deps := []string{motion.Named("builtin").String()}`
+
+**C++:** `deps.push_back("rdk:service:motion/builtin");`
 
 Then resolve it the same way as any other dependency.
 {{% /alert %}}

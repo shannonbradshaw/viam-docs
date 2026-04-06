@@ -58,13 +58,32 @@ temp-monitor/
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```text
+temp-monitor/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml            # CI workflow for cloud builds
+├── main.cpp                      # Entry point
+├── src/
+│   ├── temp_monitor.hpp          # Resource class declaration
+│   └── temp_monitor.cpp          # Resource implementation
+├── CMakeLists.txt                # Build configuration
+├── conanfile.py                  # Dependency manager config
+├── conan.lock                    # Pinned dependency versions
+└── meta.json                     # Module metadata for the registry
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ## Resource implementation
 
 This is the main file you work in. The generator names it after the model you are implementing. A model implements a Viam API.
-In this example, that is `src/models/temp_monitor.py` in Python and
-`temp_monitor.go` in Go. The sections below walk through each section of this file.
+In this example, that is `src/models/temp_monitor.py` in Python,
+`temp_monitor.go` in Go, and `src/temp_monitor.hpp`/`src/temp_monitor.cpp`
+in C++. The sections below walk through each section of this file.
 
 ### Model definition
 
@@ -101,6 +120,27 @@ func init() {
 In Go, the `init()` function registers the model with `viam-server` when
 the package is imported. The registration binds the model to the generic
 service API and points to the constructor function.
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+// In main.cpp
+viam::sdk::Model model("my-org", "temp-monitor", "temp-monitor");
+
+auto mr = std::make_shared<viam::sdk::ModelRegistration>(
+    viam::sdk::API::get<viam::sdk::GenericService>(),
+    model,
+    [](viam::sdk::Dependencies deps, viam::sdk::ResourceConfig cfg) {
+        return std::make_unique<tempmonitor::TempMonitor>(deps, cfg);
+    },
+    &tempmonitor::TempMonitor::validate);
+```
+
+In C++, registration happens explicitly in `main()` rather than through an
+`init()` function or import side effect. You create a `ModelRegistration`
+that binds the model triplet to the generic service API, a factory lambda
+(the constructor), and a validation function.
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -158,6 +198,34 @@ config, resolved dependencies, and runtime state. This pattern is the same
 for any module you write. Only the specific fields change.
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+class TempMonitor : public viam::sdk::GenericService {
+public:
+    TempMonitor(const viam::sdk::Dependencies& deps,
+                const viam::sdk::ResourceConfig& cfg);
+    static std::vector<std::string> validate(
+        const viam::sdk::ResourceConfig& cfg);
+
+    // GenericService requires do_command and get_status overrides.
+    // Other pure virtual methods (get_geometries, etc.) omitted for brevity.
+
+private:
+    std::string sensor_name_;
+    double threshold_;
+    std::shared_ptr<viam::sdk::Sensor> sensor_;
+    bool exceeded_;
+};
+```
+
+C++ does not use a separate `Config` struct. Attributes come from
+`cfg.attributes()`, which returns a `ProtoStruct`
+(`std::unordered_map<std::string, ProtoValue>`). You declare the parsed
+values as private members on the resource class and extract them in the
+constructor.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Validation
@@ -194,6 +262,23 @@ func (cfg *Config) Validate(path string) ([]string, []string, error) {
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+std::vector<std::string> TempMonitor::validate(
+    const viam::sdk::ResourceConfig& cfg) {
+    auto attrs = cfg.attributes();
+    if (attrs.find("sensor_name") == attrs.end()) {
+        throw std::runtime_error("sensor_name is required");
+    }
+    return {attrs.at("sensor_name").get_unchecked<std::string>()};
+}
+```
+
+In C++, the validation function is a static method that returns a vector of
+dependency names. It throws an exception if a required attribute is missing.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Constructor
@@ -226,7 +311,10 @@ In Go, every resource type in the SDK provides a `FromDependencies` helper
 that does this and returns a typed interface (for example,
 `sensor.FromDependencies` returns a `sensor.Sensor`). In Python, you build
 the key with `Sensor.get_resource_name(name)` and index into the
-dependencies map directly.
+dependencies map directly. In C++, `Dependencies` is an
+`std::unordered_map<Name, std::shared_ptr<Resource>>`. There is no
+`FromDependencies` helper. You iterate the map and use
+`std::dynamic_pointer_cast` to get a typed pointer.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -295,6 +383,35 @@ func newTempMonitor(
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+TempMonitor::TempMonitor(
+    const viam::sdk::Dependencies& deps,
+    const viam::sdk::ResourceConfig& cfg)
+    : GenericService(cfg.name()), exceeded_(false) {
+    auto attrs = cfg.attributes();
+    sensor_name_ = attrs.at("sensor_name").get_unchecked<std::string>();
+
+    auto* threshold_ptr = attrs.at("threshold").get<double>();
+    threshold_ = threshold_ptr ? *threshold_ptr : 100.0;
+
+    for (const auto& kv : deps) {
+        if (kv.first.short_name() == sensor_name_) {
+            sensor_ = std::dynamic_pointer_cast<viam::sdk::Sensor>(
+                kv.second);
+        }
+    }
+
+    ...
+}
+```
+
+C++ has no `Reconfigure` method. When the config changes, `viam-server`
+destroys the existing instance and calls the constructor again with the new
+config and dependencies.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### API methods
@@ -337,12 +454,23 @@ func (tm *TempMonitor) DoCommand(
 ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+viam::sdk::ProtoStruct TempMonitor::do_command(
+    const viam::sdk::ProtoStruct& command) {
+    ...
+}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Close
 
 `viam-server` calls `Close` when it shuts down or removes the resource. Stop
-background tasks and release any resources here.
+background tasks and release any resources here. In C++, the destructor
+serves this purpose instead of a `Close` method.
 
 {{< tabs >}}
 {{% tab name="Python" %}}
@@ -361,6 +489,16 @@ background tasks and release any resources here.
 func (tm *TempMonitor) Close(ctx context.Context) error {
     tm.cancelFn()
     return nil
+}
+```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+```cpp
+TempMonitor::~TempMonitor() {
+    // Stop background thread, release resources
+    ...
 }
 ```
 
@@ -467,6 +605,53 @@ registers the model. To add another model, add another `resource.APIModel`
 entry.
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+**`main.cpp`**
+
+```cpp
+#include "src/temp_monitor.hpp"
+
+#include <cstdlib>
+#include <iostream>
+
+#include <viam/sdk/module/service.hpp>
+#include <viam/sdk/registry/registry.hpp>
+#include <viam/sdk/resource/resource.hpp>
+#include <viam/sdk/services/generic.hpp>
+
+int main(int argc, char** argv) try {
+    viam::sdk::Instance inst;
+
+    viam::sdk::Model model("my-org", "temp-monitor", "temp-monitor");
+    auto mr = std::make_shared<viam::sdk::ModelRegistration>(
+        viam::sdk::API::get<viam::sdk::GenericService>(),
+        model,
+        [](viam::sdk::Dependencies deps, viam::sdk::ResourceConfig cfg) {
+            return std::make_unique<tempmonitor::TempMonitor>(
+                deps, cfg);
+        },
+        &tempmonitor::TempMonitor::validate);
+
+    std::vector<std::shared_ptr<viam::sdk::ModelRegistration>> mrs = {mr};
+    auto my_mod = std::make_shared<viam::sdk::ModuleService>(
+        argc, argv, mrs);
+    my_mod->serve();
+
+    return EXIT_SUCCESS;
+} catch (const viam::sdk::Exception& ex) {
+    std::cerr << ex.what() << "\n";
+    return EXIT_FAILURE;
+}
+```
+
+In C++, model registration happens explicitly in `main()`. You create a
+`ModelRegistration` with a factory lambda and validation function, then pass
+it to `ModuleService` which handles socket parsing, signal handling, and
+graceful shutdown. To add another model, create another
+`ModelRegistration` and add it to the vector.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Build and deploy scripts
@@ -475,9 +660,11 @@ These scripts handle packaging and deployment. The generator creates working
 defaults. You only need to edit them if your module has unusual build
 requirements.
 
-| File         | Purpose                                                                                        |
-| ------------ | ---------------------------------------------------------------------------------------------- |
-| `build.sh`   | Compiles (Go) or packages (Python) the module into a `.tar.gz` archive.                        |
-| `setup.sh`   | Installs build dependencies. For Python, creates a virtualenv and installs `requirements.txt`. |
-| `run.sh`     | (Python only) Entrypoint script that activates the virtualenv and runs `main.py`.              |
-| `deploy.yml` | GitHub Actions workflow that triggers cloud builds on tagged releases.                         |
+| File             | Purpose                                                                                        |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| `build.sh`       | Compiles (Go) or packages (Python) the module into a `.tar.gz` archive.                        |
+| `setup.sh`       | Installs build dependencies. For Python, creates a virtualenv and installs `requirements.txt`. |
+| `run.sh`         | (Python only) Entrypoint script that activates the virtualenv and runs `main.py`.              |
+| `CMakeLists.txt` | (C++ only) CMake build configuration for compiling the module.                                 |
+| `conanfile.py`   | (C++ only) Conan package manager configuration for dependencies.                               |
+| `deploy.yml`     | GitHub Actions workflow that triggers cloud builds on tagged releases.                         |

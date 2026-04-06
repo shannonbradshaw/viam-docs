@@ -120,6 +120,30 @@ The generated `build.sh` uses `GOOS` and `GOARCH` environment variables to
 cross-compile for the target platform. Cloud build sets these automatically.
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+C++ modules use Conan and CMake for building. The generator creates these files:
+
+| File             | Purpose                                           |
+| ---------------- | ------------------------------------------------- |
+| `CMakeLists.txt` | Build configuration, packaging, and install rules |
+| `conanfile.py`   | Dependency management and build orchestration     |
+| `conan.lock`     | Pinned dependency versions                        |
+
+The build command in `meta.json` runs Conan, which invokes CMake automatically:
+
+```json
+"build": {
+  "build": "conan build . --build missing -s:a compiler.cppstd=17 --lockfile-partial",
+  "path": "build/Release/module.tar.gz",
+  "distro": "bookworm",
+  "arch": ["linux/amd64", "linux/arm64"]
+}
+```
+
+C++ modules currently support Linux only (amd64 and arm64). The `distro` field specifies the Debian release used for cloud builds.
+
+{{% /tab %}}
 {{< /tabs >}}
 
 Make sure all scripts are executable:
@@ -317,6 +341,15 @@ tar -czf dist/archive.tar.gz -C dist module
 
 Set `GOARCH` to match your target machine: `amd64` for x86_64, `arm64` for
 ARM (Raspberry Pi 4, Jetson, etc.).
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+```bash
+conan build . --build missing -s:a compiler.cppstd=17 --lockfile-partial
+```
+
+The output archive is at `build/Release/module.tar.gz`.
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -542,6 +575,7 @@ you built on an x86 laptop but the target machine is ARM (Raspberry Pi).
   installed on your machine but not in the build environment.
 - For Python, verify all dependencies are in `requirements.txt`.
 - For Go, verify the binary is compiled for the correct target architecture.
+- For C++, verify that Conan dependencies resolve and the build targets the correct architecture.
 - Check the module logs in the **LOGS** tab.
 
 {{< /expand >}}

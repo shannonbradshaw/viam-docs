@@ -125,6 +125,39 @@ The following steps show you how to use the following APIs from a module:
    ```
 
 {{% /tab %}}
+{{% tab name="C++" %}}
+
+1. Add the following includes:
+
+   ```cpp {class="line-numbers linkable-line-numbers"}
+   #include <viam/sdk/app/viam_client.hpp>
+   #include <viam/sdk/app/data_client.hpp>
+   ```
+
+1. Add the client to your resource class:
+
+   ```cpp {class="line-numbers linkable-line-numbers"}
+   class TestSensor : public viam::sdk::Sensor {
+       std::unique_ptr<viam::sdk::ViamClient> viam_client_;
+       // ...
+   };
+   ```
+
+1. Initialize the client and use it:
+
+   ```cpp {class="line-numbers linkable-line-numbers"}
+   viam::sdk::ProtoStruct some_module_function() {
+       if (!viam_client_) {
+           viam_client_ = std::make_unique<viam::sdk::ViamClient>(
+               viam::sdk::ViamClient::from_env());
+       }
+       auto data_client = viam::sdk::DataClient::from_viam_client(*viam_client_);
+       // Use the data client in your module
+       return {};
+   }
+   ```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Elevate access
@@ -277,6 +310,14 @@ func (s *exampleModuleResource) SomeModuleFunction(ctx context.Context, extra ma
 
 }
 ```
+
+{{% /tab %}}
+{{% tab name="C++" %}}
+
+The C++ SDK does not currently support creating a machine management client from within a module.
+C++ modules access other resources on the same machine through the `Dependencies` map passed to the resource constructor, not through a separate robot client.
+
+For platform APIs (fleet management, data client), see [Use platform APIs from a module](#use-platform-apis-from-a-module).
 
 {{% /tab %}}
 {{% /tabs %}}

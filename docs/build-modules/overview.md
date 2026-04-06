@@ -90,8 +90,9 @@ There are two ways to develop and deploy modules:
 **Inline modules** let you write code directly in the Viam app's
 browser-based editor. Viam manages source code, builds, versioning, and
 deployment. When you click **Save & Deploy**, the module builds in the cloud
-and deploys to your machine automatically. Inline modules are the fastest way
-to get started, especially for prototyping and simple control logic.
+and deploys to your machine automatically. Inline modules support Python and
+Go, and are the fastest way to get started, especially for prototyping and
+simple control logic. C++ modules must be externally managed.
 
 **Externally managed modules** are modules you develop in your own IDE, manage
 in your own git repository, and deploy through the Viam CLI or GitHub Actions.
@@ -186,11 +187,13 @@ The registry uses semantic versioning. Machines can track the latest version
 
 Logic modules often need to run continuously: polling sensors, checking
 thresholds, updating state. You can spawn background tasks (goroutines in Go,
-async tasks in Python) from your constructor or reconfiguration method.
+async tasks in Python, `std::thread` in C++) from your constructor or
+reconfiguration method.
 
 The key requirement: your background task must stop cleanly when the module
 shuts down or reconfigures. Use a cancellation signal (a context cancellation
-in Go, an `asyncio.Event` in Python) to coordinate this.
+in Go, an `asyncio.Event` in Python, a `std::atomic<bool>` flag or a boolean
+guarded by a mutex in C++) to coordinate this.
 
 ## How it fits together
 
