@@ -108,7 +108,17 @@ viam machines part run --part=<part-id> --component=my-arm --method=GetJointPosi
 viam machines part run --part=<part-id> --component=my-arm --method=GetEndPosition
 ```
 
-Images and point clouds come back inline, base64-encoded in the JSON.
+Images, point clouds, and kinematics files come back inline, base64-encoded in the JSON.
+The CLI has no option to write them to files, so pipe them out, and drop them when you only want the readable fields:
+
+```sh {class="command-line" data-prompt="$"}
+viam machines part run --part=<part-id> --component=my-cam --method=GetImages \
+  | jq -r '.images[0].image' | base64 -d > frame.png
+viam machines part run --part=<part-id> --component=my-arm --method=GetKinematics \
+  | jq 'del(.kinematicsData)'
+```
+
+The first image from a depth camera is usually the color frame; check each entry's `mimeType` (`image/png`, `image/vnd.viam.dep` for depth).
 
 A vision service returns an image, detections, and object point clouds in one call:
 
